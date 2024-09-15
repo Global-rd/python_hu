@@ -6,7 +6,6 @@ Ez a repository a kezdő Python kurzushoz első stream-jéhez jött létre. Itt 
 
 - [Követelmények](#követelmények)
 - [Telepítés](#telepítés)
-- [Hozzájárulás-Házi Feladat](#hozzájárulás)
 - [Contributing Flow](#contributing-flow)
 
 ## Követelmények
