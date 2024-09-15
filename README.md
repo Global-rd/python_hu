@@ -49,7 +49,7 @@ A házi feladatok beküldéséhez kövesd a következő flow-t:
     git checkout -b uj-branch-nev
     ```
 
-4. **Commit-eld** a változtatásokat:
+4. **Commit-old** a változtatásokat:
 
     ```bash
     git add .
@@ -66,5 +66,5 @@ A házi feladatok beküldéséhez kövesd a következő flow-t:
 
 7. A PR-nek legalább egy review-on kell átmennie. A review során István ellenőrzi a kódodat, visszajelzést kapsz, ezután merge-elheted a `main`-be.
 
-8. A `main` ágra közvetlenül nem lehet pusholni; minden változás csak PR-en keresztül érkezhet.
+8. A `main` ágra közvetlenül nem lehet push-olni; minden változás csak PR-en keresztül érkezhet.
 
