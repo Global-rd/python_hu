@@ -34,11 +34,9 @@ Ez a repository a kezdő Python kurzushoz első stream-jéhez jött létre. Itt 
     pip install -r requirements.txt
     ```
 
-## Hozzájárulás-Házi Feladat
+## Contributing Flow
 
 A házi feladatok beküldéséhez kövesd a következő flow-t:
-
-### Contributing Flow
 
 1. **Pull-old a változásokat** a main-ből a local repo-dba:
 
