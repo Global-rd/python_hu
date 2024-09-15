@@ -66,5 +66,5 @@ A házi feladatok beküldéséhez kövesd a következő flow-t:
 
 7. A PR-nek legalább egy review-on kell átmennie. A review során István ellenőrzi a kódodat, visszajelzést kapsz, ezután merge-elheted a `main`-be.
 
-8. A `main` ágra közvetlenül nem lehet commitolni; minden változás csak PR-en keresztül érkezhet.
+8. A `main` ágra közvetlenül nem lehet pusholni; minden változás csak PR-en keresztül érkezhet.
 
