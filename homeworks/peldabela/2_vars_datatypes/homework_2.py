@@ -1,1 +1,1 @@
-print("This is also empty unfortunately :)")
+print("This is also empty unfortunately! :)")
