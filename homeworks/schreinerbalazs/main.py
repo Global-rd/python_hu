@@ -16,3 +16,5 @@ print(True)
 print(False) # BOTH BOOLEAN / LOGIKAI ÉRTÉK
 
 print(None) # NO INFORMATION / INFORMÁCIÓ HIÁNYA
+
+print("STRING") # STRING
