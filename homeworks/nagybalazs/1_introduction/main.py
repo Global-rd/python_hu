@@ -9,11 +9,11 @@ PYTHON PROGRAM
 
 print ("Hello World!")  #STRINGS
 
-print("123456789")      #INTEGERS
+print(123456789)        #INTEGERS
 
-print("3.141592")       #FLOAT
+print(3.141592)         #FLOAT
 
-print("True")           #BOOLEAN
-print("False")          #BOOLEAN
+print(True)             #BOOLEAN
+print(False)            #BOOLEAN
 
-print("None")           #NONE
+print(None)             #NONE
