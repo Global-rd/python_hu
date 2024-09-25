@@ -20,3 +20,7 @@ print("String type:", my_str)
 my_bool = True
 print("Boolean type:", my_bool)
 
+#None
+my_none = None
+print("None type:", my_none)
+
