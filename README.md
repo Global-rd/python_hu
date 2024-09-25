@@ -59,7 +59,7 @@ A házi feladatok beküldéséhez kövesd a következő flow-t:
 5. **Push-old fel** a módosításokat:
 
     ```bash
-    git push origin uj-ag-nev
+    git push origin uj-branch-nev
     ```
 
 6. **Hozz létre egy Pull Request-et** (PR) a GitHub-on.
