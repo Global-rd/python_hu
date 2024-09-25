@@ -1,5 +1,6 @@
 """
  This is my first Python program
+ 
 """
 print("szoveg") #string
 print(15) #integer
