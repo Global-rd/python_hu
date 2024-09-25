@@ -17,4 +17,4 @@ print(False) # BOTH BOOLEAN / LOGIKAI ÉRTÉK
 
 print(None) # NO INFORMATION / INFORMÁCIÓ HIÁNYA
 
-print("STRING") # STRING
+print("STRING - KÖSZÖNÖM A SEGÍTSÉGET!") # STRING
