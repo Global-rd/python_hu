@@ -1,7 +1,8 @@
-﻿"""This is my
+﻿"""
+This is my
 first Phyton
-program"""
-
+program
+"""
 
 #Primitive Data Types / Primitív adattípusok
 print(9)        # int
