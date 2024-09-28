@@ -1,5 +1,6 @@
 '''
 This is my first Python program
+:o)
 '''
 
 print(f"one example   -»  {type("one example")}") # str 
