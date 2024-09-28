@@ -3,7 +3,7 @@ first Phyton
 program"""
 
 
-#Primitive Data Types / Primityv adattípusok
+#Primitive Data Types / Primitív adattípusok
 print(9)        # int
 print(10.2)     # float
 print("apple")  # str
