@@ -6,3 +6,4 @@ print(1313131313131) #integer
 print(3.14) # float
 print(True) # bolean
 print(None) # az információ hiánya
+
