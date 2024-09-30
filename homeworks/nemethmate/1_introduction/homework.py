@@ -12,3 +12,11 @@ print(True)  # bool
 
 # NoneType típus
 print(None)  # NoneType
+
+"""pótolom a lemaradt multiline commentet
+ez az első házim. bemutat több féle primitív adattípust
+- String
+- Integer
+- Float
+- Boolean
+- NoneType"""
