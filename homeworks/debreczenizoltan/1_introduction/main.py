@@ -19,4 +19,12 @@ print(s)
 n = None
 print(n)
 
+# boolen
+t = True
+f = False
+print(t)
+print(f)
+
+
+
 
