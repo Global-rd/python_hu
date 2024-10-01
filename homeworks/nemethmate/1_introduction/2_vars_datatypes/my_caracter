@@ -3,7 +3,7 @@
 # inputok bekérése
 name = input("Hogy hívnak?").strip().capitalize() # név bekérése nagybetűvel és szóközök nélkül
 age = int(input("Hány éves vagy?").strip()) # kor bekérése és konvertálása egész számmá
-python_experiences = int(input("Hány éve foglalkozol phyton programozással?")) #Tapasztalak években
+python_exp_in_years = int(input("Hány éve foglalkozol phyton programozással?")) #Tapasztalak években
 
 # kor életkora napokban
 age_in_days = age * 365
@@ -11,12 +11,8 @@ age_in_days = age * 365
 # extra feladat_1
 you_want_to_be_python_dev = input("Szeretnél Python fejlesztő lenni? (yes/no):").strip().lower()
 
-# tenary operátor
-is_python_dev_ambitions = True if you_want_to_be_python_dev =="yes" else False
+# ternary operátor: kicsit editáltam, hogy tisztább legyen a kód
+python_dev_status = "profi Python fejlesztő szeretne lenni" if you_want_to_be_python_dev == "yes" else "nem szeretne Python fejlesztő lenni"
 
 # eredmény
-if is_python_dev_ambitions:
-     print(f"A karaktered neve {age_in_days} napos. A neve {name}, és {python_experiences} éve foglalkozik Python programozással. A karakterem profi Python fejlesztő szeretne lenni.")
-
-else:
-    print(f"A karaktered neve {age_in_days} napos. A neve {name}, és {python_experiences} éve foglalkozik Python programozással. A karakterem nem szeretne Python fejlesztő lenni.")
+print(f"A karaktered neve {name}, {age_in_days} napos, és {python_exp_in_years} éve foglalkozik Python programozással. A karakterem {python_dev_status}.")
