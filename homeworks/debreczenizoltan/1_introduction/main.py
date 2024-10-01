@@ -15,5 +15,8 @@ print(b)
 s = "Hello Word !"
 print(s)
 
+# none
+n = None
+print(n)
 
 
