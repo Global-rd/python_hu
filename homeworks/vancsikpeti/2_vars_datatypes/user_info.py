@@ -15,8 +15,8 @@ user_info = {
 }
 
 # Kérj be a felhasználótól 4 programozási nyelvet vesszővel elválasztva, szóközök nélkül. 
-#skills = list(input("Which four programming languages that do you know? (separate whit comma)").split(","))
-skills = ["python","java","c+","php"]
+skills = list(input("Which four programming languages that do you know? (separate whit comma)").split(","))
+# skills = ["python","java","c+","php"]
 
 # Konvertáld a kapott stringet egy listává, és add hozzá a fenti dictionary-hez “skills” néven.
 user_info.update({"skills" : skills})
