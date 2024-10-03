@@ -15,8 +15,8 @@ user_info = {
 }
 
 # Kérj be a felhasználótól 4 programozási nyelvet vesszővel elválasztva, szóközök nélkül. 
-skills = list(input("Which four programming languages that do you know? (separate whit comma)").split(","))
-# skills = ["python","java","c+","php"]
+# skills = list(input("Which four programming languages that do you know? (separate whit comma)").split(","))
+skills = ["python","java","c+","php"]
 
 # Konvertáld a kapott stringet egy listává, és add hozzá a fenti dictionary-hez “skills” néven.
 user_info.update({"skills" : skills})
@@ -54,15 +54,13 @@ user_info["phone_contacts"].pop("Tim")
 user_info["phone_contacts"].update({"Stan": ["+36303451234","+35309876543"]})
 
 # Extra 1: Printeld ki a “skills”  lista utolsó 3 elemét ellentétes sorrendben!
-print(user_info["skills"])
-print(user_info["skills"][-3:])
-# !!! None ???
+#print(user_info["skills"])
+#print(user_info["skills"][-3:])
+print(sorted(user_info["skills"][-3:]))
 
 # Extra 2: Most, hogy Tim-nek már csak 1 telefonszáma van, érdemes lenne átnevezni Tim2-t Tim-re!
-print(user_info["phone_contacts"].keys())
-print(user_info["phone_contacts"].values())
-
-
-
-
+# print(user_info["phone_contacts"])
+user_info["phone_contacts"].update({"Tim": user_info["phone_contacts"]["Tim2"]})
+del user_info["phone_contacts"]["Tim2"]
+# print(user_info["phone_contacts"])
 
