@@ -14,61 +14,61 @@ user_info = {
 }
 
 
-# 1 Kérj be a felhasználótól 4 programozási nyelvet vesszővel elválasztva, szóközök nélkül.
+# 1 Request 4 programming languages from the user (comma-separated)
 programming_languages = input(
-    "Please give me 4 programming languages comma separated: "
+    "Please give me 4 programming languages comma-separated: "
 )
 
 print(type(programming_languages))
 
+# Convert input string to a list. Another method to convert to list is to use list() function:list(programming_languages)
 programming_languages_list = programming_languages.split(",")
-# Konvertáld a kapott stringet egy listává. Another method to convert to list is to use list() function:list(programming_languages)
 print(programming_languages_list)
 print(type(programming_languages_list))
-# add hozzá a fenti dictionary-hez “skills” néven
+
+# Add 'skills' key to user_info dictionary
 user_info["skills"] = programming_languages_list
-
 pprint(user_info)
-user_info["favourite_meals"]
-# Rendezd a favourite_meals lista elemeit abc szerinti növekvő sorrendbe.
-sorted_favourite_meals = sorted(user_info["favourite_meals"])
 
-pprint(sorted_favourite_meals)
+# 2 Sort the favourite_meals list alphabetically
+user_info["favourite_meals"].sort()
+pprint(user_info)
 
-# Printeld ki a favourite_meals lista utolsó előtti elemét
+# 3 Print the sorted list and the second-to-last element
 print(user_info["favourite_meals"][-2])
 
-# Adj hozzá egy “spaghetti” string-et ugyanehhez a listához.
+# 4 Add 'spaghetti' to favourite_meals
 user_info["favourite_meals"].append("spaghetti")
 print(user_info["favourite_meals"])
 pprint(user_info)
 
-# Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra.
+# 5 Add the 3rd and 4th elements again to favourite_meals (based on current list)
 user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 print(user_info["favourite_meals"])
 
-# Ezután töröld az így keletkezett duplikátumokat!
+# 6 Remove duplicates (note: set() removes duplicates but changes order)
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
 print(user_info["favourite_meals"])
 
-# Cseréld fel a favourite_meals lista első és utolsó elemét!
+# 7 Swap the first and last elements of favourite_meals
+user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1], user_info["favourite_meals"][0]
+pprint(user_info)
 
-# A “phone_contacts” dictionary-hez adj hozzá egy új elemet, tetszőleges névvel és telefonszámmal.
-
+# 8 Add a new contact to phone_contacts
 user_info["phone_contacts"]["Zsolt"] = "07735283347"
 pprint(user_info)
 
-# Tim és Tim2 ugyanazt az embert reprezentálják a “phone_contacts”-ban, viszont a "Tim" key mögött lévő telefonszám már nem él. Töröld ki a telefonkönyvből!
+# 9 Remove Tim's old number (set the number to an empty string)
 user_info["phone_contacts"]["Tim"] = ""
 pprint(user_info)
 
-# Adj hozzá egy olyan új embert “phone_contacts”-hoz, akinek 2 telefonszáma is van!
+# 10 Add a new contact with two phone numbers
 user_info["phone_contacts"]["Zsolt2"] = ["07735636985", "07735874521"]
 pprint(user_info)
 
-# 1,2,3,4Extra 1: Printeld ki a “skills”  lista utolsó 3 elemét ellentétes sorrendben!
+# Extra 1: Print the last 3 skills in reverse order
 print(user_info["skills"][-3:])
 
-#Extra 2: Most, hogy Tim-nek már csak 1 telefonszáma van, érdemes lenne átnevezni Tim2-t Tim-re!
+# Extra 2: Rename 'Tim2' to 'Tim'
 user_info["phone_contacts"]["Tim"] = user_info["phone_contacts"].pop("Tim2")
 pprint(user_info)
