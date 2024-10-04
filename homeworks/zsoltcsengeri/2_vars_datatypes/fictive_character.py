@@ -1,4 +1,4 @@
-# Feladat 1: Változók, user input, string metódusok, type conversion, f-string használata
+#  1 Variables, user input, string methods, type conversion, f-string
 
 # Asking user for input
 name = input("Please give me the name of the character: ")

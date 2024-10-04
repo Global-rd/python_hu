@@ -58,8 +58,9 @@ pprint(user_info)
 user_info["phone_contacts"]["Zsolt"] = "07735283347"
 pprint(user_info)
 
-# 9 Remove Tim's old number (set the number to an empty string)
-user_info["phone_contacts"]["Tim"] = ""
+# 9 Remove Tim's old number 
+user_info["phone_contacts"].pop("Tim")  # Removes 'Tim' from the dictionary
+user_info["phone_contacts"]["Tim"] = "" # Set the number to an empty string
 pprint(user_info)
 
 # 10 Add a new contact with two phone numbers
@@ -67,7 +68,7 @@ user_info["phone_contacts"]["Zsolt2"] = ["07735636985", "07735874521"]
 pprint(user_info)
 
 # Extra 1: Print the last 3 skills in reverse order
-print(user_info["skills"][-3:])
+print(user_info["skills"][-3:][::-1])
 
 # Extra 2: Rename 'Tim2' to 'Tim'
 user_info["phone_contacts"]["Tim"] = user_info["phone_contacts"].pop("Tim2")
