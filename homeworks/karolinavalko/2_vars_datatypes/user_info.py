@@ -1,6 +1,4 @@
 from os import system
-
-
 from pprint import pprint
 
 system("cls")
@@ -45,20 +43,26 @@ pprint(user_info["skills"])
 
 
 print("\nAnswer for the second and third questions")
-user_info["favourite_meals"] = sorted(user_info["favourite_meals"])
+# user_info["favourite_meals"] = sorted(user_info["favourite_meals"]) simplified for sorting
+user_info["favourite_meals"].sort()
 pprint(user_info["favourite_meals"][-2])
 pprint(user_info["favourite_meals"])
 
 
 print("\nAnswer for the fourth and fifth questions")
 user_info["favourite_meals"].append("spaghetti")
-user_info["favourite_meals"].extend(["sushi", "spaghetti"])
+# user_info["favourite_meals"].extend(["sushi", "spaghetti"]) hard coded version. Correct/better one in next line
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 pprint(user_info["favourite_meals"])
 
 
 print("\nAnswer for the sixth question")
+"""
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
-user_info["favourite_meals"].sort()
+user_info["favourite_meals"].sort() 
+Set is not keeping in all cases the order. Next code line is a better solution to avoid 2 line coding
+"""
+user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
 pprint(user_info["favourite_meals"])
 
 
