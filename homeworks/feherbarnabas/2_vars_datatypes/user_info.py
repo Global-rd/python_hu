@@ -34,8 +34,7 @@ user_info["favourite_meals"].append("spaghetti")
 
 #5.
 
-user_info["favourite_meals"].extend([user_info["favourite_meals"][2], user_info["favourite_meals"][3]])
-
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 #6.
 
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
@@ -61,7 +60,7 @@ print(user_info)
 
 #Extra 1.
 
-print(user_info["skills"][-1:0:-1])
+print(user_info["skills"][:-4:-1])
 
 #Extra 2.
 
