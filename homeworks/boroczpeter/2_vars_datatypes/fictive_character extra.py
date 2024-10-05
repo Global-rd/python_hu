@@ -11,10 +11,7 @@ professional_developer = input("Do you want to be a profesional Python developer
 age_in_days = age_years*365 #created a new variable
 
 #using ternary operator in Boolean variable
-want_to_be_dev = True if professional_developer == "yes" else False
+want_to_be_dev = "wants" if professional_developer == "yes" else "does not want"
 
 #interpolated string (f-string)
-if want_to_be_dev:
-    print(f"My character is {age_in_days} days old. His/her name is {name} and he/she has {python_exp_in_years} years experience. He/she wants to be a Python developer!")
-else:
-    print(f"My character is {age_in_days} days old. His/her name is {name} and he/she has {python_exp_in_years} years experience. He/she does not want to be a Python developer!")
+print(f"My character is {age_in_days} days old. His/her name is {name} and he/she has {python_exp_in_years} years experience. He/she {want_to_be_dev} to be a Python developer!")

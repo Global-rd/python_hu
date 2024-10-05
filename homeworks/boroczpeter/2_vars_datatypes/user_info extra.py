@@ -17,8 +17,7 @@ user_info = {
 }
 
 #1.ask four progrmming language, convert to string add to existing dictionary as "skills"
-skill = input("Write four programming languages separated by a comma, no spacing!: ").split(",") #converting to list at the same time
-user_info["skills"]=skill #adding to the dictionery named skills (could have been solved with a chain method)
+user_info["skills"] = input("Write four programming languages separated by a comma, no spacing!: ").split(",") #converting to list at the same time
 
 #2.print favourite_meals list elements in ascending per ABC
 user_info["favourite_meals"].sort()
@@ -37,7 +36,7 @@ pprint(user_info) #full data printed as requested in tipp
 user_info["favourite_meals"].append("spaghetti")
 
 #5. create a new favourite_meals list by adding from current favourite_meals list 3. and 4. item
-user_info["favourite_meals"].extend([user_info["favourite_meals"][2], user_info["favourite_meals"][3]])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
 #6. delete duplicates from favourite_meals
 user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
@@ -52,7 +51,7 @@ user_info["phone_contacts"]["Csenge"]= "+36301234567"
 del user_info["phone_contacts"]["Tim"]
 
 #10. add a user with 2 phone number
-user_info["phone_contacts"]["Carol"]="+362022222222","+363033333333"
+user_info["phone_contacts"]["Carol"] = ["+362022222222","+363033333333"]
 
 print()
 print("------------------------")
