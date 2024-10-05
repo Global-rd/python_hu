@@ -48,19 +48,25 @@ print(user_info["favourite_meals"])
 
 # 6 Remove duplicates (note: set() removes duplicates but changes order)
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
+"""user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
+#To remove duplicates while preserving the order"""
 print(user_info["favourite_meals"])
 
 # 7 Swap the first and last elements of favourite_meals
-user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1], user_info["favourite_meals"][0]
+user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = (
+    user_info["favourite_meals"][-1],
+    user_info["favourite_meals"][0],
+)
 pprint(user_info)
 
 # 8 Add a new contact to phone_contacts
 user_info["phone_contacts"]["Zsolt"] = "07735283347"
 pprint(user_info)
 
-# 9 Remove Tim's old number 
+# 9 Remove Tim's old number
 user_info["phone_contacts"].pop("Tim")  # Removes 'Tim' from the dictionary
-user_info["phone_contacts"]["Tim"] = "" # Set the number to an empty string
+"""user_info["phone_contacts"]["Tim"] = ""
+ # Set the number to an empty string(as alternative solution)"""
 pprint(user_info)
 
 # 10 Add a new contact with two phone numbers
