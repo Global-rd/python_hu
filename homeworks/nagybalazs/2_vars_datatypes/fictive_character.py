@@ -25,20 +25,24 @@ Vagy
 """
 
 
-name = input("What is your name? ")
-name = name.strip().upper()
+name = input("What is your name? ").strip().upper()
 
 age = int(input("How old are you? "))
-age_in_days = int(age * 365)
+age_in_days = age * 365
 
 python_exp_in_years = int(input("Years of Python experience? "))
 
-sex = str(input("She or He? "))
-sex = sex.strip().upper()
+sex = input("She or He? ").strip().upper()
+if  sex == "HE":
+    sex_1 = "He"
+    sex_2= "His"
+elif sex == "SHE":
+     sex_1 = "She"
+     sex_2 = "Her"
+else:
+    print("Please answer She or He!" )
 
-python_dev = str(input("Years of Python experience? Yes or No? "))
-python_dev = python_dev.strip().lower()
-
+python_dev = input("You want your character to be a professional Python developer? Yes or No? ").strip().lower()
 
 if  python_dev == "yes":
     python_dev_bool = True
@@ -49,12 +53,8 @@ else:
 
 
 if python_dev_bool == True:
-    if sex == "HE":
-        print(f"My character is {age_in_days} days old. His name is {name} and he has {python_exp_in_years} years experience.He wants to be a Python developer")
-    else:
-        print(f"My character is {age_in_days} days old. Her name is {name} and she has {python_exp_in_years} years experience.She wants to be a Python developer")
+    dev_stat = "want"
 else:
-    if sex == "HE":
-        print(f"My character is {age_in_days} days old. His name is {name} and he has {python_exp_in_years} years experience.He does not want to be a Python developer!")
-    else:
-        print(f"My character is {age_in_days} days old. Her name is {name} and she has {python_exp_in_years} years experience.She does not want to be a Python developer!")
+    dev_stat = "does not want"
+ 
+print(f"My character is {age_in_days} days old. {sex_2} name is {name} and {sex_1} has {python_exp_in_years} years experience.{sex_1} {dev_stat} to be a Python developer!")

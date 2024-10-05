@@ -55,7 +55,7 @@ user_info = {
     }
 }
 
-prog_skills = str(input("What programming languages ​​do you know? Please give me 4 languages (separator ','):"))
+prog_skills = input("What programming languages ​​do you know? Please give me 4 languages (separator ','):")
 prog_skills_list = prog_skills.split(",")
 
 user_info["skills"] = prog_skills_list #skills key feltöltődik prog_skills_list value-al
@@ -63,7 +63,7 @@ user_info["skills"] = prog_skills_list #skills key feltöltődik prog_skills_lis
 print(user_info["favourite_meals"])
 
 user_info_sorted = sorted(user_info["favourite_meals"]) #az új sorrend bekerül a user_info_sorted változóba
-user_info["favourite_meals"] = user_info_sorted #a "favourite_meals"-t felülírjuk a user_info_sorted elemeivel
+user_info["favourite_meals"].sort() #a "favourite_meals"-t felülírjuk a user_info_sorted elemeivel
 print(user_info["favourite_meals"])
 
 print(user_info["favourite_meals"][-2])
@@ -72,20 +72,17 @@ user_info["favourite_meals"].append("spaghetti")
 
 user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
-favourite_meals_list = user_info["favourite_meals"]
-favourite_meals_list = list(set(favourite_meals_list))
-print(favourite_meals_list)
-
-user_info["favourite_meals"] = favourite_meals_list
+user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
+print(user_info["favourite_meals"])
 
 user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1], user_info["favourite_meals"][0]
 
-(user_info["phone_contacts"])["minime"] = "+3610234345"
+user_info["phone_contacts"]["minime"] = "+3610234345"
 
 del (user_info["phone_contacts"])["Tim"]
-(user_info["phone_contacts"])["Tim"] = (user_info["phone_contacts"]).pop("Tim2")
+user_info["phone_contacts"]["Tim"] = (user_info["phone_contacts"]).pop("Tim2")
 
-(user_info["phone_contacts"])["ketteske"] = "+3610234345","+3610234345"
+user_info["phone_contacts"]["ketteske"] = ["+3610234345","+3610234345"]
 
 print(user_info["skills"][-1:-4:-1])
 
