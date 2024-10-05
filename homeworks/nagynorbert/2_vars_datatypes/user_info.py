@@ -67,8 +67,7 @@ pprint(user_info)
 
 # extras
 print("Extras: -------------------")
-last_three = len(user_info["skills"]) - 4
-print(user_info["skills"][-1:last_three:-1])
+print(user_info["skills"][-1:-4:-1])
 
 tim2_tel = user_info["phone_contacts"].get("Tim2")
 user_info["phone_contacts"].update({"Tim":tim2_tel})
