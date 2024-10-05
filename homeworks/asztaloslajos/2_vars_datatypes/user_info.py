@@ -1,5 +1,6 @@
 """
 user_info.py --- Asztalos Lajos --- 2024.10.01
+modified at 2024.10.05
 """
 #data
 user_info = {
@@ -31,8 +32,7 @@ print(user_info["favourite_meals"][-2])
 user_info["favourite_meals"].append("spagetti")
 print(user_info["favourite_meals"])
 #5
-user_info["favourite_meals"].append(user_info["favourite_meals"][2])
-user_info["favourite_meals"].append(user_info["favourite_meals"][3])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 print(user_info["favourite_meals"])
 #6
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
@@ -44,7 +44,7 @@ print(user_info["favourite_meals"])
 user_info["phone_contacts"]["John"]="+37 11 123 4566"
 print(user_info["phone_contacts"])
 #9
-user_info["phone_contacts"]["Tim"]=None
+del(user_info["phone_contacts"]["Tim"])
 print(user_info["phone_contacts"])
 #10
 user_info["phone_contacts"]["John2"]=["+36 1 356 4587", "+36 1 456 8914"]

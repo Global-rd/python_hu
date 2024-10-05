@@ -1,13 +1,12 @@
 """
 fictive_character.py --- Asztalos Lajos --- 2024.10.01
+modified at 2024.10.05
 """
-from datetime import datetime, timedelta
 #input
-name = input("Név:")
+name = input("Név:").strip().title()
 age = int(input("Életkor"))
 python_exp_in_years = int(input("Python tapasztalat(év)"))
 #conversion
-name = name.strip().title()
-age_in_days = (datetime.today()-datetime.today().replace(year=datetime.today().year - age)).days
+age_in_days = age*365
 #print
-print(f"My character is {age_in_days} old. His/her is {name} and he/she has {python_exp_in_years} years experience.")
+print(f"My character is {age_in_days} old. His/her name is {name} and he/she has {python_exp_in_years} years experience.")
