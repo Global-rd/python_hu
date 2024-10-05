@@ -21,7 +21,9 @@ else:
     pronoun = "he/she"
     possessive_pronoun = "His/her"
 
+
 print(f"My character is {age_in_days} old. {possessive_pronoun} name is {character["name"]} and {pronoun} has {character["python_experience_years"]} years experience.")
+# print(f"My character is {age_in_days} old. {possessive_pronoun} name is {character["name"]} and {pronoun} has {character["python_experience_years"]} years experience.")
 
 # Extra feladat (szorgalmi):
 be_python_dev = input("Do you want to be a professional python developer? (yes/no)")
