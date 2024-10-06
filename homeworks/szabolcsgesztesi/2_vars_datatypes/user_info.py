@@ -26,18 +26,14 @@ print(user_info["favourite_meals"][2])
 # 4. feladat: 
 user_info["favourite_meals"].append("spaghetti")
 
-# 5. feladat: itt próbáltam ezt egyetlen sorban megadni de nem ment :) Meg lehetett volna?
-user_info["favourite_meals"].append(user_info["favourite_meals"][2])
-user_info["favourite_meals"].append(user_info["favourite_meals"][3])
+# 5. feladat: i
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
 # 6. feladat: (sajnos a set randomizálja, az abc-sorrend elveszik)
-user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
+user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
 
 # 7. feladat:
-first = user_info["favourite_meals"][0]
-last = user_info["favourite_meals"][-1]
-user_info["favourite_meals"][0] = last
-user_info["favourite_meals"][-1] = first
+user_info["favourite_meals"][0],user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1],user_info["favourite_meals"][0]
 
 # 8. feladat:
 user_info["phone_contacts"]["Bob"] = "+36301234567"
@@ -46,6 +42,6 @@ user_info["phone_contacts"]["Bob"] = "+36301234567"
 user_info["phone_contacts"].pop("Tim")
 
 # 10. feladat:
-user_info["phone_contacts"]["Frank"] = "+36301234567","+36701112288"
+user_info["phone_contacts"]["Frank"] = ["+36301234567","+36701112288"]
 
 print(user_info)
