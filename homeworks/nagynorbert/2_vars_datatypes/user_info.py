@@ -47,10 +47,9 @@ user_info["favourite_meals"] = sorted(list(set(user_info["favourite_meals"])))
 pprint(user_info)
 
 # 7.
+print("----- 7. exercise -----")
 pprint(user_info)
-first_meal = user_info["favourite_meals"][0]
-user_info["favourite_meals"][0] = user_info["favourite_meals"][-1]
-user_info["favourite_meals"][-1] = first_meal
+user_info["favourite_meals"][0],user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1],user_info["favourite_meals"][0]
 pprint(user_info)
 
 # 8.

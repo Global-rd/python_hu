@@ -6,11 +6,13 @@ fict_age_days = 365 * int(input("Please add how many years old is your character
 fict_experience = int(input("How many years experencie does your character have in Python programming?"))
 
 #extra
-answer = ("yes","no")
-fict_pro = input("Would your character be a pro Python developer? (Yes/No)").strip().lower()
-while fict_pro not in answer:
-    print("Answer has to be Yes or No.")
+while True:
     fict_pro = input("Would your character be a pro Python developer? (Yes/No)").strip().lower()
+    if fict_pro in ["yes","no"]:
+        break
+    else:
+        print("Invalid input. Please answer with 'yes' or 'no'.")
+
 match fict_pro:
     case "yes":
         fict_pro_bool = True
