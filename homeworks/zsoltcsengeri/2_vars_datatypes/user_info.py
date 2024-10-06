@@ -18,16 +18,11 @@ user_info = {
 programming_languages = input(
     "Please give me 4 programming languages comma-separated: "
 )
-
 print(type(programming_languages))
 
-# Convert input string to a list. Another method to convert to list is to use list() function:list(programming_languages)
-programming_languages_list = programming_languages.split(",")
-print(programming_languages_list)
-print(type(programming_languages_list))
-
-# Add 'skills' key to user_info dictionary
-user_info["skills"] = programming_languages_list
+# Add 'skills' key and its value as a list to user_info dictionary
+user_info["skills"] = programming_languages.split(",")
+print(type(user_info["skills"]))
 pprint(user_info)
 
 # 2 Sort the favourite_meals list alphabetically
@@ -49,7 +44,7 @@ print(user_info["favourite_meals"])
 # 6 Remove duplicates (note: set() removes duplicates but changes order)
 user_info["favourite_meals"] = list(set(user_info["favourite_meals"]))
 """user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
-#To remove duplicates while preserving the order"""
+To remove duplicates while preserving the order"""
 print(user_info["favourite_meals"])
 
 # 7 Swap the first and last elements of favourite_meals
@@ -65,8 +60,8 @@ pprint(user_info)
 
 # 9 Remove Tim's old number
 user_info["phone_contacts"].pop("Tim")  # Removes 'Tim' from the dictionary
-"""user_info["phone_contacts"]["Tim"] = ""
- # Set the number to an empty string(as alternative solution)"""
+"""user_info["phone_contacts"]["Tim"] = #None # Set the value to None 
+user_info["phone_contacts"]["Tim"] = "" #Set the value to empty string"""
 pprint(user_info)
 
 # 10 Add a new contact with two phone numbers
