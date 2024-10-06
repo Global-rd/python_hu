@@ -25,8 +25,7 @@ user_info["favourite_meals"] = list(set(user_info["favourite_meals"])) #deleting
 user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = user_info["favourite_meals"][-1], user_info["favourite_meals"][0]   #exchange the first and last values of the fav meals list
 user_info["phone_contacts"]["Frank"] = "+3655512345"    #new entry to phone contacts
 del user_info["phone_contacts"]["Tim"]                  #del Tim from the dictionary
-user_info["phone_contacts"]["Eve"] = "+4455526583" 
-user_info["phone_contacts"]["Eve2"] = "+49563252765"    #add a new contact with 2 numbers (ez valószínűleg nem jó így)
+user_info["phone_contacts"]["Eve"] = ["+4455526583", "+49563252765"] #add a new contact with 2 numbers
 
 #Extra 1
 print(user_info["Skills"][-3:][::-1])                   #print the skills list last 3 items in a reverse order
