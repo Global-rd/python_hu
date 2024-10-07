@@ -19,7 +19,6 @@ user_info = {
 }
 
 
-
 #1. programming languages#
 programming_languages_correctable = input ("Write 4 programming language: ").strip()
 programming_languages = ",".join(programming_languages_correctable.split()) #szóközök eltávolítása, és szavak vesszővel elválasztása#
@@ -38,8 +37,9 @@ print(user_info["favourite_meals"][-2])
 
 
 #4. Spaghetti hozzáadása
-user_info["favourite_meals"].extend(["spaghetti"])
+user_info["favourite_meals"].append("spaghetti")
 
+print(user_info["favourite_meals"])
 
 #5. favourite_meals listához hozzáadni az aktuális favourit_meals lista 3. 4. elemét újra
 user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
