@@ -16,7 +16,7 @@ user_info = {
     }
 }
 
-#1 Ask the user for input
+#1 Ask the user for input 
 languages = input("Please enter 4 programming languages, separated by commas, without spaces: ")
 # Convert the input string to a list
 user_info.update({"skills":languages.split(",")})
