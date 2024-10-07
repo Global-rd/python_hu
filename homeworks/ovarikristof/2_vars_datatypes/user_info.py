@@ -16,32 +16,25 @@ user_info = {
 
 
 #1. BEKÉRÜNK 4 DARAB PROGRAMOZÁSI NYELVET.
-programing_language = [(input("Please enter four programing language with comma and without spaces between the words." ))]
+programing_languages = input("Please enter four programing language with comma and without spaces between the words.")
 
 
 #2. HOZZÁADJUK A DICTIONARYHEZ A BEKÉRT ADATOT "SKILLS" KEY-KÉNT
-user_info["skills"] = programing_language
+user_info["skills"] = programing_languages.split(",")
 
 print(user_info)
 
 
 #3. FAVOURITE_MEALS RENDEZÉSE ABC SORRENDBEN.
-sorted_by_meals = sorted(user_info["favourite_meals"])
-
-print(sorted_by_meals)
+user_info["favourite_meals"].sort()
 
 
 #4. SPAGETTHI STRING HOZZÁADÁSA A LISTÁHOZ.
 user_info["favourite_meals"].append("spaghetti")         
 
-sorted_by_meals = sorted(user_info["favourite_meals"])
-
-print(sorted_by_meals)
-
 
 #5. FAVOURITE_MEALS 3. ÉS 4. ELEMÉT HOZZÁADJUK A FAVOURITE_MEALS LISTÁHOZ.
-user_info["favourite_meals"].append(user_info["favourite_meals"][2])
-user_info["favourite_meals"].append(user_info["favourite_meals"][3])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
 
 #6. DUPLIKÁCIÓKAT ELTÁVOLÍTJUK
@@ -64,7 +57,7 @@ user_info["phone_contacts"]["Adam"] = "+36304567341"
 
 
 #9. TIM ÉS TIM2 UGYANAZ A SZEMÉLY TIM TELEFONSZÁMA MEGSZŰNT KISZEDJÜK A LISTÁBÓL.
-user_info["phone_contacts"]["Tim"] = None
+del user_info["phone_contacts"]["Tim"]
 
 
 #10. EGY SZEMÉLY HOZZÁADÁSA, AKINEK 2 DARAB TELEFONSZÁMA VAN.
