@@ -37,10 +37,9 @@ del user_info["phone_contacts"]["Tim"]     #Tim-et törölni
 
 user_info["phone_contacts"]["Hubert"]=("+3630988866", "+3605559998") #adding new member to phone_contacts
 
-print(user_info["skills"][-1::-1])   #skill utolsó 3 eleme fordított sorrendben
+print(user_info["skills"][-3:][::-1])   #skill utolsó 3 eleme fordított sorrendben
 
 user_info["phone_contacts"]["Tim"] = user_info["phone_contacts"].pop("Tim2") #Tim2-ből Tim-et csinálni
 
 #pprint(user_info)
-
 
