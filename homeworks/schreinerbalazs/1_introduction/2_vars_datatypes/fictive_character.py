@@ -16,4 +16,4 @@ python_want_to_be = True if python_want_to_be.upper() == "YES" else False
 python_want_to_be = "want to become a Phyton developer." if python_want_to_be == True else "don't want to be a Phyton developer."
 #print (python_want_to_be)
 
-print(f"Hi, {name}! You are {age} days old. You have {python_experience_years} year(s) experience as a Python developer, if you are not lying. And You {python_want_to_be}")
+print(f"Hi, {name}! You are {age} days old. You have {python_experience_years} year(s) experience as a Python developer. And You {python_want_to_be}")
