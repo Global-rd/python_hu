@@ -22,8 +22,8 @@ user_info = {
 }
 
 # 1
-programming_languages = str(input(
-    "Please enter 4 programming languages! Without whitespaces and separeted by a comma!\n"))
+programming_languages = input(
+    "Please enter 4 programming languages! Without whitespaces and separeted by a comma!\n")
 
 programming_languages_list = list(programming_languages.split(","))
 user_info["skills"] = programming_languages_list
