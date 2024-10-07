@@ -21,7 +21,7 @@ languages = input("Please enter 4 programming languages, separated by commas, wi
 # Convert the input string to a list
 user_info.update({"skills":languages.split(",")})
 
-#2 favourite_meals lista elemeit abc szerint
+#2 favourite_meals lista elemeit abc szerint 
 user_info["favourite_meals"].sort()
 pprint(user_info)
 
