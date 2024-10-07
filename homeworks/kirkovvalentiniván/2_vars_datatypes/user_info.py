@@ -19,9 +19,9 @@ user_info = {
 prog_language = input("List 4 programming languages. Separate them by comma without using space.")  #1a Ask for 4 programming languages
 prog_language_list = prog_language.split(",")                                                       #1b Conversion to lists
 user_info["skills"] = prog_language_list                                                            #1c List adding to dictionaries
-
-user_info["favourite_meals"] = sorted(user_info["favourite_meals"])                                 #2. Sorting to alphabetical order
-
+pprint(user_info)
+user_info["favourite_meals"].sort()                                                                 #2. Sorting to alphabetical order
+pprint(user_info)
 print(user_info["favourite_meals"][-2])                                                             #3. Printing the penultimate element
 
 user_info["favourite_meals"] += ["spaghetti"]                                                       #4. Adding spaghetti to the original list
@@ -35,7 +35,7 @@ user_info["favourite_meals"][-1], user_info["favourite_meals"][0]               
 
 user_info["phone_contacts"].update(Jake="+36307683442")                                             #8. Appending one additional element to phone_contacts
 
-user_info["phone_contacts"].pop("Tim")                                                              #9. Popping Tim2 from phone_contacts
+user_info["phone_contacts"].pop("Tim")                                                              #9. Popping Tim from phone_contacts
 
 user_info["phone_contacts"]["Lauren"] = ["+36708792632", "+36209847284"]                            #10. Adding a new person to phone_contacts with a list including 2 phone numbers
 pprint(user_info["phone_contacts"])

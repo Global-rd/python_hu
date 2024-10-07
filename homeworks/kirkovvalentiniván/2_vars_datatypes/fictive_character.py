@@ -1,7 +1,7 @@
-character_name = input("What is your character's name?  ").title().strip()  # Name input
+character_name = input("What is your character's name?  ").title().strip()  #Name input
 
 character_age = int(input("How old is your character?  "))                  #Age input
-character_age_days = round(character_age * 365, 0)                          #Age input in days
+character_age_days = character_age * 365                                    #Age input in days
 
 python_exp = int(input("How many years of experience does he has in python programming? \
 Please enter this using only numbers:  "))                                  #Experience input
