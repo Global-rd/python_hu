@@ -1,4 +1,4 @@
-
+from pprint import pprint
 
 user_info = {
     "name": "Mike",
@@ -16,17 +16,12 @@ user_info = {
     }
 }
 
-#1
-from pprint import pprint
-# Ask the user for input
+#1 Ask the user for input
 languages = input("Please enter 4 programming languages, separated by commas, without spaces: ")
-
 # Convert the input string to a list
 user_info.update({"skills":languages.split(",")})
 
-
 #2 favourite_meals lista elemeit abc szerint
-from pprint import pprint
 user_info["favourite_meals"].sort()
 pprint(user_info)
 
@@ -38,9 +33,8 @@ user_info["favourite_meals"].append("spaghetti")
 # print(user_info["favourite_meals"])
 
 #5 Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra.
-user_info["favourite_meals"].append(user_info["favourite_meals"][2]) 
-user_info["favourite_meals"].append(user_info["favourite_meals"][3])  
-# print(user_info["favourite_meals"])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
+
 
 #6 Ezután töröld az így keletkezett duplikátumokat!
 user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
