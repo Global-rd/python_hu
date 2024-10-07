@@ -30,7 +30,7 @@ print(user_info["favourite_meals"][-2])
 
 #4 “spaghetti” string
 user_info["favourite_meals"].append("spaghetti")
-# print(user_info["favourite_meals"])
+#print(user_info["favourite_meals"])
 
 #5 Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra.
 user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
