@@ -39,7 +39,17 @@ Vagy
 "My character is <age_in_days> old. His/her name is <name> and he/she has <python_exp_in_years> years experience. He/she does not want to be a Python developer!"
 """
 
+python_developer_future = input("Do you want to be a professional Python developer in the future? Please answer briefley: Yes or No? ").strip().lower()
 
+if  python_developer_future == "yes":
+   developer_status_in_the_future = "wants"
+elif python_developer_future == "no":
+     developer_status_in_the_future = "does not want"
+    
+
+print(f"My character is {age_in_days} days old. His/her name is {first_name} {last_name} and he/she has {python_experience_in_years} years experience. He/she {developer_status_in_the_future} to be a Python developer!")
+
+""""
 python_developer_future = input("Do you want to be a professional Python developer in the future? Please answer briefley: Yes or No? ").strip().lower()
 
 if  python_developer_future == "yes":
@@ -55,3 +65,4 @@ else:
 
 print(f"My character is {age_in_days} days old. His/her name is {first_name} {last_name} and he/she has {python_experience_in_years} years experience. He/she {developer_status_in_the_future} to be a Python developer!")
 
+"""
