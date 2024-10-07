@@ -49,8 +49,7 @@ print("\n4. exercise\n")
 pprint(user_info)
 
 # 5
-user_info["favourite_meals"].append((user_info["favourite_meals"][2]))
-user_info["favourite_meals"].append((user_info["favourite_meals"][3]))
+user_info["favourite_meals"].extend((user_info["favourite_meals"][2:4]))
 
 print("\n5. exercise\n")
 pprint(user_info)
@@ -62,9 +61,8 @@ print("\n6. exercise\n")
 pprint(user_info)
 
 # 7 
-user_info["favourite_meals"].append((user_info["favourite_meals"][0]))
-user_info["favourite_meals"][0] = ((user_info["favourite_meals"][-2]))
-del (user_info["favourite_meals"][-2])
+user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = \
+user_info["favourite_meals"][-1], user_info["favourite_meals"][0]
 
 print("\n7. exercise\n")
 pprint(user_info)
