@@ -35,7 +35,7 @@ print(user_info["favourite_meals"][-2])
 user_info["favourite_meals"].append("spaghetti")
 
 # A harmadik és negyedik elem hozzáadása mégegyszer
-user_info["favourite_meals"].extend([user_info["favourite_meals"][2], user_info["favourite_meals"][3]])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
 # Dupla elemek eltávolítása
 user_info["favourite_meals"] = list(dict.fromkeys(user_info["favourite_meals"]))
@@ -46,8 +46,8 @@ user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = user_info["f
 # Új telefon kontakt hozzáadása
 user_info["phone_contacts"]["Máté"] = "+36706705649"
 
-# "Tim" telefonszámának eltávolítása
-user_info["phone_contacts"]["Tim"] = None  # Vagy user_info["phone_contacts"]["Tim"] = ""
+# "Tim" eltávolítása a telefonkönyvből
+del user_info["phone_contacts"]["Tim"]
 
 # Új kontakt hozzáadása két telefonszámmal
 user_info["phone_contacts"]["Martin"] = ["+36703714301", "+36703714302"]

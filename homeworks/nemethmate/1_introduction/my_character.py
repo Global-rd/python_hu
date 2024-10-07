@@ -17,6 +17,6 @@ if you_want_to_be_python_dev == "yes"
 else "nem szeretne Python fejlesztő lenni")
 
 # eredmény
-print(f"A karaktered neve {name}, {age_in_days} napos, és "
-      f"{python_exp_in_years} éve foglalkozik Python programozással. "
-      f"A karakterem {python_dev_status}.")
+print(f"""A karakterem neve {name}, {age_in_days} napos, és 
+{python_exp_in_years} éve foglalkozik Python programozással. 
+A karakterem {python_dev_status}.""")
