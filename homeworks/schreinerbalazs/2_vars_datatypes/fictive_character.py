@@ -1,5 +1,4 @@
 # Schreiner Balázs ► 2_homework
-
 name = input("Enter your name: ").strip().capitalize()
 age = round(int(input ("Your age (years): "))*365.25)
 python_experience_years = int(input ("Your Phyton experience (years): "))
