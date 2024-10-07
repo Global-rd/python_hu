@@ -25,7 +25,7 @@ print("Konvertáld a kapott stringet egy listává, és add hozzá a fenti dicti
 print("==========================================================================================================")
 prog_skills = input("Give me 4 programming languages you're familiar with, separated by a comma! ")
 
-if ( prog_skills.count(",") + 1 ) == 4:
+if prog_skills.count(",")  == 3:
 # Az if igaz ága csak akkor enged át, ha valaki 4 inputot adott meg, 3 vesszővel elválasztva
 
     skills = {"skills": prog_skills.split(",")}
@@ -57,7 +57,7 @@ if ( prog_skills.count(",") + 1 ) == 4:
 
 
     # 5. Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra.
-    user_info[keys[2]].extend(["sushi" , "spaghetti"])
+    user_info[keys[2]].extend(user_info[keys[2]][2:3])
     print("5. Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra!")
     print("megj.: a listának most nincs 4. eleme, a legutolsó elem a 3. index (most: 'spaghetti')")
     pp.pprint(user_info)
@@ -65,7 +65,7 @@ if ( prog_skills.count(",") + 1 ) == 4:
 
 
     # 6. Ezután töröld az így keletkezett duplikátumokat!
-    user_info[keys[2]] = sorted(list(set(user_info[keys[2]]))) # itt újrarendeztem abc szerint
+    user_info[keys[2]] = sorted(list(dict.fromkeys(user_info[keys[2]]))) # itt újrarendeztem abc szerint
     print("6. Ezután töröld az így keletkezett duplikátumokat!")
     pp.pprint(user_info)
     print("==========================================================================================================")
@@ -74,7 +74,6 @@ if ( prog_skills.count(",") + 1 ) == 4:
     # 7. Cseréld fel a favourite_meals lista első és utolsó elemét! (Megj.: itt sem indexet használtam, hanem sima sorrendet.)
     ind1 , ind2 = 0 , -1
     user_info[keys[2]][0] , user_info[keys[2]][-1] = user_info[keys[2]][ind2] , user_info[keys[2]][ind1]
-    # = user_info[keys[2]][1] = user_info[keys[2]][ind2] , user_info[keys[2]][-1] = user_info[keys[2]][ind1]
     print("7. Cseréld fel a favourite_meals lista első és utolsó elemét! (Megj.: itt sem indexet használtam, hanem sima sorrendet.)")
     pp.pprint(user_info)
     print("==========================================================================================================")
@@ -117,4 +116,4 @@ if ( prog_skills.count(",") + 1 ) == 4:
     print("==========================================================================================================")
 
 else:
-    print("You have to type exactly 4 programming skills. Please start over.")
+    print("You have to type exactly 4 programming skills. Please start over")
