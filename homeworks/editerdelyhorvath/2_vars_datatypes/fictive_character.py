@@ -6,14 +6,7 @@ f-string használata
 
 + Extra feladat (szorgalmi)
 '''
-import os
-
-# Function to clear the terminal screen
-def clear_terminal():
-    if os.name == 'nt':  # Windows
-        os.system('cls')
-    else:  # Mac and Linux
-        os.system('clear')
+from terminal_clearer import clear_terminal
 
 clear_terminal()
 
@@ -25,17 +18,19 @@ python_exp_in_years = float(input("Enter your Python experience (in years): ").s
 # EXTRA - Ask if the character wants to be a professional Python developer
 wants_to_be_dev_input = input("Do you want to be a professional Python developer? (yes/no): ").strip().lower()
 
-# Using ternary operator to store the boolean value
-wants_to_be_dev = True if wants_to_be_dev_input == "yes" else False
+# Store the appropriate string based on the user's response
+wants_to_be_dev = 'I am happy you want' if wants_to_be_dev_input == "yes" else 'I am sad that you do not want'
 
 # Convert age to days (assuming 365 days per year)
 age_in_days = age_in_years * 365
 
 clear_terminal()
 
-# Print the result
-print(f"Your name is {name}, you are {age_in_days:.0f} days old and you has {python_exp_in_years} years of Python experience.")
-print(f"{'I am happy you want' if wants_to_be_dev else 'I am sad that you do not want'} to be a Python developer.\n\n")
+# Print the result using multi-line f-string
+print(f"""
+Your name is {name}, you are {age_in_days:.0f} days old and you have {python_exp_in_years} years of Python experience.
+{wants_to_be_dev} to be a Python developer.\n\n
+""")
 
 '''
 Megadott adatok:

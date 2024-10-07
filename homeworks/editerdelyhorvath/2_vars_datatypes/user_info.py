@@ -7,14 +7,7 @@ Feladat 2: List és dictionary műveletek használata
 '''
 
 from pprint import pprint
-import os
-
-# Function to clear the terminal screen
-def clear_terminal():
-    if os.name == 'nt':  # Windows
-        os.system('cls')
-    else:  # Mac and Linux
-        os.system('clear')
+from terminal_clearer import clear_terminal
 
 clear_terminal()
 
@@ -95,7 +88,7 @@ print(user_info["favourite_meals"])
 '''
 
 # 5. Add the third and fourth elements of the "favourite_meals" list again (not the index)
-user_info["favourite_meals"].extend([user_info["favourite_meals"][2], user_info["favourite_meals"][3]])
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
 
 '''
 print(user_info["favourite_meals"])
