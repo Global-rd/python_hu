@@ -1,19 +1,48 @@
-city = input("What's the city? ")
-rent_price = int(input("How much does the apartment cost? "))
+"""
+This script asks the user (property agent) which city they can offer to rent an apartment in.
+If the city is Washington or Chicago, it gives an immediate response 
+because Sarah hates Washington and loves Chicago, so price doesn't matter.
+For other cities, Sarah asks for the rent price and provides feedback accordingly.
+"""
 
-print(city, rent_price)
+# Characters
+sarah = "Sarah"
+agent = "Property Agent"
 
-if city == "Washington":
-    print(f" Sorry but I hate {city} so, no way!")
+# Get the city
+rental_city = input(
+    f"{sarah}: Which city can you offer for renting an apartment in? ")
 
-elif city == "New York" or city == "San Francisco":
-    if rent_price < 4000:
-        print(f"Cool!!! I love {city} so, I want it now!!!")
-    elif rent_price >= 4000:
-        print("Nice but expensive!")
+# Immediate response for Washington and Chicago
+if rental_city == "Washington":
+    print(f"{agent}: The city is {rental_city}.")
+    print(f"{sarah}: Sorry, but I really don't like {rental_city}. No way!")
+    rental_city = input(
+        f"{sarah}: Which other city can you offer for renting an apartment in? ")
 
+if rental_city == "Chicago":
+    print(f"{agent}: The city is {rental_city}.")
+    print(f"{sarah}: My favorite place is {
+          rental_city}, so no matter how much the price is, I'll take it!")
+
+# For other cities
 else:
-    if rent_price < 3000:
-        print(f"For {city} this price is reasonable, so I want it!")
-    elif rent_price > 3000:
-        print(f" For {city} this price is too high, so no thanks!")
+    apartment_rent_price = int(
+        input(f"{sarah}: Ok, and how much is the rent for the apartment in dollars? "))
+
+    print(f"{agent}: So, this apartment in {
+          rental_city} is {apartment_rent_price} dollars.")
+
+    if rental_city == "New York" or rental_city == "San Francisco":
+        if apartment_rent_price < 4000:
+            print(f"{sarah}: Awesome! I love {
+                  rental_city}, and the price is great. I'll take it!")
+        else:
+            print(f"{sarah}: {rental_city} is amazing, but that's pretty expensive!")
+    else:
+        if apartment_rent_price <= 3000:
+            print(f"{sarah}: The rent in {
+                  rental_city} is reasonable, so I'm interested!")
+        else:
+            print(f"{sarah}: The rent in {
+                  rental_city} is too high for me, so I'll pass.")
