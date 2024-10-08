@@ -37,7 +37,7 @@ if prog_skills.count(",")  == 3:
 
     # 2. Rendezd a favourite_meals lista elemeit abc szerinti növekvő sorrendbe.
     keys = list(user_info.keys()) # kulcs változó definiálása, hogy így a dict. elemeire a key alapján k;s[bbi lehessen hivatkozni (pl.: "favourite_meals" helyett "2")
-    user_info[keys[2]] = sorted(user_info[keys[2]])
+    user_info["favourite_meals"] = sorted(user_info["favourite_meals"])
     print("2. Rendezd a favourite_meals lista elemeit abc szerinti növekvő sorrendbe!")
     pp.pprint(user_info)
     print("==========================================================================================================")
@@ -45,27 +45,26 @@ if prog_skills.count(",")  == 3:
 
     # 3. Printeld ki a favourite_meals lista utolsó előtti elemét
     print("3. Printeld ki a favourite_meals lista utolsó előtti elemét!")
-    pp.pprint(f"A 'favourite_meals' lista utolsó előtti eleme: {user_info[keys[2]][-2]}")
+    pp.pprint(f"A 'favourite_meals' lista utolsó előtti eleme: {user_info['favourite_meals'][-2]}")
     print("==========================================================================================================")
 
 
     # 4. Adj hozzá egy “spaghetti” string-et ugyanehhez a listához.
-    user_info[keys[2]].append("spaghetti")
+    user_info["favourite_meals"].append("spaghetti")
     print("4. Adj hozzá egy “spaghetti” string-et ugyanehhez a listához!")
     pp.pprint(user_info)
     print("==========================================================================================================")
 
 
     # 5. Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra.
-    user_info[keys[2]].extend(user_info[keys[2]][2:3])
+    user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4])
     print("5. Add hozzá a favourite_meals-hez az aktuális favourit_meals lista harmadik és negyedik elemét (nem az index-ét) újra!")
-    print("megj.: a listának most nincs 4. eleme, a legutolsó elem a 3. index (most: 'spaghetti')")
     pp.pprint(user_info)
     print("==========================================================================================================")
 
 
     # 6. Ezután töröld az így keletkezett duplikátumokat!
-    user_info[keys[2]] = sorted(list(dict.fromkeys(user_info[keys[2]]))) # itt újrarendeztem abc szerint
+    user_info["favourite_meals"] = sorted(list(dict.fromkeys(user_info["favourite_meals"]))) # itt újrarendeztem abc szerint
     print("6. Ezután töröld az így keletkezett duplikátumokat!")
     pp.pprint(user_info)
     print("==========================================================================================================")
@@ -73,7 +72,7 @@ if prog_skills.count(",")  == 3:
 
     # 7. Cseréld fel a favourite_meals lista első és utolsó elemét! (Megj.: itt sem indexet használtam, hanem sima sorrendet.)
     ind1 , ind2 = 0 , -1
-    user_info[keys[2]][0] , user_info[keys[2]][-1] = user_info[keys[2]][ind2] , user_info[keys[2]][ind1]
+    user_info["favourite_meals"][0] , user_info["favourite_meals"][-1] = user_info["favourite_meals"][ind2] , user_info["favourite_meals"][ind1]
     print("7. Cseréld fel a favourite_meals lista első és utolsó elemét! (Megj.: itt sem indexet használtam, hanem sima sorrendet.)")
     pp.pprint(user_info)
     print("==========================================================================================================")
