@@ -25,10 +25,14 @@ pprint(user_info)
 pprint(user_info["favourite_meals"][-2]) #az updatelt listáról az utolsó előtti elem kiírása
 user_info["favourite_meals"].append("spagetthi") # hozzáadom a listához a spagetthit
 pprint(user_info["favourite_meals"])
-user_info["favourite_meals"].extend(["pizza", "sushi"]) # hozzáadom újra a pizzát és a sushit
+user_info["favourite_meals"].extend(user_info["favourite_meals"][2:4]) # hozzáadom újra a pizzát és a sushit
 pprint(user_info["favourite_meals"])
-user_info["favourite_meals"].remove("pizza") # leszedem a pizzát
-user_info["favourite_meals"].remove("sushi") # leszedem a sushit (2 elem elfogadása nem ment egyszerre a remove functionnal)
+user_info["favourite_meals"].remove(user_info['favourite_meals'][-1]) 
+user_info["favourite_meals"].remove(user_info['favourite_meals'][-2]) # leszedem a pizzát és a sushit
+user_info["favourite_meals"][0], user_info["favourite_meals"][-1] = (
+    user_info["favourite_meals"][-1],
+    user_info["favourite_meals"][0],
+) #ételek felcserélése a javasolt módszerrel :)
 pprint(user_info["favourite_meals"])
 new_user = {"Carl" : "+360301234567"} #new user létrehozása a phone contact hozzáadása előtt
 user_info["phone_contacts"].update(new_user) # update a phone contactoknál a new userrel
