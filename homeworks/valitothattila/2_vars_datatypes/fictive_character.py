@@ -2,13 +2,12 @@
 Feladat 1: Változók, user input, string metódusok, type conversion, f-string használata
 """
 #adatok bekérése
-in_name = input("Enter your name: ")
+in_name = input("Enter your name: ").strip().capitalize() #szóköz levágása elöl/hátul, eleső betű legyen nagy
 in_age = input("How old are you: ")
 in_python_exp_in_years = input("Years of Python experience: ")
 
 #vizsgálatok
-name = str.strip(in_name) #szóköz levágása elöl/hátul
-name = str.capitalize(name) #leső betű legyen nagy
+name = in_name #csak a változó név "in_" miatt
 age_in_days = int(in_age)*365 #évek konvertálása napokká
 python_exp_in_years = in_python_exp_in_years #csak a változó név "in_" miatt
 
