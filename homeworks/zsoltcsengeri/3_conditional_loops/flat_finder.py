@@ -1,9 +1,13 @@
 """
-This script asks the user (property agent) which city they can offer to rent an apartment in.
-If the city is Washington or Chicago, it gives an immediate response 
-because Sarah hates Washington and loves Chicago, so price doesn't matter.
-For other cities, Sarah asks for the rent price and provides feedback accordingly.
+This script asks the user (property agent) which city they can offer for Sarah to rent an apartment in.
+Sarah has specific preferences based on the city:
+- If the city is Washington, she hates it and will refuse to rent no matter the price.
+- If the city is Chicago, she loves it so much that the price doesn't matter—she'll take it.
+- If the city is New York or San Francisco, Sarah will rent if the price is less than $4000.
+- For any other city, Sarah will only rent if the price is $3000 or less.
+The program then provides feedback on whether Sarah would rent based on the city and rent price.
 """
+
 
 # Character
 SARAH = "Sarah"
@@ -13,14 +17,14 @@ cities_to_consider = ("New York", "San Francisco")
 
 # Get the city
 rental_city = input(
-    f"{SARAH}: Which city can you offer for renting an apartment in? ")
+    f"{SARAH}: Which city can you offer for renting an apartment in? ").strip().title()
 
 # Immediate response for Washington and Chicago
 if rental_city == "Washington":
 
     print(f"{SARAH}: Sorry, but I really don't like {rental_city}. No way!")
     rental_city = input(
-        f"{SARAH}: Which other city can you offer for renting an apartment in? ")
+        f"{SARAH}: Which city can you offer for renting an apartment in? ").strip().title()
 
 if rental_city == "Chicago":
 
