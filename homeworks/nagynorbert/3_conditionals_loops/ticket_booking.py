@@ -60,10 +60,17 @@ def choose_column():
     
     return column
 
+
 def reserve_seat(x_row,y_col):
     """Reserve a seat, set value from 0 to 1."""    
     if cinema_matrix[x_row][y_col] == 0:
         cinema_matrix[x_row][y_col] = 1
+        success_reservation = True
+    else:
+        success_reservation = False
+
+    return success_reservation
+
 
 print("Cinema before reservation:")
 print_cinema()
@@ -71,10 +78,13 @@ print_cinema()
 for i in range(ticket_num):
     actual_row_num = choose_row()
     actual_col_num = choose_column()
-    reserve_seat(actual_row_num,actual_col_num)
-    print(f"Place reserved in {actual_row_num+1}.row, {actual_col_num+1}.column.")
+    reserved = reserve_seat(actual_row_num,actual_col_num)
+    if reserved: 
+        print(f"Place reserved in {actual_row_num+1}.row, {actual_col_num+1}.column.")
+    else:
+        print("This place is already reserved.")
 
-print("Cinema before reservation:")
+print("Cinema after reservation:")
 print_cinema()
 
 
