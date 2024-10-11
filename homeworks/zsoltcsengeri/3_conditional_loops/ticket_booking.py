@@ -67,13 +67,14 @@ list_of_films = [
     "Alice in Wonderland",
 ]
 
-# Chose a film you want to watch
+# Prompt user to choose a film
 chosen_film = input("Please select a film you want to watch: ").strip().title()
 
-# Validate the chosen film in the film list
-while chosen_film in list_of_films:
-    print(f"The film you've selected is: {chosen_film}")
-    break
+# Validate movie selection until a valid movie is selected
+while chosen_film not in list_of_films:
+    print("Sorry, that movie is not available.")
+    chosen_film = input("Please select a film from the list: ").strip().title()
+print(f"You have selected {chosen_film}!")
 
 # 5x5 seating arrangment matrix as a list
 seating_arrangement = [
@@ -84,19 +85,29 @@ seating_arrangement = [
     [0, 0, 0, 0, 0],
 ]
 
+print("These are the seats you can choose: ")
+
+# Loop through each row of the seating arrangement to display the seats
+for row in seating_arrangement:
+    # Join each seat in the row as a string with a space between, then print the row
+    print(" ".join(str(seat) for seat in row))
+
+# Ask how many tickets the user wants to book
 number_of_tickets = int(input("How many tickets do you want to book? "))
 
-booked_tickets_list = list(range(number_of_tickets))
-print(booked_tickets_list)
 
-for tickets in booked_tickets_list:
-    print(tickets)
-    for ticket in tickets:
-        print(f"Booking ticket{ticket+1}...")
+# Loop to book each ticket
+for ticket in range(number_of_tickets):
+    print(f"Booking ticket {ticket + 1}...")
 
+# Get row and column for the ticket
+row = int(input(f"Enter the row number (0-4) for ticket {ticket + 1}: "))
+column = int(input(f"Enter the column number (0-4) for ticket {ticket + 1}: "))
+print(f"The row for ticket {ticket + 1} is: ")
+print(f"The column for ticket {ticket + 1} is: ")
+seating_arrangement[row][column] = 1
 
-
-# Loop through each row of the seating arrangement
+# Loop through each row of the seating arrangement to display the seats
 for row in seating_arrangement:
     # Join each seat in the row as a string with a space between, then print the row
     print(" ".join(str(seat) for seat in row))
