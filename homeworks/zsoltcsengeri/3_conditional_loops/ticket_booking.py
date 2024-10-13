@@ -1,5 +1,5 @@
 """
-This program is a simplified movie seat reservation system. The user can select a movie from a predefined list
+This program is a simplified movie seat reservation system. The user can select a movie from a predefined list(from wikipedia)
 and choose available seats in a 5x5 seating grid (represented as a list of lists). The program guides the user 
 through the following steps:
 
@@ -72,11 +72,11 @@ chosen_film = input("Please select a film you want to watch: ").strip().title()
 
 # Validate movie selection until a valid movie is selected
 while chosen_film not in list_of_films:
-    print("Sorry, that movie is not available.")
+    print("\nSorry, that movie is not available.")
     chosen_film = input("Please select a film from the list: ").strip().title()
-print(f"You have selected {chosen_film}!")
+print(f"\nYou have selected {chosen_film}!")
 
-# 5x5 seating arrangment matrix as a list
+# 5x5 seating arrangement matrix as a list
 seating_arrangement = [
     [0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0],
@@ -85,7 +85,7 @@ seating_arrangement = [
     [0, 0, 0, 0, 0],
 ]
 
-print("These are the seats you can choose: ")
+print("\nThese are the seats you can choose: ")
 
 # Loop through each row of the seating arrangement to display the seats
 for row in seating_arrangement:
@@ -93,21 +93,42 @@ for row in seating_arrangement:
     print(" ".join(str(seat) for seat in row))
 
 # Ask how many tickets the user wants to book
-number_of_tickets = int(input("How many tickets do you want to book? "))
-
+number_of_tickets = int(input("\nHow many tickets do you want to book? "))
 
 # Loop to book each ticket
+booked_seats = [] # Initialize an empty list to store booked seats
+
 for ticket in range(number_of_tickets):
-    print(f"Booking ticket {ticket + 1}...")
+    print(
+        f"\nBooking ticket {ticket + 1}..."
+    )  # Display ticket number to user (ticket is a zero-based index so add 1 to display Booking ticket 1 when ticket =0 and so on)
 
-# Get row and column for the ticket
-row = int(input(f"Enter the row number (0-4) for ticket {ticket + 1}: "))
-column = int(input(f"Enter the column number (0-4) for ticket {ticket + 1}: "))
-print(f"The row for ticket {ticket + 1} is: ")
-print(f"The column for ticket {ticket + 1} is: ")
-seating_arrangement[row][column] = 1
+    # Keep asking for a valid seat (not already reserved)
+    while True:
+        # Get row and column for the ticket
+        row = int(input(f"Enter the row number (0-4) for ticket {ticket + 1}: "))
+        column = int(input(f"Enter the column number (0-4) for ticket {ticket + 1}: "))
+        
+        # Check if the seat is already booked
+        if seating_arrangement[row][column] == 1:
+            print(
+                "\nSorry, but this seat has already been reserved. Please choose another seat."
+            )
+        else:
+            # If the seat is available, mark it as booked and break out of the loop
+            seating_arrangement[row][column] = 1
+            booked_seats.append((row, column)) # Append the row and column as a tuple
+            break
 
-# Loop through each row of the seating arrangement to display the seats
-for row in seating_arrangement:
-    # Join each seat in the row as a string with a space between, then print the row
-    print(" ".join(str(seat) for seat in row))
+    # Show the updated seating arrangement after each booking
+    print("\nUpdated Seating Arrangement:")
+    for row in seating_arrangement:
+        print(" ".join(str(seat) for seat in row))
+
+# Booking summary
+print("\nBooking Summary:")
+for seat in booked_seats:
+    row, column = seat  # Unpack the row and column from the tuple
+    print(f"Seat booked at row {row}, column {column}")
+print(f"\nThank you for booking tickets to watch {chosen_film}!")
+
