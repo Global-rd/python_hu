@@ -37,6 +37,6 @@ while act_round < game_round:
         print(f"körök száma:{act_round}")
 
 if gamer_1_score >= gamer_2_score:
-    print("Győzőtt az 1. játékos")
+    print(f"Győzőtt az 1. játékos, pontjainak száma:{gamer_1_score}.")
 else:
-    print("Győzött a 2. játékos!")
+    print(f"Győzött a 2. játékos, pontjainak száma:{gamer_2_score}.")
