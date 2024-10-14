@@ -32,6 +32,7 @@ while current_round <= rounds:
 
     if player_1 == player_2:
             print("It's a tie!")
+            continue
     elif(player_1 == "rock" and player_2 == "scissors") or (player_1 == "paper" and player_2 == "rock") or(player_1 == "scissors" and player_2 == "paper"):
             print("Player 1 wins this round!")
             player1_score += 1
