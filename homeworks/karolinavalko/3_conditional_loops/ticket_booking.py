@@ -46,30 +46,23 @@ for row in seating_chart:
 while number_of_tickets > ticket:
     print(f"Booking {ticket+1}...")
     time.sleep(1)
-    while True:
-        ticket_row = int(input(f"Enter a row number (0-4) for {ticket+1} ticket:"))
-        ticket_column = int(
-            input(f"Enter a column number (0-4) for {ticket+1} ticket.")
-        )
-        break
-    ticket_matrix = [ticket_row, ticket_column]
-    # eddig mukodik
+    ticket_row = int(input(f"Enter a row number (0-4) for {ticket+1} ticket:"))
+    ticket_column = int(input(f"Enter a column number (0-4) for {ticket+1} ticket."))
 
-    if ticket_matrix[:2] in seating_chart == 0:
-        print(f"Your seat in {ticket_row}row {ticket_column} column is booked.")
-        break
+    if seating_chart[ticket_row][ticket_column] == 0:
+        print(f"Your seat in {ticket_row} row {ticket_column} column is booked.")
+        seating_chart[ticket_row][ticket_column] = 1
+        ticket += 1
+        print("Current seating arrangement")
+        for row in seating_chart:
+            print(row)
     else:
         print(
             f"This seat in row {ticket_row} is not available. Please choose another seat!"
         )
-        break
-
-
-"""for ticket_row in seating_chart:  # Harom indexig irja ki 0, 1,2,
-    for ticket_column in range(2):  # 2 indexig irja 0,1
-        print(i, j)
-for ticket_row in seating_chart:
-    print(f"You have selected row {ticket_row}")
-for ticket_column in seating_chart:
-    print(f"You have selected column {ticket_column}")
-"""
+print("Summary of your booked tickets: ")
+for seat_row in range(5):
+    for seat_column in range(5):
+        if seating_chart[seat_row][seat_column] == 1:
+            print(f"Seat at row {seat_row}, column {seat_column} is booked.")
+print(f"Thank you for booking to see {film_title}!")
