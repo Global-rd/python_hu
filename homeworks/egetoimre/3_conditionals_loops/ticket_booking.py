@@ -26,17 +26,11 @@ for rows in seats:
     print(rows)
 
 while True:
-
     ticket_total = int(input("Hány jegyet szeretne vásárolni?"))
 
     if ticket_total == 0:
         print("Legalább 1 jegy vásárlása kötelező!")
-
-    for reserved_seats in seats:
-        for seat in reserved_seats:
-            reserved_seats_sum += seat
-
-    if (reserved_seats_sum + ticket_total) <= seats_in_the_cinema and ticket_total != 0:
+    elif (reserved_seats_sum + ticket_total) <= seats_in_the_cinema:
         break
     else:
         print("Nincs elég hely a teremben. Kérem módosítsa a jegyek darabszámát!")

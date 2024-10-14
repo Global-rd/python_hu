@@ -1,7 +1,7 @@
 town = input("Melyik városban található az albérlet?")
 price = int(input("Mennyibe kerül az albérlet havonta?"))
 
-if (town == "New York" or town == "San Fransisco") and price < 4000:
+if town in ["New york", "San Francisco"] and price < 4000:
     ok = True
 elif town == "Washington":
     ok = False
