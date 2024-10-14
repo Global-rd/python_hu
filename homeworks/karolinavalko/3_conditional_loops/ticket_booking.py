@@ -1,19 +1,7 @@
 from os import system
-
-# from pprint import pprint
 import time
 
 system("cls")
-"""
-Booking ticket 1.
-Enter a row number (0-4) for ticket 1
-Enter a column number for ticket 1
-Print current seat arrangement
-Booking ticket 2.
-Enter a row number (0-4) for ticket 2
-Enter a column number (0-4) for ticket 2
-Print current seat arrangement
-"""
 
 film_selection = ["Constantine", "Hidden Figures", "Tango and Cash", "The Rock"]
 ticket = 0
@@ -60,6 +48,7 @@ while number_of_tickets > ticket:
         print(
             f"This seat in row {ticket_row} is not available. Please choose another seat!"
         )
+
 print("Summary of your booked tickets: ")
 for seat_row in range(5):
     for seat_column in range(5):
