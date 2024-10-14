@@ -1,6 +1,6 @@
 print("Welcome to the game. You will play rock-paper-scissors!")
-player_1_name = str(input("Player 1 please enter your name here: ")).title()
-player_2_name = str(input("Player 2 please enter your name here: ")).title()
+player_1_name = str(input("Player 1 please enter your name here: ")).title().strip()
+player_2_name = str(input("Player 2 please enter your name here: ")).title().strip()
 
 #Declaring the number of rounds
 while True:
@@ -17,13 +17,13 @@ player_2_score = 0
 #The game
 while rounds > 0:
     while True:
-        player_1_word = str(input("Pick rock, paper or scissors and write your answer here: ")).lower()
+        player_1_word = str(input("Pick rock, paper or scissors and write your answer here: ")).lower().strip()
         if player_1_word in correct_words:
             break
         print("Incorrect word, please choose a correct one.")
     
     while True:         
-        player_2_word = str(input("Pick rock, paper or scissors and write your answer here: ")).lower()
+        player_2_word = str(input("Pick rock, paper or scissors and write your answer here: ")).lower().strip()
         if player_2_word in correct_words:
             break
         print("Incorrect word, please choose a correct one")
