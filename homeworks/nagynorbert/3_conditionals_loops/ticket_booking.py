@@ -4,12 +4,14 @@ from pprint import pprint
 films = ["alien", "it", "amelie csodas elete", "hallo, hallo", "csengetett mylord"]
 
 # define title of film
-while True:
-    film = input("Please enter title of film: ").strip().lower()
-    if film not in films:
-        print("Film is not found. Please try again!")
-    else:
-        break
+def define_title():
+    while True:
+        film = input("Please enter title of film: ").strip().lower()
+        if film not in films:
+            print("Film is not found. Please try again!")
+        else:
+            break
+    return film
 
 cinema_matrix = [
     [0,0,0,0,0],
@@ -71,6 +73,7 @@ def reserve_seat(x_row,y_col):
 
     return success_reservation
 
+film = define_title()
 
 print("Cinema before reservation:")
 print_cinema()
@@ -83,6 +86,18 @@ for i in range(ticket_num):
         print(f"Place reserved in {actual_row_num+1}.row, {actual_col_num+1}.column.")
     else:
         print("This place is already reserved.")
+        while True:
+            answer= input("Would you like to reserve other seat?").strip().lower()
+            if answer == "yes":
+                actual_row_num = choose_row()
+                actual_col_num = choose_column()
+                reserved = reserve_seat(actual_row_num,actual_col_num)
+                break
+            elif answer == "no":
+                print(f"Thanks. Reservation for {actual_row_num+1}. row and {actual_col_num+1}.column was unsuccessful.")
+                break
+            else:
+                print("Please answer with yes or no!")
 
 print("Cinema after reservation:")
 print_cinema()

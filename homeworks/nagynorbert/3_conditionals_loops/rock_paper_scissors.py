@@ -1,13 +1,16 @@
 # homework - Nagy Norbert
 
 # define numbers of rounds
-while True:
-    rounds = int(input("Please define how many rounds would you like to play: "))
-    if rounds < 3 or rounds%2 == 0:
-        print("Invalid input, please define a positive odd number which grater than 2")
-    else:
-        print("Thanks, valid input.")
-        break
+def get_rounds():
+    while True:
+        rounds = int(input("Please define how many rounds would you like to play: "))
+        if rounds < 3 or rounds%2 == 0:
+            print("Invalid input, please define a positive odd number which grater than 2")
+        else:
+            print("Thanks, valid input.")
+            break
+
+    return rounds
 
 valid_signs = ["rock","paper","scissors"]
 
@@ -27,38 +30,45 @@ def add_input_sign(player):
 
 # evaluate signs and summerize points in one round
 def evaluate_signs(sum_points_1,sum_points_2,player_1_sign,player_2_sign):
-    if player_1_sign == "rock" and player_2_sign == "paper":
-        sum_points_2 += 1
-    elif player_1_sign == "rock" and player_2_sign == "scissors":
-        sum_points_1 += 1
-    elif player_1_sign == "paper" and player_2_sign == "rock":
-        sum_points_1 += 1
-    elif player_1_sign == "paper" and player_2_sign == "scissors":
-        sum_points_2 += 1
-    elif player_1_sign == "scissors" and player_2_sign == "rock":
-        sum_points_2 += 1
-    elif player_1_sign == "scissors" and player_2_sign == "paper":
-        sum_points_1 += 1
-    return sum_points_1,sum_points_2
+    winning_combinations = {
+        "rock": "scissors",
+        "scissors": "paper",
+        "paper": "rock"
+    }
+    
+    if player_1_sign == player_2_sign:
+        print("This round is drawn.")
+        return sum_points_1, sum_points_2
+    elif winning_combinations[player_1_sign] == player_2_sign:
+        print("Winner in this round is: 1st player.")
+        return sum_points_1 + 1, sum_points_2
+    else:
+        print("Winner in this round is: 2nd player.")
+        return sum_points_1, sum_points_2 + 1
+
 
 sum_point_1_player = 0
 sum_point_2_player = 0
 
-input_list_1 = []
-input_list_2 = []
+input_signs={
+    "inp_sign_1":[],
+    "inp_sign_2":[]
+}
+
+rounds = get_rounds()
 
 # iterate on all round and updates points
 for id, i in enumerate(range(rounds),1):
     print(f" ----- {id}. round ----- ")
     player_1_sign = add_input_sign(1)
-    input_list_1.append(player_1_sign)
+    input_signs["inp_sign_1"].append(player_1_sign)
     player_2_sign = add_input_sign(2)
-    input_list_2.append(player_2_sign)
+    input_signs["inp_sign_2"].append(player_2_sign)
     
     sum_point_1_player,sum_point_2_player = evaluate_signs(sum_point_1_player,sum_point_2_player,player_1_sign,player_2_sign)
 
-print(f"1st player signs: {input_list_1}")
-print(f"2nd player signs: {input_list_2}")
+print(f"1st player signs: {input_signs["inp_sign_1"]}")
+print(f"2nd player signs: {input_signs["inp_sign_2"]}")
 
 # decide who is the winner
 winner = sum_point_1_player - sum_point_2_player
