@@ -21,21 +21,17 @@ while round < rounds_num:
     round += 1
     print(f"Forduló:{round}, A:{a_score}, B:{b_score}")
     #input first bet
-    i=False
-    while i==False:
+    while True:
         a_player_bet = input(f"Az első játékos {round}. tétje:")
-        for bet in RPS:
-            i = (a_player_bet==bet) or i
-        if i==False: 
-            print("A megadott érték csak kő, papír vagy olló lehet!")
+        if a_player_bet in RPS:
+            break
+        print("A megadott érték csak kő, papír vagy olló lehet!")
     #input second bet
-    i=False
-    while i==False:
+    while True:
         b_player_bet = input(f"A második játékos {round}. tétje:")
-        for bet in RPS:
-            i = (b_player_bet==bet) or i
-        if i==False: 
-            print("A megadott érték csak kő, papír vagy olló lehet!")
+        if b_player_bet in RPS:
+            break
+        print("A megadott érték csak kő, papír vagy olló lehet!")
     #evaluation
     if a_player_bet == "kő":
         if b_player_bet == "papír":
