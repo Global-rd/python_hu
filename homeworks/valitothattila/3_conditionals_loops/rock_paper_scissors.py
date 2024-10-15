@@ -21,21 +21,22 @@ while act_round < game_round:
             break
 #-----------------------------Válaszok kiértékelése-----------------
     if gamer_1_choose == gamer_2_choose:
-        print("döntetlen") #ezt nem számljuk meg
-    else: # első szituáció 1. játékos nyeri a kört
-        if gamer_1_choose == "rock" and gamer_2_choose == "scissors":
+       print("döntetlen") #ezt nem számoljuk meg
+    elif gamer_1_choose == "rock" and gamer_2_choose == "scissors": # első szituáció 1. játékos nyeri a kört
             gamer_1_score +=1
-        else: # második szituáció 1. játékos nyeri a kört
-            if gamer_1_choose == "paper" and gamer_2_choose == "rock":
-                gamer_1_score +=1
-            else: # harmadik szituáció 1. játékos nyeri a kört
-                if gamer_1_choose == "scissors" and gamer_2_choose == "paper":
-                    gamer_1_score +=1
-                else: # az összes többi esetben 2. játékos nyeri a kört
-                    gamer_2_score +=1 
-        act_round +=1
-        print(f"körök száma:{act_round}")
+            act_round +=1
+    elif gamer_1_choose == "paper" and gamer_2_choose == "rock": # második szituáció 1. játékos nyeri a kört
+            gamer_1_score +=1
+            act_round +=1
+    elif gamer_1_choose == "scissors" and gamer_2_choose == "paper": # harmadik szituáció 1. játékos nyeri a kört
+            gamer_1_score +=1
+            act_round +=1
+    else: # az összes többi esetben 2. játékos nyeri a kört
+            gamer_2_score +=1
+            act_round +=1
+    print(f"körök száma:{act_round}")
 
+#-----------------------------Eredmény kiírása------------------------
 if gamer_1_score >= gamer_2_score:
     print(f"Győzőtt az 1. játékos, pontjainak száma:{gamer_1_score}.")
 else:
