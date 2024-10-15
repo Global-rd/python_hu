@@ -7,9 +7,8 @@ if (city in ["New York", "San Fransisco"] and rent < 4000 ):
 elif city == "Washington":
     print(f"You can't live in {city} whith this {rent} rent.")
 
-
 elif city == "Chicago":
-    print(f"You can't live in {city} whith this {rent} rent.")
+    print(f"You can live in {city} whith this {rent} rent.")
 
 elif rent <= 3000:
     print(f"You can live in {city} whith this {rent} rent.")
