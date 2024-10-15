@@ -44,4 +44,5 @@ while rounds > 0:
 #Results
 if player_1_score > player_2_score:
     print(f"The winner is {player_1_name}. {player_1_name} won by {player_1_score} points ahead of {player_2_name} who has {player_2_score} points.")
-print(f"The winner is {player_2_name}. {player_2_name} won by {player_2_score} points ahead of {player_1_name} who has {player_1_score} points.")
+else:
+    print(f"The winner is {player_2_name}. {player_2_name} won by {player_2_score} points ahead of {player_1_name} who has {player_1_score} points.")
