@@ -35,7 +35,7 @@ city = input("Kérem, adja meg a város nevét: ")
 rent = float(input("Kérem, adja meg a havi lakbér összegét (USD): "))
 
 # Eredmény kiszámítása és kiírása
-RESULT = can_sarah_move(city, rent)
+result = can_sarah_move(city, rent)
 
-print(f"Sarah {'be tud költözni' if RESULT else 'nem tud beköltözni'} "
+print(f"Sarah {'be tud költözni' if result else 'nem tud beköltözni'} "
       f"{city} városba {rent} USD havi lakbérért.")
