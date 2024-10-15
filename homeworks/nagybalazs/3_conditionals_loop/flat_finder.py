@@ -10,18 +10,16 @@ hogy az adott feltételek (város és albérlet ára) mellett be tudna e költö
 """
 
 print("Hello, help Sarah find the right apartment for her.")
-name_of_city = input("In which city is the apartment located? ").capitalize()
-name_of_city_var = name_of_city.strip().upper()
+name_of_city = input("In which city is the apartment located? ").strip().upper()
 apartment_price = int(input("what is the price of the apartment? "))
 
-
-if name_of_city_var == "CHICAGO" or apartment_price <= 3000:
-   ans ="wants"
-elif name_of_city_var == "NEWYORK" or "SANFRANCISCO" and apartment_price <= 4000:
+if name_of_city == "WASHINGTON":
+   ans = "does not want"
+elif name_of_city == "CHICAGO" or apartment_price <= 3000:
      ans ="wants"
-elif name_of_city_var == "WASHINGTON":
-     ans = "does not want"
+elif name_of_city in ["NEWYORK", "SANFRANCISCO"] and apartment_price <= 4000:
+     ans ="wants"
 else:
      ans = "does not want"
 
-print(f"Sarah looked at the apartment you recommended with location {name_of_city} and price {apartment_price} USD.She {ans} to this apartman!")
+print(f"Sarah looked at the apartment you recommended with location {name_of_city} and price {apartment_price} USD.She {ans} to move to this apartman!")

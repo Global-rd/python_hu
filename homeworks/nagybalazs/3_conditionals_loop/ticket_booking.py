@@ -27,13 +27,21 @@ while True:
     else:
         print ("Wrong title, try again.")
 
+def print_cinema_hall(cinema_hall):
+    print(f"- {movie_title} -")
+    for row in cinema_hall:
+        print(row)
+
 rows, cols = 5, 5
 cinema_hall = [[0 for _ in range(cols)] for _ in range(rows)]
-print(f"- {movie_title} -")
-for row in cinema_hall:
-    print(row)
+print_cinema_hall(cinema_hall)
 
-ticket = int(input("How many tiket do you want? "))
+while True:
+    ticket = int(input("How many tiket do you want? "))
+    if ticket <= rows * cols:
+        break
+    else:
+        print ("Unfortunately, there is not enough space in the hall")
 
 attempts = 0
 while attempts < ticket:
@@ -45,14 +53,10 @@ while attempts < ticket:
           attempts -= 1
           print("Reserved!")
        else:
-          print(f"- {movie_title} -")  
           cinema_hall[hall_rows][hall_cols] = 1
-          for row in cinema_hall:
-            print(row)
+          print_cinema_hall(cinema_hall)
           continue      
     else:
       print("Please write the good row/column pair!")
 else:
-    print(f"- {movie_title} -")
-    for row in cinema_hall:
-      print(row)
+    print_cinema_hall(cinema_hall)
