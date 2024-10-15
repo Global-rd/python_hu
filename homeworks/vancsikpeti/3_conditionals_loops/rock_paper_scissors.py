@@ -9,13 +9,11 @@ def answer(symbol=""):
 
 def whowins(answer1, answer2):
     winner = ""
-    if answer1 == "paper" and answer2 == "paper": winner = "both"
+    if answer1 == answer2: winner = "both"
     if answer1 == "paper" and answer2 == "rock": winner = answer1
     if answer1 == "paper" and answer2 == "scissors": winner = answer2
-    if answer1 == "rock" and answer2 == "rock": winner = "both"
     if answer1 == "rock" and answer2 == "paper": winner = answer2
     if answer1 == "rock" and answer2 == "scissors": winner = answer1
-    if answer1 == "scissors" and answer2 == "scissors": winner = "both"
     if answer1 == "scissors" and answer2 == "paper": winner = answer1
     if answer1 == "scissors" and answer2 == "rock": winner = answer2
     return winner
@@ -42,12 +40,13 @@ while round < number_of_rounds+1:
     player1_answer = answer()
     print("Second player!")
     player2_answer = answer()
-    if whowins(player1_answer, player2_answer) == player1_answer:
+    winner = whowins(player1_answer, player2_answer)
+    if winner == "both":
+        print("Same symbol. Restarted the round.")
+        continue
+    elif winner == player1_answer:
         player1_points += 1
-    elif whowins(player1_answer, player2_answer) == player2_answer:
-        player2_points += 1
-    else: # whowins(player1_answer, player2_answer) == "both":
-        player1_points += 1
+    elif winner == player2_answer:
         player2_points += 1
     # print(f"The winner of the round is the {whowins(player1_answer, player2_answer)}. The score of the game: Player1-Player2: {player1_points}-{player2_points}")
     round += 1    

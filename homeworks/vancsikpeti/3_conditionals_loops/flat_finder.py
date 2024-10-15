@@ -10,7 +10,7 @@ def city_is_real(city_name):
     city_is_real = True if len(gc.search_cities(city_name,case_sensitive=False,contains_search=True)) > 0 else False
     return city_is_real
 
-sarah_cities = ["Chicago", "New York", "San Fransisco", "Wasington"]
+sarah_cities = ["Chicago", "New York", "San Fransisco", "Washington"]
 
 city = ""
 flat_price = int()
@@ -32,8 +32,10 @@ if city in sarah_cities:
         else: print(f"Sorry, the flat costs me too much.")    
     elif city == "Washington":
         print(f"Sorry, I hate this city")
+elif flat_price <= 3000:
+    print(f"I can move into {city} as the flat is cheaper than $3000: {flat_price}")
 else:
-    print(f"I can move into {city} if the flat is cheaper than 3000 USD")
+    print(f"Flat price ${flat_price} is too high for me in {city}")
 
 """
 Feladat 1.

@@ -8,6 +8,9 @@ movie_theater = [
 
 def enter_movie(movie=""):
     movies = ["Snowden", "Matrix", "Swordfish", "Imitation game", "Love actually"]
+    print("Available movies: ")
+    for title in movies:
+        print(f" - {title}")
     while movie not in movies:
         movie = input("Which movie do you want to watch? ")
         if movie not in movies:
@@ -30,7 +33,7 @@ def enter_seat():
             print("Error message... We have only 5 seat in a row.")
     return seat
 
-def seat_is_empty(row, seat):
+def is_seat_available(row, seat):
     seat_empty = True if movie_theater[row][seat] == 0 else False
     if seat_empty==False:
         print("Error message... This seat is reserved.")
@@ -53,7 +56,7 @@ while reservs < tickets:
     while True:
         new_ticket_row=enter_row()-1
         new_ticket_seat=enter_seat()-1
-        if seat_is_empty(new_ticket_row, new_ticket_seat):
+        if is_seat_available(new_ticket_row, new_ticket_seat):
             break
     movie_theater[new_ticket_row][new_ticket_seat] = 1
     reserved_seat_status()
