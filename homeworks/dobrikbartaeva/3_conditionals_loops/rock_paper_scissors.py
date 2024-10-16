@@ -6,17 +6,17 @@ def determine_winner(player1, player2, rounds, player_inputs):
         ("rock", "scissor"): "Player1",
     }
     
-    if (player1, player2) in outcomes:
-        player_inputs["Score1"] += 1
-        print(f"Player1 won Round_{rounds}!")
-        return True #ezt majd később használom, hogy továbbléphet-e a ciklus vagy sem
-    elif player1 == player2:
+    if player1 == player2:
         print(f"Same choosen,let's repeat Round_{rounds}")
         return False #ezt majd később használom, hogy továbbléphet-e a ciklus vagy sem
+    elif (player1, player2) in outcomes:
+        player_inputs["Score1"] += 1
+        print(f"Player1 won Round_{rounds}!")
     else: 
         player_inputs["Score2"] += 1 
         print(f"Player2 won Round_{rounds}!")
-        return True #ezt majd később használom, hogy továbbléphet-e a ciklus vagy sem
+    
+    return True 
 
 valid_words = ["rock", "paper", "scissors"]
 valid_words_str = "/".join(valid_words) #hogy rock/paper/scissor legyen a szövegben
