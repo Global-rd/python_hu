@@ -9,14 +9,13 @@ if city == "Washington":
 elif city == "Chicago":
     print(f"You can rent a flat in {city} for {rental_fee} USD")
 # New York / San Francisco case
-elif city == "New York" or city == "San Francisco":
+elif city in ["New York", "San Francisco"]:
     if rental_fee < 4000:
         print(f"You can rent a flat in {city} for {rental_fee} USD")
     else:
         print(f"You cannot rent a flat in {city} for {rental_fee} USD")
 # all other cases            
+elif rental_fee <= 3000:
+    print(f"You can rent a flat in {city} for {rental_fee} USD")
 else:
-    if rental_fee <= 3000:
-        print(f"You can rent a flat in {city} for {rental_fee} USD")
-    else:
-        print(f"You cannot rent a flat in {city} for {rental_fee} USD")
+    print(f"You cannot rent a flat in {city} for {rental_fee} USD")
