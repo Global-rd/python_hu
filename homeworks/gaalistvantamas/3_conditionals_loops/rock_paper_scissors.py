@@ -29,14 +29,8 @@ while rounds < number_of_rounds:
     #DRAW
     if first_player_choose == second_player_choose:
         print("Draw")
-        first_player_choose = input("First player please choose again of them: 'rock', 'paper', 'scissors'!\n")
-        while not first_player_choose in list_of_opportunities :
-            first_player_choose = input("First player please choose again of them: 'rock', 'paper', 'scissors'!\n")
-        
-        second_player_choose = input("Second player please choose again of them: 'rock', 'paper', 'scissors'!\n")
-        while not second_player_choose in list_of_opportunities :
-            second_player_choose = input("Second player please choose again of them: 'rock', 'paper', 'scissors'!\n")
-    
+        continue
+
     if first_player_choose == "rock":
         if second_player_choose == "paper":
             print("Second player win!\n")
