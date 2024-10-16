@@ -38,8 +38,15 @@ def main():
     # Körök lejátszása
     for round_number in range(1, rounds + 1):
         print(f"\n{round_number}. kör:")  # Kör száma
-        player1_choice = get_player_choice("1. Játékos")  # Első játékos választása
-        player2_choice = get_player_choice("2. Játékos")  # Második játékos választása
+        while True:
+            player1_choice = get_player_choice("1. Játékos")  # Első játékos választása
+            player2_choice = get_player_choice("2. Játékos")  # Második játékos választása
+            
+            # Ellenőrizzük, hogy a választások eltérnek-e
+            if player1_choice != player2_choice:
+                break  # Ha eltérnek, kilépünk a ciklusból
+            else:
+                print("A választások nem eltérnek! Kérlek, válasszatok újra.")  # Hibaüzenet döntetlen esetén
 
         winner = determine_winner(player1_choice, player2_choice)  # Győztes meghatározása
 
