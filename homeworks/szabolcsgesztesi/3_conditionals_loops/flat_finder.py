@@ -16,7 +16,4 @@ elif city in good_cities:
     else:
         print(f"{city} nem elfogadható Sarah számára {price} dollárért.")
 else:
-    if price < 3000:
-        print(f"{city} elfogadható Sarah számára {price} dollárért.")
-    else:
-        print(f"{city} nem elfogadható Sarah számára {price} dollárért.")
+    print(f"{city} {'elfogadható' if price < 3000 else 'nem elfogadható'} Sarah számára {price} dollárért.")

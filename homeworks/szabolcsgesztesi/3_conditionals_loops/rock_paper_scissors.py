@@ -40,6 +40,6 @@ for rounds in range(chosen_rounds):
 print(f"Végeredmény: Első játékos {player1_score} pont, Második játékos {player2_score} pont")
 if player1_score > player2_score:
     print("Első játékos nyert!")
-else:
+elif player2_score > player1_score:
     print("Második játékos nyert!")
-
+else: print("Döntetlen a játék!")
