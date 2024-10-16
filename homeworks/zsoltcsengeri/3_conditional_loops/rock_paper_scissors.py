@@ -56,7 +56,9 @@ while current_set < number_of_rounds:
 # Compare the players' choices and assign points
 
     if player_1 == player_2:
-        print("It's a draw!")
+        print("It's a draw! Play the round again.")
+         # 'continue' will restart the loop without advancing to the next round
+        continue
 
     elif player_1 == "rock" and player_2 == "paper":
         print("Player Two wins this round!")
@@ -74,6 +76,7 @@ while current_set < number_of_rounds:
         print("Player One wins this round")
         player_1_scores += 1
 
+    # Only advance the round count if there's a winner
     current_set += 1
 
 # Announce the winner
@@ -82,9 +85,6 @@ print(f"The scores are Player One: {
 
 if player_1_scores > player_2_scores:
     print("Player One is the winner!")
-
-elif player_1_scores == player_2_scores:
-    print("It's a draw! No winner!")
 
 else:
     print("Player Two is the winner!")
