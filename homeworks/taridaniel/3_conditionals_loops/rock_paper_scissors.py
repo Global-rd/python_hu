@@ -27,8 +27,8 @@ for word in range(rounds):
 
     if player1_choice == player2_choice:
         print("It's a tie!")
-    elif (player1_choice == "rock" and player2_choice == "scissors") or
-         (player1_choice == "scissors" and player2_choice == "paper") or
+    elif (player1_choice == "rock" and player2_choice == "scissors") or \
+         (player1_choice == "scissors" and player2_choice == "paper") or \
          (player1_choice == "paper" and player2_choice == "rock"):
         player1_points += 1
     else:
