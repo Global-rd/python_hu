@@ -10,8 +10,6 @@ elif city_name == "Chicago":
     condition = True
 elif flat_price <= 3000:
     condition = True
-elif (city_name != "New York" or city_name != "San Fransisco" or city_name != "Washington" or city_name != "Chicago") and flat_price <= 3000:
-    condition = True 
 else:
     condition = False
     # szövegezés a válaszra
