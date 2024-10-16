@@ -25,7 +25,7 @@ p2_point = 0
 while attempts < game_round:
     answer_player_1 = input(f"{player_1} enter your choice: /rock, paper or scissors/ ").lower().strip()
     answer_player_2 = input(f"{player_2} enter your choice: /rock, paper or scissors/ ").lower().strip()
-    if answer_player_1 and answer_player_2  in ["rock", "paper", "scissors"]: 
+    if answer_player_1 in ["rock", "paper", "scissors"] and answer_player_2 in ["rock", "paper", "scissors"]:
        attempts += 1
        if answer_player_1 == answer_player_2:
           attempts -= 1 
