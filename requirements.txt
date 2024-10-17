@@ -1,2 +1,3 @@
 gender-guesser==0.4.0
+geonamescache==2.0.0
 python-dotenv==1.0.1
