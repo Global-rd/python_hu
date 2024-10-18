@@ -15,9 +15,11 @@ while True:
 player1_score = 0
 player2_score = 0
 
+current_round = 1
 #Körök iterálása
-for round in range(count_rounds):
-    print(f"\n{round + 1}. kör: ")
+#for round in range(count_rounds):
+while current_round <= count_rounds:
+    print(f"\n{current_round}. round: ")
 
     #Első játékos köre:
     while True:
@@ -37,7 +39,8 @@ for round in range(count_rounds):
 
     #Eredmény meghatározása:
     if player1_choice == player2_choice:
-        print("The result is a draw")
+        print("The result is a draw, try again!")
+        continue
     elif (player1_choice == 'rock' and player2_choice == 'scissors') or \
          (player1_choice == 'scissors' and player2_choice == 'paper') or \
          (player1_choice == 'paper' and player2_choice == 'rock'):
@@ -46,7 +49,8 @@ for round in range(count_rounds):
     else:
         print("Player 2 won that round")
         player2_score += 1
-
+    
+    current_round += 1
 #Játék véget ért, eredmények kiírása
 print("\nGame Over")
 print(f"Player 1 score: {player1_score}")
@@ -54,7 +58,5 @@ print(f"Player 2 score: {player2_score}")
 
 if player1_score > player2_score:
     print("The winner is Player 1")
-elif player1_score < player2_score:
-    print("The winner is Player 2")
 else:
-    print("The result is draw")
+    print("The winner is Player 2")
