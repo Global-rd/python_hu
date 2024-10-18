@@ -6,9 +6,13 @@ f-string használata
 
 + Extra feladat (szorgalmi)
 '''
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+
 from terminal_clearer import clear_terminal
 
-clear_terminal()
 
 # Ask the user for input
 name = input("Enter your name: ").strip().upper()

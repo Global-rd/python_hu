@@ -6,10 +6,15 @@ Feladat 2: List és dictionary műveletek használata
 + Extra 1 és 2 feladatok (szorgalmi)
 '''
 
-from pprint import pprint
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+
 from terminal_clearer import clear_terminal
 
-clear_terminal()
+
+from pprint import pprint
 
 # Given dictionary
 user_info = {

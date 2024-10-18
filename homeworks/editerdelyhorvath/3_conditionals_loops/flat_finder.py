@@ -5,6 +5,11 @@ Feladat 1: Hétköznapi nyelven leírt szöveg konvertálása Python kód-ra
 (if-elif-else, operátorok)
 '''
 
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+
 from terminal_clearer import clear_terminal
 
 clear_terminal()

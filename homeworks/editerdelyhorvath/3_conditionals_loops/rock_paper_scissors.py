@@ -5,8 +5,14 @@ Feladat 2: Rock Paper Scissors
 (while és for loop használata)
 '''
 
-from terminal_clearer import clear_terminal
 import random
+
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+
+from terminal_clearer import clear_terminal
 
 clear_terminal()
 
@@ -27,8 +33,11 @@ player_score = 0
 computer_score = 0
 tie = 0
 
-for turn in range(1, turns_nr + 1):
-    print(f"Turn {turn}.")
+current_turn = 1
+
+while current_turn <= turns_nr:
+    clear_terminal()
+    print(f"Turn {current_turn}.")
 
     # Computer makes a random choice
     computer_choice = random.choice(rock_paper_scissors_options)
@@ -53,15 +62,25 @@ for turn in range(1, turns_nr + 1):
 
     # Determine the winner
     if user_choice == computer_choice:
-        print("It's a tie!")
+        print("It's a tie! Let's try again!")
         tie += 1
+        # Wait for the user to press Enter before continuing
+        input("Press Enter to continue...")
+        continue
     elif (user_choice == "Rock" and computer_choice == "Scissors") or \
         (user_choice == "Paper" and computer_choice == "Rock") or \
         (user_choice == "Scissors" and computer_choice == "Paper"):
         print("You win!")
         player_score += 1
+        current_turn += 1
     else:
         print("The computer wins!")
         computer_score += 1
+        current_turn += 1
 
-print(f"Good game, thank you! \n\n Final score:\nYou won {player_score} time(s)\nComputer won {computer_score} time(s) and \nThere was/were tie(s) {tie} time(s).\n")
+    # Wait for the user to press Enter before continuing
+    input("Press Enter to continue...")
+
+clear_terminal()
+
+print(f"Good game, thank you! \n\nFinal score:\n  -  You won {player_score} time(s)\n  -  Computer won {computer_score} time(s) and \n  -  There was/were tie(s) {tie} time(s).\n")
