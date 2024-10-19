@@ -1,0 +1,2 @@
+# A feladat kérte, hogy használjunk .gitignore-t, ezért betettem. Ami egyébként felesleges, mert a projekt gyökerében a log fájlok már ki vannak zárva a verziókezelésből.
+*.log
