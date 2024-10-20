@@ -15,18 +15,24 @@ while True:
 # A kiválasztott számnak megfelelő körök lejátszása:
 for rounds in range(chosen_rounds):
 
-    # Első játékos választ
     while True:
-      player_1_turn = input("Első játékos választ: ")
-      if player_1_turn in options:
-           break
-    # Második játékos választ, de őt csak akkor engedi tovább ha mást választott mint az első játékos
-    while True:
-        player_2_turn = input("Második játékos választ: ")
-        if player_2_turn in options and player_2_turn != player_1_turn:
-            break  # Kilépünk, ha érvényes és eltérő választás történt
-        print("A második játékos nem választhat ugyanazt! Próbáld újra.")
+        # Mindkét játékos választ
+        while True:
+            player_1_turn = input("Első játékos választ: ")
+            if player_1_turn in options:
+                break
 
+        while True:
+            player_2_turn = input("Második játékos választ: ")
+            if player_2_turn in options:
+                break
+        
+        # Ellenőrizzük, hogy nem döntetlen-e
+        if player_1_turn == player_2_turn:
+            print("Döntetlen! Újra választanak a játékosok.")
+        else:
+            break
+    
     # Játékszabály érvényesítése
     if (player_1_turn == "rock" and player_2_turn == "scissors") or (player_1_turn == "scissors" and player_2_turn == "paper") or (player_1_turn == "paper" and player_2_turn == "rock"):
         player1_score += 1
