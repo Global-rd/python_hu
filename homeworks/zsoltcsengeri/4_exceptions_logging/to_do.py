@@ -70,7 +70,6 @@ def display_menu():
     )
 )
 
-
         # Handle each option based on the user's input
         if menu == 1:
             add_task()  # Call the add_task() function
