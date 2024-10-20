@@ -1,5 +1,2 @@
-<<<<<<< HEAD
 task 3
-=======
-Go to the London office to see the new CEO
->>>>>>> 5e6e2712e1a73ce3a1a06e120c9b8752f6ddef83
+Task 3
