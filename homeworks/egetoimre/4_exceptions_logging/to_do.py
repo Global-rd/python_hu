@@ -3,7 +3,7 @@ import os
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 data_file = os.path.join(base_dir, 'egetoimre.txt')
-log_file = os.path.join(base_dir, 'app.log')
+log_file = os.path.join(base_dir, 'to_do_log.log')
 
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.WARNING)
