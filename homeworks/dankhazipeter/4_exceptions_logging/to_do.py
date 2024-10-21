@@ -1,4 +1,5 @@
 import os
+import json
 import logging
 
 # Logging setup
@@ -14,21 +15,20 @@ logging.basicConfig(level=logging.INFO,
                         logging.StreamHandler()
                     ])
 
-tasks_file = os.path.join(log_dir, "tasks.txt")
+tasks_file = os.path.join(log_dir, "tasks.json")
 
-# tasks.txt létrehozása, ahogy a feladat kéri. Azonban ha már létezik, ne próbáljuk meg újra létrehozni, hanem használjuk a benne lévő feladatokkal együtt.
+# tasks.json létrehozása, ahogy a feladat kéri. Azonban ha már létezik, ne próbáljuk meg újra létrehozni, hanem használjuk a benne lévő feladatokkal együtt.
 if not os.path.exists(tasks_file):
     with open(tasks_file, 'w') as f:
-        pass
+        json.dump([], f)
 
 
 def read_tasks():
     try:
         with open(tasks_file, 'r') as f:
-            # Nem használok generátort, mert azt feltételezem, hogy fájlban nem lesz több millió sor :)
-            tasks = f.readlines()
+            tasks = json.load(f)
         logging.info("Tasks successfully read from file.")
-        return [task.strip() for task in tasks]
+        return tasks
     except Exception as e:
         logging.error(f"Error reading tasks: {e}")
         return []
@@ -36,8 +36,10 @@ def read_tasks():
 
 def add_task(task):
     try:
-        with open(tasks_file, 'a') as f:
-            f.write(task + "\n")
+        tasks = read_tasks()
+        tasks.append(task)
+        with open(tasks_file, 'w') as f:
+            json.dump(tasks, f, indent=4)
         logging.info(f"Task '{task}' added successfully.")
     except Exception as e:
         logging.error(f"Error adding task: {e}")
@@ -49,8 +51,7 @@ def remove_task(task):
         if task in tasks:
             tasks.remove(task)
             with open(tasks_file, 'w') as f:
-                for t in tasks:
-                    f.write(t + "\n")
+                json.dump(tasks, f, indent=4)
             logging.info(f"Task '{task}' removed successfully.")
         else:
             logging.warning(f"Task '{task}' not found.")
