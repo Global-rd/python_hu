@@ -37,10 +37,14 @@ def read_tasks():
 def add_task(task):
     try:
         tasks = read_tasks()
-        tasks.append(task)
-        with open(tasks_file, 'w') as f:
-            json.dump(tasks, f, indent=4)
-        logging.info(f"Task '{task}' added successfully.")
+        if task in tasks:
+            print(f"A feladat '{task}' már létezik.")
+            logging.warning(f"Task '{task}' already exists.")
+        else:
+            tasks.append(task)
+            with open(tasks_file, 'w') as f:
+                json.dump(tasks, f, indent=4)
+            logging.info(f"Task '{task}' added successfully.")
     except Exception as e:
         logging.error(f"Error adding task: {e}")
 
