@@ -27,27 +27,39 @@ with open("homeworks/nagybalazs/4_exceptions_logging/ToDo_list.txt", "w") as fil
 
 
 def display_menu():
+    print("\nMENU:")
+    print("--------------")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Remove Task")
+    print("4. Exit")
+
+
+def get_user_choice():
     while True:
-        print("\nMENU:")
-        print("--------------")
-        print("1. Add Task")
-        print("2. View Tasks")
-        print("3. Remove Task")
-        print("4. Exit")
+        try:
+            choice = int(input("\nEnter which number choice: "))
+            return choice
+        except ValueError as e:
+            logger.error(f"ValueError: {e}")
+            print(f"ValueError:: {e}")
 
-        choice = int(input("\nEnter which number choice: "))
 
-        if choice == 1:
-            add_task()
-        elif choice == 2:
-            view_task()
-        elif choice == 3:
-            remove_task()
-        elif choice == 4:
-            print("Goodbye!")
-            break
-        else:
-            print(f"The {choice} is not a correct choice,try again")
+def main():    
+        while True:
+            display_menu()
+            choice = get_user_choice()
+            if choice == 1:
+                add_task()
+            elif choice == 2:
+                view_task()
+            elif choice == 3:
+                remove_task()
+            elif choice == 4:
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid choice. Try again.")
 
 
 def add_task():
@@ -60,13 +72,17 @@ def add_task():
         logger.error(f"An unexpected error occurred: {e}")
         print(f"An unexpected error occurred: {e}")
 
+
 def view_task():
     try:
         with open("homeworks/nagybalazs/4_exceptions_logging/ToDo_list.txt", "r") as file:
             lines = file.readlines()
-            print("\n To Do list: ")
-            for line in lines:
-                print(line.strip())
+            if not lines:
+                print("\nThe To Do list is empty.")
+            else:    
+                print("\n To Do list: ")
+                for line in lines:
+                    print(line.strip())
     except Exception as e:
         logger.error(f"An unexpected error occurred: {e}")
         print(f"An unexpected error occurred: {e}")
@@ -95,4 +111,4 @@ def remove_task():
 
 
 if __name__ == "__main__":
-    display_menu()
+    main()
