@@ -23,7 +23,7 @@ if not os.path.exists(tasks_file):
         json.dump([], f)
 
 
-def read_tasks():
+def load_tasks():
     try:
         with open(tasks_file, 'r') as f:
             tasks = json.load(f)
@@ -34,28 +34,31 @@ def read_tasks():
         return []
 
 
-def add_task(task):
+def save_tasks(tasks):
     try:
-        tasks = read_tasks()
+        with open(tasks_file, 'w') as f:
+            json.dump(tasks, f, indent=4)
+        logging.info("Tasks successfully saved to file.")
+    except Exception as e:
+        logging.error(f"Error saving tasks: {e}")
+
+
+def add_task(tasks, task):
+    try:
         if task in tasks:
             print(f"A feladat '{task}' már létezik.")
             logging.warning(f"Task '{task}' already exists.")
         else:
             tasks.append(task)
-            with open(tasks_file, 'w') as f:
-                json.dump(tasks, f, indent=4)
             logging.info(f"Task '{task}' added successfully.")
     except Exception as e:
         logging.error(f"Error adding task: {e}")
 
 
-def remove_task(task):
+def remove_task(tasks, task):
     try:
-        tasks = read_tasks()
         if task in tasks:
             tasks.remove(task)
-            with open(tasks_file, 'w') as f:
-                json.dump(tasks, f, indent=4)
             logging.info(f"Task '{task}' removed successfully.")
         else:
             logging.warning(f"Task '{task}' not found.")
@@ -73,6 +76,8 @@ def display_menu():
     """)
 
 
+tasks = load_tasks()
+
 while True:
     display_menu()
     try:
@@ -83,9 +88,8 @@ while True:
 
         if choice == "1":
             task = input("Add meg a hozzáadandó feladatot: ")
-            add_task(task)
+            add_task(tasks, task)
         elif choice == "2":
-            tasks = read_tasks()
             if tasks:
                 print("\nJelenlegi feladatok:")
                 for idx, task in enumerate(tasks, 1):
@@ -94,9 +98,10 @@ while True:
                 print("\nNincsenek feladatok.")
         elif choice == "3":
             task = input("Add meg a törlendő feladatot: ")
-            remove_task(task)
+            remove_task(tasks, task)
         elif choice == "4":
+            save_tasks(tasks)
             print("Viszlát! Ha legközelebb elindítod a programot, folytathatod a feladatok kezelését ott, ahol abbahagytad.")
             break
     except Exception as e:
-        logging.error(f"Váratlan hiba: {e}")
+        logging.error(f"Úváratlan hiba: {e}")
