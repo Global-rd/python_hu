@@ -3,6 +3,7 @@ to_do.py --- Asztalos Lajos --- 2024.10.21
 setup_logger function by Nagy István Gábor 
 """
 import logging
+import msvcrt
 
 #parameters
 MENU = list(["Feladat hozzáadása","Feladatok listázása","Feladat törlése", "Kilépés"])
@@ -47,13 +48,13 @@ def setup_logger(name, log_file="homeworks/asztaloslajos/4_exceptions_logging/ap
     
     return logger
 
-logger = setup_logger("applog", "homeworks/asztaloslajos/4_exceptions_logging/app.log", level="DEBUG")
+logger = setup_logger("applog", "homeworks/asztaloslajos/4_exceptions_logging/app.log", level=logging.DEBUG)
 
 #task functions
-def add_task(param):
+def add_task(task_definition):
     try:
         with open(FILEPATH + FILENAME, "a") as file:
-            file.write(f"{param}\n")
+            file.write(f"{task_definition}\n")
     except Exception as e:
         logger.error(e)
     else: logger.info(TXT_WRITE_INFO)
@@ -64,15 +65,21 @@ def view_task():
             tasks = file.readlines()
     except Exception as e:
         logger.error(e)
-    else: logger.info(TXT_READ_INFO)
-    for id, task in enumerate(tasks, 1):
-        print(f"{id} - {task.strip()}")
-
-def remove_task(param):
+    else: 
+        logger.info(TXT_READ_INFO)
+        for id, task in enumerate(tasks, 1):
+            print(f"{id} - {task.strip()}")
+    
+def remove_task(task_id):
     try:
         with open(FILEPATH + FILENAME, "r") as file:
             rows = file.readlines()
-            rows.pop(param - 1)
+            if len(rows) < task_id:
+                print("A tartományon belüli elemet kell megadni")
+                mf_wait()
+                return(False)
+            else: 
+                rows.pop(task_id - 1)
     except Exception as e:
         logger.error(e)
     else: logger.info(TXT_READ_INFO)
@@ -82,40 +89,46 @@ def remove_task(param):
     except Exception as e:
         logger.error(e)
     else: logger.info(TXT_WRITE_INFO)
-
+    return(True)
 def display_menu():
     print("###########################################\n")
     print("                 Feladatkezelő\n")
     for id, item in enumerate(MENU, 1):
         print(f" {id} - {item}")
     print("\n###########################################")
-
-
-display_menu()
+#other function 
+def mf_wait():
+    print("\nA továbblépéshez nyomjon meg egy billentyűt!")
+    msvcrt.getch()
 
 while True:
+    display_menu()
     try:
         menu_item = int(input("Kérem válasszon:"))
     except Exception:
         print("egész számot kell megadni!")
+        mf_wait()
     else:
-        if menu_item in [1,3]:
+        if menu_item == 1:
+            menu_param = input("Feladat neve:")
+            add_task(menu_param)
+        elif menu_item == 3:
             while True:
-                menu_param = input("paraméter:")
-                if menu_item == 1:
-                    add_task(menu_param)
-                    break
-                else:
-                    try:
-                        i = int(menu_param)
-                    except Exception:
-                        print("egész számot kell megadni!")
-                        pass
-                    else: 
-                        remove_task(int(menu_param))
+                view_task()
+                menu_param = input("A törlendő feladat sorszáma:")
+                try:
+                    i = int(menu_param)
+                except Exception:
+                    print("Egész számot kell megadni!")
+                    mf_wait()
+                    pass
+                else: 
+                    if remove_task(int(menu_param)):
                         break
+                    else: pass
         elif menu_item == 2:
             view_task()
+            mf_wait()
         elif menu_item == 4: break
         else: pass
 
