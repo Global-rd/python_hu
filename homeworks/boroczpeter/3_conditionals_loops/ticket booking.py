@@ -52,4 +52,4 @@ for i in range(tickets):
 time.sleep(1)
 print("\nInformation about the ticket(s) your booked:")
 print(f"The choosen film is: {film}")
-print(f"Booked seats are: {', '.join([f'{row}. raw, {col}. coloumn' for row, col in book_seats])}")
+print(f"Booked seats are: {', '.join([f'{row}. row, {col}. column' for row, col in book_seats])}")

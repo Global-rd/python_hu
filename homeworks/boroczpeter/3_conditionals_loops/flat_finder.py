@@ -21,7 +21,7 @@ while True:
 if city == "chicago":
     time.sleep(1)
     print(f"Sarah loves Chicago, so she will definitely move there, no matter how much the rent is.")
-elif city == "new york" or city == "san fransisco":
+elif city in ["new yoek", "san fransisco"]:
     if rent < 4000: # integer already converted in row 6
         time.sleep(1)
         print(f"Sarah could move to {city.capitalize()} because the rent is less than 4.000 USD.")
@@ -31,10 +31,9 @@ elif city == "new york" or city == "san fransisco":
 elif city == "washington":
     time.sleep(1)
     print(f"Sarah hates Washington, so she wouldn't move there for any money.")
+elif rent <= 3000: # integer already converted in row 6
+    time.sleep(1)
+    print(f"Sarah could move to {city.capitalize()} because the rent is right.")
 else:
-    if rent <= 3000: # integer already converted in row 6
-        time.sleep(1)
-        print(f"Sarah could move to {city.capitalize()} because the rent is right.")
-    else:
-        time.sleep(1)
-        print(f"Sarah would not move to {city.capitalize()} because the rent is too high.")
+    time.sleep(1)
+    print(f"Sarah would not move to {city.capitalize()} because the rent is too high.")

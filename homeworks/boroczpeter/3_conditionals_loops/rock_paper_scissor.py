@@ -32,9 +32,11 @@ while True:
 player1_score = 0
 player2_score = 0
 
+current_round = 1
+
 # asking for count values, error messages, counting the rounds
-for round_num in range(1, rounds + 1):
-    print(f"\nRound {round_num}:")
+while current_round <= rounds:
+    print(f"\nRound {current_round}:")
     while True:
         player1_choice = input("Player 1, choose: rock, paper or scissors:").strip().lower()
         if choices(player1_choice):
@@ -47,7 +49,6 @@ for round_num in range(1, rounds + 1):
             break
         else:
             print("Error: You must enter a valid answer (rock, paper, scissors)!")
-    
     #determine round winner
     winner = determine_winner(player1_choice, player2_choice)
     if winner == "player1":
@@ -57,7 +58,9 @@ for round_num in range(1, rounds + 1):
         print(f"Player 2 won the round ({player1_choice} vs {player2_choice})!")
         player2_score += 1
     else:
-        print(f"Draw! ({player1_choice} vs {player2_choice})")
+        print(f"Draw! ({player1_choice} vs {player2_choice}), try again!")
+        continue
+    current_round += 1
 
 #determine final winner
 time.sleep(1)
