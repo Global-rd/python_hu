@@ -46,5 +46,4 @@ coverage.xml
 # Unit test / pytest cache
 .pytest_cache/
 
-# Environment variables
-.env
+
