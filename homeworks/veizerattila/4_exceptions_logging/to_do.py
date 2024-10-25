@@ -44,17 +44,14 @@ logger.setLevel(logging.INFO)
 ### Függvények definiálása ####################################################
 ###############################################################################
 def view_task():
-    if not os.path.exists(filepath):
-        #print(f"The '{filepath}' file doesn't exist. Please start over. ")
-        raise FileNotFoundError(f"The '{filepath}' file doesn't exist. ")
-    else:
-        with open(filepath, "r", encoding='utf-8-sig') as file: # furcsa karkatereket adott vissza, ezt neten 
-                                                                # ellenőriztem és találtam ezt a utf-7-sig
-                                                                # kódolási javaslatot
+    try:
+        with open(filepath, "r", encoding='utf-8-sig') as file:
             logging.info("Viewing tasks.")
-            #print("Now you have the following tasks in your To-do app: ")
             for line in file:
                 print(line.strip())
+    except FileNotFoundError:
+        logging.error(f"The file '{filepath}' does not exist.")
+        print(f"The file '{filepath}' does not exist. Please create it or check the path.")
 
 def add_task (task):
     with open (filepath , "a") as file:
@@ -66,7 +63,8 @@ def add_task (task):
 def remove_task (taskremove):
     while True:
         with open(filepath, "r") as file:
-            items = [i.strip() for i in file]
+            #items = [i.strip() for i in file]
+            items = list(set([i.strip() for i in file]))  # Duplikátumok eltávolítása
         if taskremove.strip() in items:
             confirm = input(f"Do you really want to delete the task {taskremove}? (Y or N)? ")    
             if confirm.capitalize() == "Y":
@@ -74,7 +72,7 @@ def remove_task (taskremove):
                 logging.info(f"Task {taskremove} removed. ")
                 #print(f"The following task has has been removed: {taskremove}")
                 with open ( filepath, "w") as file:
-                    file.writelines('\n'.join(items))
+                    file.writelines('\n'.join(items) + '\n')
                 view_task()
             else:
                 logging.info(f"Task {taskremove} not removed. ")
@@ -82,13 +80,15 @@ def remove_task (taskremove):
         else:
             logging.warning(f"No '{taskremove}' task in the list. ")
             #print(f"There is no '{taskremove}' task in the list. ")
-            view_task()
+        taskremove = input("Please enter another task to remove or press Enter to exit: ")
+        if not taskremove:
+            break
         
-        start_over_delete = input("Do you want to choose another task to remove (Y or N) ")
+"""     start_over_delete = input("Do you want to choose another task to remove (Y or N) ")
         view_task()
         if start_over_delete.capitalize() != "Y":
             break
-        taskremove = input("Please enter another task to remove: ")
+        taskremove = input("Please enter another task to remove: ")"""
 
 ###############################################################################
 ### Kezdőoldal definiálása ####################################################
@@ -106,44 +106,47 @@ def display_menu():
 ### Programtörzs definiálása ##################################################
 ###############################################################################    
 while True:
-    while True:
-        try:
-            display_menu()
-            option = int(input("Choose a task from the above list of options: "))
-            logging.info(f'Option {option} choosen. ')
-            if option == 1:
-                new_task = input("What is the new task you want to add? ")
-                add_task(new_task)
-                break
-            elif option == 2:
-                try:
-                    view_task()
-                except FileNotFoundError as e:
-                    logging.error(e)
-                    #print(e)
-                break
-            elif option == 3:
-                try:
-                    view_task() # a Törlésnél is a nézetnél definiált hibakeresést használom fel újra, hogy
-                                # ha nem  létezik a fájl, akkor egyből írja ki a választható opciókat.
-                    task_to_remove = input("Which task do you want to remove? ")
-                    remove_task(task_to_remove)
-                except FileNotFoundError as e:
-                    logging.error(e)
-                    #print(e)
-                break
-            elif option == 4:
-                logging.info("Exiting the app")
-                #print("See you later! ")
-                sys.exit()
-            else:
-                logging.error("Wrong option, not in 1,2,3 or 4. ")
-                #print("Wrong option. Please try again, choosing from 1, 2, 3 or 4. ")
-        except ValueError:
-                logging.error("Wrong option, not a number. ")
-                #print("Wrong option. Please enter a number. ") 
-    start_over = input(f"Do you want to start over and choose from the following options? (Y or N) ")
+    try:
+        display_menu()
+        option = int(input("Choose a task from the above list of options: "))
+        logging.info(f'Option {option} choosen. ')
+        
+        if option == 1:
+            new_task = input("What is the new task you want to add? ")
+            add_task(new_task)
+            
+        elif option == 2:
+            try:
+                view_task()
+            except FileNotFoundError as e:
+                logging.error(e)
+                print(e)
+            
+        elif option == 3:
+            try:
+                view_task() # a Törlésnél is a nézetnél definiált hibakeresést használom fel újra, hogy
+                            # ha nem  létezik a fájl, akkor egyből írja ki a választható opciókat.
+                task_to_remove = input("Which task do you want to remove? ")
+                remove_task(task_to_remove)
+            except FileNotFoundError as e:
+                logging.error(e)
+                print(e)
+            
+        elif option == 4:
+            logging.info("Exiting the app")
+            print("See you later! ")
+            break
+
+        else:
+            logging.error("Wrong option, not in 1,2,3 or 4. ")
+            print("Wrong option. Please try again, choosing from 1, 2, 3 or 4. ")
+    
+    except ValueError:
+            logging.error("Wrong option, not a number. ")
+            print("Wrong option. Please enter a number. ")
+
+""" start_over = input(f"Do you want to start over and choose from the following options? (Y or N) ")
     if start_over.capitalize() != "Y":
         logging.info("Exiting the app")
         #print("See you later! ")
-        break
+        break"""
