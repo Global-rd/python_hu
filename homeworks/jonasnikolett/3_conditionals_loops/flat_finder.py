@@ -25,15 +25,15 @@ while True:
 
 # ha Chicago nincs anyagi akadály
  
-    if rental_city == "Chicago":
+    elif rental_city == "Chicago":
             print(f"Agent: The city is {rental_city}.")
             print(f"Sarah: My favorite place is {rental_city}, I'll take it!")
-            continue
+            
 
  
 # ha New York és San Fransisco, kevesebb mint 4000 USD
 # minden más 3000 USD
-     else:
+    else:
         apartment_rent_price = int(input(f"Sarah: Thank you the city information, and how much is the rent for the apartment in dollars? "))
         print(f"Agent: So, this apartment in {rental_city} is {apartment_rent_price} dollars.")
 
@@ -48,5 +48,5 @@ while True:
                 print(f"Sarah: Perfect! I love {rental_city}, and the price is good for me. I'll take it!")
             else:
                 print(f"Sarah: Sorry, I love {rental_city}, but the flat is expensive for me!")
-                 print( rental_city = input(f"Sarah: Do you have any other apartment in other city?"))
-            break
+                print( rental_city = input(f"Sarah: Do you have any other apartment in other city?"))
+    break
