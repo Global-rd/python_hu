@@ -1,3 +1,27 @@
+#  Logging
+import logging
+
+# HANDLER: where the log message should be written/output
+# FORMATTER: what should appear in the log message
+# Add the FORMATTER to the HANDLER, and then add the HANDLER to the LOGGER
+
+file_handler = logging.FileHandler("app.log") # Write the log to the app.log file
+stream_handler = logging.StreamHandler() # Display the log on terminal
+
+# What message is written or displayed in the file or in the terminal
+formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')  
+
+# Add formatter to the handler
+file_handler.setFormatter(formatter) # file_handler uses the same formatter content as stream_handler
+stream_handler.setFormatter(formatter)# That said, the same messages display in the file or in the terminal
+
+# Define the logger, add the handler to the logger, and set the level of the logger
+logger = logging.getLogger() # Define the logger
+logger.addHandler(file_handler) # Add the handler to the logger
+logger.addHandler(stream_handler) # Add the handler to the logger
+logger.setLevel(logging.DEBUG) # Set the minimum level of the logger (DEBUG is the highest)
+
+# *Functions to add, display, and delete the tasks provided by the user
 def add_task():
     # This function allows the user to add a new task.
     # It opens the task file in append mode, adds the task entered by the user,
@@ -10,7 +34,8 @@ def add_task():
         task = input("Enter the task you want to add: ")  # Ask the user for the task
 
         file.write(task + "\n")  # Write the task to the file with a newline at the end
-        print(f"Task '{task}' added to the list.")
+        logger.info(f"Task '{task}' added to the list.\n")
+        # print(f"Task '{task}' added to the list.") * this has now been obsolete due to the log message
 
 
 def read_task():
@@ -26,7 +51,8 @@ def read_task():
             for line in lines:
                 print(line.strip())
     except FileNotFoundError as e:
-        print(f"The file not found: {e}")
+        logger.error(f"The file not found: {e}\n")
+        # print(f"The file not found: {e}") * this has now been obsolete due to the log message
 
 
 def delete_task():
@@ -42,8 +68,10 @@ def delete_task():
         for id, line in enumerate(lines, 1):  # Enumerate the tasks in the list
             print(f"{id} - {line}")
     except FileNotFoundError as e:
-        print(f"The file not found: {e}")
-    # Let the user choose which task to delete
+        logger.error(f"The file not found: {e}\n")
+        # print(f"The file not found: {e}") * this has now been obsolete due to the log message
+    
+    # *Let the user choose which task to delete
 
     while True:
         try:
@@ -54,17 +82,19 @@ def delete_task():
             )
 
             if task_to_delete < 1 or task_to_delete > len(lines):
-                print(
-                    "The ID you've provided doesn't exist, please give the ID of the task from the list\n"
-                )
+                logger.warning(f"Invalid task ID: {task_to_delete}\n")
+                #print("The ID you've provided doesn't exist, please give the ID of the task from the list\n") * 
+                # this has now been obsolete due to the log file
                 continue
             else:
                 del lines[
                     task_to_delete - 1
-                ]  # The task is deleted by removing the item from the 'lines' list using the index (task_to_delete - 1).
+                ]  # The task is deleted by removing the item from the 'lines' list using the index (task_to_delete - 1)
+                logger.info(f"Task {task_to_delete} deleted.")
             break
         except ValueError as e:
-            print(f"This error is because {e}: Please enter a number!\n")
+            logger.error(f"Invalid input: {e}\n")
+            # print(f"This error is because {e}: Please enter a number!\n") * this has now been obsolete due to the log file
         continue
 
     # Need to rewrite the file with the updated list of tasks
@@ -110,6 +140,7 @@ def display_menu():
                 )  # Handle invalid input
 
         except ValueError as e:
+            logger.error(f"Invalid input: {e}\n")
             print(
                 f"This error is because {e}: Please enter a number!\n"
             )  # Keep looping if input is not a number
