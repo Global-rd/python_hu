@@ -17,24 +17,21 @@ logger.addHandler(File_Handler)
 logger.addHandler(Stream_Handler)
 logger.setLevel(logging.DEBUG)
 
-file_path = "python_rd_repo/python_hu/homeworks/feherbarnabas/4_exceptions_logging/tasks.txt"
-os.makedirs(os.path.dirname(file_path), exist_ok=True)
+file_path = "homeworks/feherbarnabas/4_exceptions_logging/tasks.txt"
 
 # A fájl létrehozása
 with open(file_path, "w") as file:
     file.write("")
     logger.info("File created.")
 
-file_name = 'tasks.txt'
-
 # Üres .txt fájl létrehozása
-if not os.path.exists(file_name):
-    open(file_name, 'w').close()
+if not os.path.exists(file_path):
+    open(file_path, 'w').close()
 
 # Feladatok olvasása
 def read_tasks():
     try:
-        with open(file_name, 'r') as file:
+        with open(file_path, 'r') as file:
             tasks = file.readlines()
             tasks = [task.strip() for task in tasks]
             logging.info(f"Tasks read: {tasks}")
@@ -43,12 +40,13 @@ def read_tasks():
         logging.error(f"Error reading tasks: {e}")
         return []
 
+
 # Feladat hozzáadása
 def add_task(task):
     task = task.strip()
     if task:
         try:
-            with open(file_name, 'a') as file:
+            with open(file_path, 'a') as file:
                 file.write(task + '\n')
             logging.info(f"Task added: {task}")
         except Exception as e:
@@ -59,16 +57,24 @@ def add_task(task):
 
 # Feladat törlése
 def remove_task(task):
+
+    tasks = read_tasks()
+
+    if not tasks:
+        print("There are no tasks to remove.")
+        return
+
     try:
-        tasks = read_tasks()
-        if task in tasks:
-            tasks.remove(task)
-            with open(file_name, 'w') as file:
+        task_to_remove = input("Choose a task to remove: ")
+
+        if task_to_remove in tasks:
+            tasks.remove(task_to_remove)
+            with open(file_path, 'w') as file:
                 for t in tasks:
                     file.write(t + '\n')
-            logging.info(f"Task removed: {task}")
+            logging.info(f"Task removed: {task_to_remove}")
         else:
-            logging.warning(f"Task not found: {task}")
+            logging.warning(f"Task not found: {task_to_remove}")
     except Exception as e:
         logging.error(f"Error removing task: {e}")
 
@@ -101,8 +107,16 @@ def main():
             else:
                 print("There are no tasks.")
         elif choice == '3':
-            task = input("Add the task to delete: ")
-            remove_task(task)
+            tasks = read_tasks()
+            if tasks:
+                print("Tasks:")
+                for i, task in enumerate(tasks, 1):
+                    print(f"{i}. {task}")
+                remove_task(task)
+            else:
+                print("There are no tasks.")
+
         elif choice == '4':
             print("Exiting...")
             break
+main()
