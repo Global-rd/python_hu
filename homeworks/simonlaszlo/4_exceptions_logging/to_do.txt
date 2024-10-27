@@ -44,3 +44,12 @@
 2024-10-25 17:31:44,280 -  INFO - Feladat hozzaadva: 'teszt5'
 2024-10-25 17:31:47,706 -  INFO - Feladatok megtekintese sikeres.
 2024-10-25 17:31:51,774 -  INFO - Kilepes a programbol.
+2024-10-27 16:15:40,489 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:45,198 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:47,387 -  INFO - Feladat torolve: 'teszt3'
+2024-10-27 16:15:50,199 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:51,870 -  INFO - Feladat torolve: 'teszt4'
+2024-10-27 16:15:57,027 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:58,590 -  INFO - Feladat torolve: 'teszt5'
+2024-10-27 16:16:04,074 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:16:45,293 -  INFO - Kilepes a programbol.

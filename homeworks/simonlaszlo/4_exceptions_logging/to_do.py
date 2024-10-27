@@ -1,4 +1,5 @@
 import logging
+#import os
 
 TASKS_FILE = "homeworks/simonlaszlo/4_exceptions_logging/log.log"
 LOG_FILE = "homeworks/simonlaszlo/4_exceptions_logging/to_do.txt"
@@ -7,9 +8,20 @@ def add_task(task):
     """
     Új feladatot ad hozzá a fájlhoz.
     """
-    with open(TASKS_FILE, "a") as file:
-        file.write(task + "\n")
-    logging.info(f"Feladat hozzaadva: '{task}'")
+    try:
+        with open(TASKS_FILE, "a") as file:
+            file.write(task + "\n")
+        logging.info(f"Feladat hozzaadva: '{task}'")
+    except FileNotFoundError:
+        logging.info("Fajl nem talalhato.")
+    except PermissionError:
+        logging.info("Nincs a fájlhoz irasi jogosultsag!")
+    except (IOError,OSError) as e:
+        logging.info(f"Fajlkezelesi hiba: {e}")
+    except Exception as e:
+        logging.info(f"Egyeb hiba: {e}")
+    
+           
 
 def view_tasks():
     """
@@ -19,17 +31,23 @@ def view_tasks():
         with open(TASKS_FILE, "r") as file:
             tasks = file.readlines()
 
-        if tasks:
+        #if tasks:
             print("\nFeladatok listája:")
             for index, task in enumerate(tasks, start=1):
                 print(f"{index}. {task.strip()}")
             print()  # Üres sor a menü és a lista közé
             logging.info("Feladatok megtekintese sikeres.")
-        else:
-            logging.info("Nincs feladat a listaban.")
-            return 0
+        #else:
+        #    logging.info("Nincs feladat a listaban.")
+        #   display_menu()
     except FileNotFoundError:
         logging.info("Fajl nem talalhato.")
+    except (IOError,OSError) as e:
+        logging.info(f"Fajlkezelesi hiba: {e}")
+    except Exception as e:
+        logging.info(f"Egyeb hiba: {e}")
+
+
 
 def display_menu():
     print("")
@@ -62,6 +80,13 @@ def remove_task(task_number):
             logging.info(f"Ervenytelen torlesi sorszam: {task_number}")
     except FileNotFoundError:
         logging.info("Fajl nem talalhato.")
+    except (IOError,OSError) as e:
+        logging.info(f"Fajlkezelesi hiba: {e}")
+    except PermissionError:
+        logging.info("Nincs a fájlhoz irasi jogosultsag!")
+    except Exception as e:
+        logging.info(f"Egyeb hiba: {e}")
+
 
 # Logger létrehozása
 
