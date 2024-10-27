@@ -1,3 +1,11 @@
+"""
+This program creates a todo list where the user can add, read, and remove tasks.
+It includes error handling to manage invalid inputs and missing files effectively,
+as well as logging to track program activity and errors both in the console and a log file.
+"""
+
+
+
 #  Logging
 import logging
 
