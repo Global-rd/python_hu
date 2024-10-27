@@ -1,8 +1,12 @@
 import logging
-import json
+import os
+print(os.getcwd())
 
+os.chdir("python_hu")
 
-def setup_logger(logger_name, log_file="python_hu/homeworks/kirkovvalentiniván/4_exceptions_logging/app.log",level=logging.INFO):
+print(os.getcwd())
+
+def setup_logger(logger_name, log_file="homeworks/kirkovvalentiniván/4_exceptions_logging/app.log",level=logging.INFO):
     logger = logging.getLogger(logger_name)                                         #Call getlogger function from logging module
     file_handler = logging.FileHandler(log_file)                                    #Where we write the log messages
     stream_handler = logging.StreamHandler()                                          #Where we write the log messages
@@ -69,7 +73,7 @@ def display_menu():
 
 
 def main():
-    file = "python_hu/homeworks/kirkovvalentiniván/4_exceptions_logging/to_do.txt"
+    file = "homeworks/kirkovvalentiniván/4_exceptions_logging/to_do.txt"
     while True:
         display_menu()
         choice = int(input("Pick an option from 1 to 4: "))
