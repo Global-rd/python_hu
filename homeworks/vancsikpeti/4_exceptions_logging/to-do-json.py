@@ -17,43 +17,58 @@ logger.addHandler(file_handler)
 logger.addHandler(stream_handler)
 logger.setLevel(logging.DEBUG)
 
-file_path = "python_hu/homeworks/vancsikpeti/4_exceptions_logging/to-do-list.json"
-with open(file_path, "w") as file:
-    file.write("")
+json_file_path = "python_hu/homeworks/vancsikpeti/4_exceptions_logging/to-do-list.json"
+
+tasks = {"tasks": []}
+#tasks= {"tasks": ["First task", "Second task", "Third task"]}
+
+with open(json_file_path, "w") as file:
+    json.dump(tasks, file)
     logger.info("Create file.")
 
-def view_task():
-    with open(file_path, "r") as file:
-        lines = file.readlines()
-        item_num = 1
-        for line in lines:
-            print(f"{item_num}. task: {line.strip()}")
-            item_num += 1
+def read_tasks(json_file_path) -> dict:
+    try:
+        with open(json_file_path, "r") as file:
+            data = json.load(file)
+        logger.info("Open file in reading mode. Load items in file to list.")
+    except Exception as error:
+        logging.error("Valami hiba")    
+    return data    
+
+def view_task(json_file_path, key_word = "tasks"):
+    data = read_tasks(json_file_path)
+    tasks = data["tasks"]
+    task_num = 1
+    try:
+        for task in tasks:
+            print(f"{task_num}. task: {task.strip()}")
+            task_num += 1
         print("---- end of the list ----")
-        logger.info("Read the items from file.") 
-        
-def add_task(task):
-    with open(file_path, "a") as file:
-        file.write(f"{task}\n")
-        logger.info(f"Create a new task: {task}.")
+    except TypeError as error:
+        logger.error("NoneType object is not iterable")
+    logger.info("Read the items from file.") 
+
+def add_task(newtask):
+    try:
+        data = read_tasks(json_file_path)
+        data["tasks"].append(newtask)
+        with open(json_file_path, "w") as file:
+            json.dump(data, file)
+    except TypeError as error:
+        logger.error("Error message... This part of the json object not a list.")    
+    logger.info(f"Create a new task: {newtask}.")
 
 def remove_task(task_item):
         tasks = []
         if task_item > 0:
-            with open(file_path, "r") as file:
-                tasks = file.readlines()
-            logger.info("Open file in reading mode. Load items in file to list.") 
-            #print(f"Törlés előtt a lista elemei: {tasks}")
+            data = read_tasks(json_file_path)
+            tasks = data["tasks"]
             del tasks[task_item-1]
             logger.info("Delete item from list.")
+            new_object = {"tasks": tasks}
             #print(f"Törlés után az új lista elemei: {tasks}")
-            with open(file_path, "w") as file:
-                file.write("")
-            logger.info("Clear the file.")    
-            with open(file_path, "a") as file:
-                for line in tasks:
-                    file.write(line)
-            logger.info("Write items from list to file.")        
+            with open(json_file_path, "w") as file:
+                json.dump(new_object, file)
             print("Remove complete...\n")
         else:
             # print("Error message... This item is less than the number of your tasks. \n")
@@ -86,9 +101,9 @@ while True:
     if job == 1:
         task = input("Write your task what you want to do: ")
         logger.info(f"Enter task item. {task}")
-        add_task(task=task)
+        add_task(task)
     elif job == 2:
-        view_task()
+        view_task(json_file_path, "tasks")
     elif job == 3:
         try: 
             remove_item = int(input("Write the number of list's item that you want to remove: "))

@@ -1,5 +1,6 @@
 import os
 import logging
+from typing import IO
 
 file_handler = logging.FileHandler("python_hu/homeworks/vancsikpeti/4_exceptions_logging/todo.log")
 fformatter = logging.Formatter('%(asctime)s - %(name)s - %(module)s - %(levelname)s - %(message)s')
@@ -21,15 +22,27 @@ with open(file_path, "w") as file:
     file.write("")
     logger.info("Create file.")
 
-def view_task():
-    with open(file_path, "r") as file:
-        lines = file.readlines()
+def read_tasks(file_path):
+    tasks = []
+    try:
+        with open(file_path, "r") as file:
+            tasks = file.readlines()
+    except FileNotFoundError as error:
+        logger.error("Error message... File not found.")
+    except IO as error:
+        logger.error("Error message... I do not know what does 'IO error' mean...")
+    except OSError as error:
+        logger.error("Error message... I do not know what does 'OSError' mean...")    
+    logger.info("Open file in reading mode. Load items in file to list.")
+    return tasks    
+
+def view_tasks(file_path):
+        tasks = read_tasks(file_path)
         item_num = 1
-        for line in lines:
-            print(f"{item_num}. task: {line.strip()}")
+        for task in tasks:
+            print(f"{item_num}. task: {task.strip()}")
             item_num += 1
         print("---- end of the list ----")
-        logger.info("Read the items from file.") 
         
 def add_task(task):
     with open(file_path, "a") as file:
@@ -39,9 +52,7 @@ def add_task(task):
 def remove_task(task_item):
         tasks = []
         if task_item > 0:
-            with open(file_path, "r") as file:
-                tasks = file.readlines()
-            logger.info("Open file in reading mode. Load items in file to list.") 
+            tasks = read_tasks(file_path)  
             #print(f"Törlés előtt a lista elemei: {tasks}")
             del tasks[task_item-1]
             logger.info("Delete item from list.")
@@ -69,10 +80,10 @@ def navigation():
             job = int(input("Program navigation: "))
             logger.info(f"Input data for programm navigation: {job}")
         except ValueError as error:
-            logger.error(f"Wrong data to input. {job}")
+            logger.error(f"Error message... The entered data is not a number.")
             return False
         if job < 1 or job > 4:
-            logger.error(f"Wrong data to input. {job}")
+            logger.error(f"Error message... The entered number has to be between 1 and 4. {job}")
             return False        
         return job
 
@@ -87,13 +98,13 @@ while True:
         logger.info(f"Enter task item. {task}")
         add_task(task=task)
     elif job == 2:
-        view_task()
+        view_tasks(file_path)
     elif job == 3:
         try: 
             remove_item = int(input("Write the number of list's item that you want to remove: "))
             remove_task(remove_item)
         except ValueError as error:
-            logger.error("Error message... It is not a number!")
+            logger.error("Error message... The entered data is not a number.")
         except IndexError as error:
             logger.error("Error message... This item is greater than the number of your tasks.")
     elif job == 4:
