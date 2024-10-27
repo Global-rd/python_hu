@@ -1,13 +1,8 @@
 import logging
 import os
 
-# Create the tasks.txt file if it doesn't exist
-if not os.path.exists("tasks.txt"):
-    with open("tasks.txt", "w") as f:
-        pass
-
 # Configure logging to write to both console and a log file
-logging.basicConfig(filename='todo.log', level=logging.INFO, format='%(asctime)s - %(message)s')
+logging.basicConfig(filename='python_hu/homeworks/franktoth/4_exceptions_logging/todo.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 #Reads tasks from a file.
 def read_tasks(filename):
@@ -59,33 +54,38 @@ def display_menu():
 filename = "tasks.txt"
 
 #The Task Manager script
-while True:
-    display_menu()
-    choice = input("Choose an option (1-4): ")
-    try:
-        choice = int(choice)
-        if choice == 1:
-            task = input("Enter the task: ")
-            add_task(filename, task)
-        elif choice == 2:
-            tasks = read_tasks(filename)
-            if tasks:
-                for i, task in enumerate(tasks):
-                    print(f"{i+1}. {task}")
+def main():
+    filename = "tasks.txt"
+    while True:
+        display_menu()
+        choice = input("Choose an option (1-4): ")
+        try:
+            choice = int(choice)
+            if choice == 1:
+                task = input("Enter the task: ")
+                add_task(filename, task)
+            elif choice == 2:
+                tasks = read_tasks(filename)
+                if tasks:
+                    for i, task in enumerate(tasks):
+                        print(f"{i+1}. {task}")
+                else:
+                    print("No tasks found.")
+            elif choice == 3:
+                tasks = read_tasks(filename)
+                if tasks:
+                    for i, task in enumerate(tasks):
+                        print(f"{i+1}. {task}")
+                    index = int(input("Enter the task number to remove: ")) - 1
+                    remove_task(filename, index)
+                else:
+                    print("No tasks to remove.")
+            elif choice == 4:
+                break
             else:
-                print("No tasks found.")
-        elif choice == 3:
-            tasks = read_tasks(filename)
-            if tasks:
-                for i, task in enumerate(tasks):
-                    print(f"{i+1}. {task}")
-                index = int(input("Enter the task number to remove: ")) - 1
-                remove_task(filename, index)
-            else:
-                print("No tasks to remove.")
-        elif choice == 4:
-            break
-        else:
-            print("Invalid choice.")
-    except ValueError:
-        print("Invalid input. Please enter a number between 1 and 4.")
+                print("Invalid choice.")
+        except ValueError:
+            print("Invalid input. Please enter a number between 1 and 4.")
+
+if __name__ == "__main__":
+    main()
