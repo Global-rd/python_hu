@@ -26,10 +26,9 @@ def read_file_line_by_line(file_path):
 
 def add_task(task):
     try:  
-        file = open(file_path, "a")   
-        file.write(f"{task}\n")
-        logger.info(f"succesfully added task: {task}\n")
-        file.close()
+        with open(file_path, "a") as file:  
+            logger.info(f"succesfully added task: {task}\n")
+            file.close()
     except Exception as e:
         logger.error(f"Error adding task: {e}")
     
@@ -55,11 +54,8 @@ def remove_task(task):
         logger.error(f"Error while deleting task: {e}")
 
 
-
-
-def displayMenu():
-    global menu_input
-
+def display_menu():
+    
     menu_input = input("Please enter one of the following options:\n 1 - add task\n 2 - view all tasks\n 3 - remove task\n 4 - exit\n")
 
     if menu_input == "1":
@@ -74,6 +70,4 @@ def displayMenu():
     elif menu_input == "4":
         exit()
 
-    return menu_input
-
-displayMenu()
+display_menu()
