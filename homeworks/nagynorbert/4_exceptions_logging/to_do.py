@@ -45,24 +45,21 @@ def remove_task(task):
     except Exception as e:
         logger.info(f"Exception happened during {taskfile} reading: {e}")
     else:
-            with open(taskfile,"w") as file:
-                try:
-                    file.seek(0)
-                    index = lines.index(task+"\n")
-                except IndexError as e:
-                    logger.info(f"Task is not found in file: {e}")
-                except ValueError as e:
-                    logger.info(f"Task is not defined in file: {e}")
-                except Exception as e:
-                    logger.info(f"Unexpected error happened during removing a task: {e}")
-                else:
-                    lines.pop(index)
-                    logger.info("Task removal was success.")
-                    logger.info(f"Tasks after remove operation:")
-                    view_tasks()
-                finally:
-                    file.truncate()
-                    file.writelines(lines)
+        with open(taskfile,"w") as file:
+            try:
+                lines.remove(task+"\n")
+            except IndexError as e:
+                logger.info(f"Task is not found in file: {e}")
+            except ValueError as e:
+                logger.info(f"Task is not defined in file: {e}")
+            except Exception as e:
+                logger.info(f"Unexpected error happened during removing a task: {e}")
+            else:
+                logger.info("Task removal was success.")
+                logger.info(f"Tasks after remove operation:")
+                view_tasks()
+            finally:
+                file.writelines(lines)
 
 
 def exit_program():
@@ -93,25 +90,27 @@ def user_input():
                 break
     return user_input
 
-display_menu()
-menu_item = user_input()
-match menu_item:
-    case 1:
-        try:
-            task=input(f"Please add the task which will be added to {taskfile} file:")
-        except Exception as e:
-            logger.info(f"Exception happened during task definition in case of adding a task: {e}")
-        else:
-            add_task(task)
-    case 2:
-        view_tasks()
-    case 3:
-        try:
-            task=input(f"Please add the task which will be removed from {taskfile} file:")
-        except Exception as e:
-            logger.info(f"Exception happened during task definition in case of remove a task: {e}")
-        else:
-            remove_task(task)
-    case 4:
-        exit_program()
+while True:
+    display_menu()
+    menu_item = user_input()
+    match menu_item:
+        case 1:
+            try:
+                task=input(f"Please add the task which will be added to {taskfile} file:")
+            except Exception as e:
+                logger.info(f"Exception happened during task definition in case of adding a task: {e}")
+            else:
+                add_task(task)
+        case 2:
+            view_tasks()
+        case 3:
+            try:
+                task=input(f"Please add the task which will be removed from {taskfile} file:")
+            except Exception as e:
+                logger.info(f"Exception happened during task definition in case of remove a task: {e}")
+            else:
+                remove_task(task)
+        case 4:
+            exit_program()
+            break
 
