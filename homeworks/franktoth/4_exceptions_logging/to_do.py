@@ -4,6 +4,11 @@ import os
 # Configure logging to write to both console and a log file
 logging.basicConfig(filename='python_hu/homeworks/franktoth/4_exceptions_logging/todo.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
+# Add a StreamHandler to print logs to the console (INFO level and above)
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+logging.getLogger().addHandler(console_handler)
+
 #Reads tasks from a file.
 def read_tasks(filename):
 
