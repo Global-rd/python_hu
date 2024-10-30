@@ -52,7 +52,6 @@ def display_menu():
 
 #folyamat futtatás, hibaüzenettel
 def main():
-    file_name = 'homeworks/vulmanjanos/4_exceptions_logging/to_do.txt'
     while True:
         display_menu()
         choice = input("Choose an option (1-4): ")
