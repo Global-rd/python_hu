@@ -55,19 +55,22 @@ def remove_task(task):
 
 
 def display_menu():
-    
-    menu_input = input("Please enter one of the following options:\n 1 - add task\n 2 - view all tasks\n 3 - remove task\n 4 - exit\n")
+    while True:
+        menu_input = input("Please enter one of the following options:\n 1 - add task\n 2 - view all tasks\n 3 - remove task\n 4 - exit\n")
+        
+        if menu_input == "1":
+            task = input("Please add task\n")
+            add_task(task=task)
+        elif menu_input == "2":
+            view_all_tasks()
+        elif menu_input == "3":
+            task = input("Please remove task\n")
+            remove_task(task=task)
+        elif menu_input == "4":
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid option. Please try again.")
 
-    if menu_input == "1":
-        task = input("Please add task\n")
-        add_task(task = task)
-    elif menu_input == "2":
-        view_all_tasks()
-    elif menu_input == "3":
-        task = input("Please remove task\n")
-        remove_task(task = task)
-      
-    elif menu_input == "4":
-        exit()
-
+# Run the menu
 display_menu()
