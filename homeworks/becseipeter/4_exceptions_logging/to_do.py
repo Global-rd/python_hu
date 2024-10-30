@@ -25,10 +25,10 @@ def read_file_line_by_line(file_path):
             yield line
 
 def add_task(task):
-    try:  
-        with open(file_path, "a") as file:  
+    try:
+        with open(file_path, "a") as file:
+            file.write(f"{task}\n")
             logger.info(f"succesfully added task: {task}\n")
-            file.close()
     except Exception as e:
         logger.error(f"Error adding task: {e}")
     
@@ -74,3 +74,5 @@ def display_menu():
 
 # Run the menu
 display_menu()
+
+
