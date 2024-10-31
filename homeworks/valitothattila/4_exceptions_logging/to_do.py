@@ -27,19 +27,29 @@ logger.setLevel(logging.DEBUG)
 
 # ------------------------ Menü = 1 -> task_list elem hozzáadása  -------------------------
 def add_to_tasklist(add_element):
-    with open(file_path, "a") as file:
-        file.write(f"{add_element}\n")
-        logger.info(f"Add elemnt to the task list: {add_element}.")
+    try:
+        with open(file_path, "a") as file:
+            file.write(f"{add_element}\n")
+            logger.info(f"Add elemnt to the task list: {add_element}.")
+    except Exception as e:
+        logger.error(f"{e}")
 
 # ------------------------ Menü = 2 -> task_list elemeinek listázása -------------------------
 def list_tasklist():
-    with open(file_path, "r") as file:
-        file_element = file.readlines()
-        index_number = 1
-        for list_element in file_element:
-            print(f"{index_number}: {list_element.strip()}")
-            index_number += 1
-        logger.info("List task elements from the file.")      
+    try:    
+        with open(file_path, "r") as file:
+            file_element = file.readlines()
+            list_range = len(file_element)
+            if list_range > 0:
+                index_number = 1
+                for list_element in file_element:
+                    print(f"{index_number}: {list_element.strip()}")
+                    index_number += 1
+            else:
+                print("The list is empty!")
+            logger.info("List task elements from the file.")      
+    except Exception as e:
+            logger.error(f"{e}")
 
 # ------------------------ Menü = 3 -> task_list elem törlése -------------------------
 def del_element_of_list(del_index):
