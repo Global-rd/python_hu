@@ -48,19 +48,19 @@ logger.addHandler(file_handler)
 
 #file megnyitása és hozzáírás meghatározása
 def read_tasks(filename):
-    try:
-        with open(filename, 'r'):
-            tasks = filename.readlines()
-            logging.info("Registered task / Feladat beírásra került")
-            return tasks
-    except FileNotFoundError:
+   try:
+        with open(filename, 'r') as f:
+           tasks = f.readlines()
+           logging.info("Registered task / Feladat beírásra került")
+           return tasks
+   except FileNotFoundError:
         logging.error("File not found! / A fájl nem található.")
         return []
 
 def add_task(filename, task):
     try:
-        with open(filename, 'a'):
-            filename.write(task + '\n')
+        with open(filename, 'a') as f:
+            f.write(task + '\n')
             logging.info(f"Task added: / Feladat hozzáadva: {task}")
     except IOError:
         logging.error("Somthing wrong! Hiba történt.")
@@ -71,7 +71,7 @@ def remove_task(filename, task_index):
         removed_task = tasks.pop(task_index).strip()
         with open(filename, 'w') as f:
             for task in tasks:
-                filename.write(task.strip() + '\n')
+                f.write(task.strip() + '\n')
         logging.info(f"FTask deleted: /Feladat törölve: {removed_task}")
     else:
         logging.warning("This task not avaiable / A feladat nem létezik")
