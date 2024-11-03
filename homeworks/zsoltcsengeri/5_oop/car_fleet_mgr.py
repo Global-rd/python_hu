@@ -15,6 +15,14 @@ A refuel() method, which refills the fuel level by a specified amount. Be mindfu
 class Car:
 
     def __init__(self, brand, model, year, mileage=0, fuel_level=100):
+        """
+        Constructor to initialize the Car's attributes.
+        :param brand: The brand of the car (e.g., "Jaguar")
+        :param model: The model of the car (e.g., "E Pace")
+        :param year: The year the car was manufactured
+        :param mileage: Initial odometer reading, defaults to 0
+        :param fuel_level: Initial fuel level, defaults to 100%
+        """
         self.brand = brand
         self.model = model
         self.year = year
@@ -22,25 +30,36 @@ class Car:
         self.fuel_level = fuel_level
 
     def get_info(self):
+        """
+        Display car details such as brand, model, year, mileage, and current fuel level.
+        """
         print(
             f"Car info:\n brand: {self.brand}, model: {self.model}, year: {self.year}, mileage: {self.mileage}, fuel_level: {self.fuel_level}"
         )
 
     def drive(self, miles):
-        # Calculate fuel required for the requested miles
-        fuel_used = miles * 0.1
+        """
+        Simulate driving the car a certain distance.
+        :param miles: Number of miles to drive.
+        - Calculates the fuel required for the drive.
+        - Checks if there is enough fuel to drive the specified distance.
+        - If enough fuel, it updates the mileage and reduces the fuel level.
+        - If insufficient fuel, it drives as far as possible and sets fuel to 0.
+        """
+       
+        fuel_used = miles * 0.1  # Calculate fuel required for the requested miles
 
         # Check if there's enough fuel to cover the distance
         if self.fuel_level >= fuel_used:
-            # Sufficient fuel, proceed with the drive
+            # If enough fuel, drive the full distance
             self.mileage += miles
             self.fuel_level -= fuel_used
             print(
                 f"{self.brand} {self.model} drove {miles} miles and used {fuel_used:.2f}l of fuel, fuel level: {self.fuel_level:.2f}%"
             )
         else:
-            # Insufficient fuel, calculate possible distance and update
-            max_distance = self.fuel_level / 0.1
+            # Not enough fuel fuel, calculate possible distance and update
+            max_distance = self.fuel_level / 0.1  # Max distance with remaining fuel
             self.mileage += max_distance
             self.fuel_level = 0  # Fuel is completely used up
             print(
@@ -50,18 +69,30 @@ class Car:
     # Refuel method to fill up the tank with a given amount of fuel
 
     def refuel(self, amount):
+        """
+        Refuel the car by a specified amount.
+        :param amount: Amount of fuel to add.
+        - If adding the fuel exceeds 100%, sets fuel level to 100% and notifies user of excess.
+        - Otherwise, adds the specified amount to the fuel level.
+        """
         if self.fuel_level + amount > 100:
             excess = self.fuel_level + amount - 100
-            self.fuel_level = 100
+            self.fuel_level = 100 # Set fuel level to full
             print(f"The tank of {self.brand} {self.model} is now full! Could not add {excess}% as it exceeds the tank's capacity.")
         else:
             self.fuel_level += amount
             print(f"The fuel level of {self.brand} {self.model} is now at {self.fuel_level}%.")
 
 
+# Example usage:
+
 car1 = Car(brand="Jaguar", model="E Pace", year=2018)
 
-# Call the drive method by passing a number as a distance
+# Display initial car info
+car1.get_info()
+
+# Drive a certain distance
 car1.drive(100)
-# Call the refuel method by passing a number as the amount of refill
+
+# Attempt to refuel by a certain amount
 car1.refuel(55)
