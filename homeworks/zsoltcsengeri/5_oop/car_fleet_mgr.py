@@ -1,5 +1,5 @@
 """ 
-*Task 1: todo Create a file named car_fleet_mgr.py and code the solution to the following task.
+*Task 1: Create a file named car_fleet_mgr.py and code the solution to the following task.
 !Create a Car class that has the following attributes: 
 Brand (brand) Model (model) Year of manufacture (year) odometer reading (mileage), starting value is 0. 
 Fuel level (fuel_level), starting value is 100 (in percentage). 
@@ -50,15 +50,13 @@ class Car:
     # Refuel method to fill up the tank with a given amount of fuel
 
     def refuel(self, amount):
-
         if self.fuel_level + amount > 100:
+            excess = self.fuel_level + amount - 100
             self.fuel_level = 100
-
-            print(f"The tank of {self.brand} {self.model} is full!")
-
+            print(f"The tank of {self.brand} {self.model} is now full! Could not add {excess}% as it exceeds the tank's capacity.")
         else:
             self.fuel_level += amount
-            print(f"The fuel level of {self.brand} {self.model} {self.fuel_level}  ")
+            print(f"The fuel level of {self.brand} {self.model} is now at {self.fuel_level}%.")
 
 
 car1 = Car(brand="Jaguar", model="E Pace", year=2018)
@@ -66,4 +64,4 @@ car1 = Car(brand="Jaguar", model="E Pace", year=2018)
 # Call the drive method by passing a number as a distance
 car1.drive(100)
 # Call the refuel method by passing a number as the amount of refill
-car1.refuel(5)
+car1.refuel(55)
