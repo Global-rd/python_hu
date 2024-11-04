@@ -80,6 +80,7 @@ def remove_task(task):
 
 # Menü megjelenítése
 def display_menu():
+    
     print("\nTask manager:")
     print("1. Add Task")
     print("2. View Tasks")
