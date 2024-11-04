@@ -27,7 +27,8 @@ class Fleet:
         total = sum(car.mileage for car in self.cars)
         print(f"Total fleet mileage: {total} km")
         return total
-    
+
+
 car1 = Car("Dacia", "Duster", 2022)
 car2 = Car("Ford", "Transit Connect", 2021)
 car3 = Car("Ford", "Transit", 2020)
@@ -46,8 +47,10 @@ car1.refuel(30)
 car2.refuel(50)
 car2.refuel(80)
 
-
 total_milage = fleet.total_mileage()
 
+fleet.remove_car(car3)
+
+total_milage = fleet.total_mileage()
 
 fleet_summary = [(car.brand, car.model, car.mileage, car.fuel_level) for car in fleet.cars]
