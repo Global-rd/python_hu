@@ -41,8 +41,9 @@ def multi_process_execution(limit):
     step = limit // cpu_count
 
     for i in range(cpu_count):
-        lower_limit = i * step
+        lower_limit = i * step + 1
         upper_limit = limit if i == cpu_count -1 else (i + 1) * step
+        print(f"{i}. {lower_limit} - {upper_limit}")
         process = multiprocessing.Process(target=worker, args=(lower_limit, upper_limit, queue))
         processes.append(process)
         process.start()
