@@ -16,10 +16,16 @@ class Car:
             self.fuel_level -= fuel_needed
             print(f"Driven {distance} km. Mileage: {self.mileage} km. Fuel level: {self.fuel_level}%.")
         else:
-            print("Not enough fuel.")
+            max_distance = self.fuel_level / 0.1
+            self.mileage += max_distance
+            self.fuel_level = 0
+            print(f"Not enough fuel for the planned {distance} km. Max distance is {max_distance} km.")
 
     def refuel(self, amount: float):
-        if amount + self.fuel_level > 100:
+        if amount < 0:
+            print("Refuel amount must be a positive number")
+            return     
+        elif amount + self.fuel_level > 100:
             self.fuel_level = 100
         else:
             self.fuel_level += amount
