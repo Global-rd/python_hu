@@ -33,6 +33,8 @@ class Car:
 
     def refuel(self, amount):
         """Növeli az üzemanyagszintet a megadott mennyiséggel, de legfeljebb 100-ig."""
+        if amount < 0:
+            raise ValueError("A tankolás mennyisége nem lehet negatív.")
         if self.fuel_level + amount > 100:
             self.fuel_level = 100
         else:
@@ -56,7 +58,8 @@ class Fleet:
 
     def remove_car(self, car):
         """Eltávolít egy autót a flottából."""
-
+        if car not in self.cars:
+            return
         self.cars.remove(car)
 
     def total_mileage(self):
