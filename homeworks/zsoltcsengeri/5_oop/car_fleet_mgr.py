@@ -46,7 +46,9 @@ class Car:
         - If enough fuel, it updates the mileage and reduces the fuel level.
         - If insufficient fuel, it drives as far as possible and sets fuel to 0.
         """
-       
+        if miles < 0:
+            raise ValueError("Distance to drive cannot be negative") # Raise ValueError in case of a negative number
+
         fuel_used = miles * 0.1  # Calculate fuel required for the requested miles
 
         # Check if there's enough fuel to cover the distance
@@ -75,13 +77,20 @@ class Car:
         - If adding the fuel exceeds 100%, sets fuel level to 100% and notifies user of excess.
         - Otherwise, adds the specified amount to the fuel level.
         """
+        if amount < 0:
+            raise ValueError("Amount of fuel cannot be negative") # Raise ValueError in case of a negative number
+        
         if self.fuel_level + amount > 100:
             excess = self.fuel_level + amount - 100
-            self.fuel_level = 100 # Set fuel level to full
-            print(f"The tank of {self.brand} {self.model} is now full! Could not add {excess}% as it exceeds the tank's capacity.")
+            self.fuel_level = 100  # Set fuel level to full
+            print(
+                f"The tank of {self.brand} {self.model} is now full! Could not add {excess}% as it exceeds the tank's capacity."
+            )
         else:
             self.fuel_level += amount
-            print(f"The fuel level of {self.brand} {self.model} is now at {self.fuel_level}%.")
+            print(
+                f"The fuel level of {self.brand} {self.model} is now at {self.fuel_level}%."
+            )
 
 
 # Example usage:
@@ -92,7 +101,17 @@ car1 = Car(brand="Jaguar", model="E Pace", year=2018)
 car1.get_info()
 
 # Drive a certain distance
-car1.drive(100)
+# This will raise a ValueError, which we catch and handle here
+try:
+    car1.drive(-20)
+except ValueError as e:
+    # Print the error message to inform the user of invalid input
+    print(e)
 
-# Attempt to refuel by a certain amount
-car1.refuel(55)
+# Attempt to refuel the car
+# This will raise a ValueError, which we catch and handle here
+try:
+    car1.refuel(-5)
+except ValueError as e:
+    # Print the error message to inform the user of invalid input
+    print(e)
