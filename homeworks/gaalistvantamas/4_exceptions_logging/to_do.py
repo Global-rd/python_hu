@@ -43,6 +43,7 @@ def add_task(task: str):
     try:
         with open(FILE_PATH, "a") as file:
             file.write(f"{task}" + ",")
+
     except:
         print("Add task Fail!")
 
@@ -53,8 +54,14 @@ def view_task():
         with open(FILE_PATH, "r") as file:
             tasks = file.read()
             task_list = list(tasks.split(","))
-            for task in task_list:
-                print(f"{task.strip()}")
+
+            if (len(task_list) - 1):
+                for task in task_list:
+                    if not task == "":
+                        print(f"{task.strip()}")
+            else:
+                print("The list is empty!")
+            
     except:
         print("File is not exist or reading problems!")
 
@@ -64,18 +71,21 @@ def remove_task(removable_task: str):
             tasks = file.read()
             task_list = list(tasks.split(","))
 
-            for task in task_list:
-                print(f"{task.strip()}")
-                if task == removable_task:
-                    task_list.remove(task)
-            
-            with open(FILE_PATH, "w") as file:
+            if removable_task in task_list:
                 for task in task_list:
-                    file.write(f"{task}" + ",")
+                    if task == removable_task:
+                        task_list.remove(task)
+                        logger.info(f"Task {removable_task} is removed!")
+            
+                with open(FILE_PATH, "w") as file:
+                    for task in task_list:
+                        if not task == "":
+                            file.write(f"{task}" + ",")
+            else:
+                print("This task is not in list!")
+
     except:
         print("Remove task Fail!")
-    
-    logger.info(f"Task {removable_task} is removed!")
 
 def choose_from_the_menu():
     while True:
@@ -88,6 +98,7 @@ def choose_from_the_menu():
         elif choose == '2':
             view_task()
         elif choose == '3':
+            view_task()
             removable_task = input("Please give a name of the task that you want to delete!\n")
             remove_task(removable_task)
         elif choose == '4':
