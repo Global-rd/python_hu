@@ -22,6 +22,8 @@ OK      ● Hozz létre néhány Car objektumot, add hozzá őket a flottához, 
 ######################## I. Osztályok létrehozása:############################
 ##############################################################################
 
+import os
+from datetime import datetime as dt
 
 ######################## "Car" osztály létrehozása:###########################
 class Car:
@@ -44,10 +46,13 @@ class Car:
 
     # Refuel() metódus definiálása:
     def refuel(self, liter):
-        if self.fuel_level + liter > 100:   # ezt itt úgy kezelem le, hogy ha több lenne, mint a max. 100 l, akkor csak addig lehessen tölteni
-            self.fuel_level = 100
+        if liter > 0:
+            if self.fuel_level + liter > 100:   # ezt itt úgy kezelem le, hogy ha több lenne, mint a max. 100 l, akkor csak addig lehessen tölteni
+                self.fuel_level = 100
+            else:
+                self.fuel_level += liter
         else:
-            self.fuel_level += liter
+            print(f"Benzint leszívni nem ér! Adj meg pozitív értéket a megadott {liter} liter helyett.")
 
     # A __str__ metódus behozása, "olvashatóan" formázott string visszadásához a print-nél:
     def __str__(self):
@@ -61,15 +66,13 @@ class Fleet:
         self.cars = []
     
     # autó hozzáadása metódus definiálása:
-    def add_cars(self, car):
+    def add_car(self, car: Car):
         self.cars.append(car)
 
     # autó eltávolítása metódus definiálása:
-    def remove_cars(self, car: Car):
-        for existing_car in self.cars:
-            if existing_car == car:
-                self.cars.remove(car)
-                return
+    def remove_car(self, car: Car):
+        if car in self.cars:
+            self.cars.remove(car)
     # összes megtett km metódus definiálása:
     def total_mileage(self):
         return sum(car.mileage for car in self.cars)
@@ -83,6 +86,12 @@ class Fleet:
 ########################## II. Teszt környezet:###############################
 ##############################################################################
 
+current_datetime = dt.now()
+
+os.system("cls")
+print(f"(Előző futási eredmény törölve a képernyőről ekkor: {current_datetime})")
+print("----------------------------")
+
 if __name__ == "__main__":
 # Car objektumok definiálása, a Car osztály meghívásával):
     my_car1 = Car("Skoda", "Scala", 2022)
@@ -95,14 +104,14 @@ if __name__ == "__main__":
     my_car3.drive(50)
 
 # Tankolás (refuel() metódus tesztelése):
-    my_car1.refuel(.1)
+    my_car1.refuel(-.1)
     my_car2.refuel(.1)
 
 # Car objektumok hozzáadása, a Fleet osztály meghívásával:
     fleet = Fleet()
-    fleet.add_cars(my_car1)
-    fleet.add_cars(my_car2)
-    fleet.add_cars(my_car3)
+    fleet.add_car(my_car1)
+    fleet.add_car(my_car2)
+    fleet.add_car(my_car3)
 
 # A flotta aktuális állapotának megjelenítése:
     print("Az aktuális flotta részletei:\n")
@@ -112,5 +121,5 @@ if __name__ == "__main__":
     print("----------------------------")
 
 # Car objektumok eltávolítása:
-    fleet.remove_cars(my_car3)
+    fleet.remove_car(my_car3)
     print(f"A kiválasztott autó eladása után az alábbi autók maradtak a flottában:\n\n{fleet}")
