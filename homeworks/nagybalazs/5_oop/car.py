@@ -35,7 +35,10 @@ class Car:
             print(f"{self.brand} {self.model} driven {max_distance} km (fuel exhausted). Current mileage: {self.mileage} km, Fuel level: {self.fuel_level}%")
 
     def refuel(self, amount):
-        if self.fuel_level + amount > 100:
+        if amount < 0:
+            print ("The given quantity is not correct")
+            return
+        elif self.fuel_level + amount > 100:
             amount = 100 - self.fuel_level
         self.fuel_level += amount
         print(f"{self.brand} {self.model} refueled by {amount}%. Current fuel level: {self.fuel_level}%")
