@@ -1,4 +1,5 @@
 class Car:
+    
     total_distance = 0.0
 
     def __init__(self, brand: str, model: str, year: int, mileage = 0, fuel_level = 100):
@@ -25,16 +26,15 @@ class Car:
         while True:
             try: 
                 miles = int(input(f"How many miles did you drive with {self}? "))
-            except ValueError or TypeError:
+                if miles < 0:
+                    raise ValueError           
+            except (ValueError, TypeError): 
                 print("Please enter a positive whole number.")
                 continue
-            if miles < 0:
-                print("Please enter a positive whole number.")
             # fuel check
-            elif miles * 0.1 > self.fuel_level:
+            if miles * 0.1 > self.fuel_level:
                 print(f"Not enough fuel in {self}. The fuel level is {self.fuel_level}%.")
-            else: break
-        return miles
+            else: return miles
 
     def drive(self, miles):
         self.mileage += miles
@@ -59,24 +59,23 @@ class Car:
                 break
         return self.fuel_level 
 
-class Fleet(Car):
+class Fleet:
     
     def __init__(self, name):
         self.name = name
         self.cars = []
 
-    def new_car_to_fleet(self, brand: Car):
-        self.cars.append(brand)
-        print(f"New car in the fleet: {brand}")
+    def new_car_to_fleet(self, car: Car):
+        self.cars.append(car)
+        print(f"New car in the fleet: {car}")
         return True
 
-    def remove_car_from_fleet(self, brand: Car):
-        for car in self.cars:
-            if car.brand == brand:
-                self.cars.remove(car)
-                print(f"Car remove from the fleet: {car}")
-                return
-        print(f"No car found with this brand: {brand}")
+    def remove_car_from_fleet(self, car: Car):
+        if car in self.cars:
+            self.cars.remove(car)
+            print("Car {car} removed")
+            return
+        print(f"No car found with this brand: {car}")
 
     def available_cars(self):
         print("Available cars: ")
@@ -111,4 +110,4 @@ car_3.show_cars_condition()
 car_3.refuel()
 car_3.show_cars_condition()
 
-print(f"The distance traveled by the cars in the fleet: {Fleet.total_distance}")
+print(f"The distance traveled by the cars in the fleet: {Car.total_distance}")
