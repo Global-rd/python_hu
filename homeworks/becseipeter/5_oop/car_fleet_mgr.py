@@ -43,6 +43,8 @@ class Fleet:
         return f"Total performance of the fleet: {self.total_mileage()} km"
 
 
+#################################################################################################################################
+
 if __name__ == "__main__":
 
     fleet.add_cars(car1)
