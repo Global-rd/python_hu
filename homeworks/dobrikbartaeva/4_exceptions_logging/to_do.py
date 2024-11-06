@@ -28,74 +28,78 @@ def setup_logger(logger_name, log_file="homeworks/dobrikbartaeva/4_exceptions_lo
 logger = setup_logger("to_do_logger")
 
 with open(to_do_list_path, "w") as file:
-    file.write("To do list:\n")
+    file.write("")
+
+def add_task(task_input):
+    with open(to_do_list_path, "a") as file:
+        file.write(f"{task_input}\n")
+        print(f"You added: {task_input}")
 
 def view_tasks():
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
-        for line in lines:
-            print(line.strip())
+    if not lines:
+        print("To do list is empty.")
+    else:
+        print("To do list:")   
+        for id, line in enumerate(lines,1):
+            print(f"{id}. - {line.strip()}")
 
-def add_task():
-    with open(to_do_list_path, "a") as file:
-        task_add = input("Enter task to be added:")
-        file.write(f"{task_add}\n")
-
-def remove_task():
-    task = input("Enter the which you would like to remove: ")
+def remove_task(task_input):
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
-    with open(to_do_list_path, "w") as file:
-        for line in lines:
-            if line.strip() != task:
-                file.write(line)
 
-    with open(to_do_list_path, "r") as file:
-        lines = file.readlines()
+    task_found=False
     with open(to_do_list_path, "w") as file:
+        count_task_input_match = 0
         for line in lines:
-            if line.strip() != task:
+            if line.strip() != task_input:
                 file.write(line)
+                
+            else:
+                count_task_input_match+=1
+        if count_task_input_match==0:
+            print(f"This task is not on your to do list: {task_input}")
+        else:
+            print(f"You removed: {task_input} ({count_task_input_match} rows)")
 
 def exit_file():
+    global running_code
     print("Exiting...")
-    return False
+    running_code = False
 
-#arra gondoltam, hogy ifek helyett mi lenne ha egy dictionarybe ágyazott listában tárolnám a meghívandó
-#function-öket is, és akkor innen egyben ki is tudnám displayelni a lehetséges opciókat és nem kellenének
-#if-ek sem, mert itt végülis hozzá van rendelve mindegyikhez hogy mit is kellene futtatni.
-#nem fut le, de remélem csak a meghívást csinálon rosszul... és nem az alap gondolatom rossz :)
-#segítenél megtalálni mi lehet a hiba? köszönöm!
 action_list = {
-    1: ["Add Task", "Enter task to add", add_task],
+    1: ["Add Task", "Enter task to add: ", add_task],
     2: ["View Tasks", "", view_tasks],
-    3: ["Remove Task", "Which task would you like to remove?", remove_task],
+    3: ["Remove Task", "Enter task you'd like to remove: ", remove_task],
     4: ["Exit", "", exit_file]
 }
-
-print(type(action_list))
 
 def print_choice_options():
     print("Available actions:")
     for key, value in action_list.items():
         print(f"{key}. {value[0]}")
+
+def user_input():
     while True:
         try:
             action_number = int(input("Choose action from 1 to 4: "))
             if action_number in action_list:
                 return action_number
             else:
-                print("Invalid choice. Please choose a number between 1 and 4.")
+                print("Number should be between 1 and 4.")
         except ValueError:
-            print("Invalid input. Please enter a number.")
-        print(f"{action_number}")
-          
-def execute_action(action_number):
-    action = action_list[action_number][2]
-    print(f"{action}")
-    return action
+            print("Invalid input. Please enter a number.")   
 
-while True:
-    action_number=print_choice_options()
-    execute_action(action_number)
+print_choice_options()
+running_code=True
+
+while running_code:
+    action_number=user_input()
+    if action_list[action_number][1] != "":
+        task_input= input(f"{action_list[action_number][1]}")
+        action_list[action_number][-1](task_input)
+    else:
+        action_list[action_number][-1]()
+
 
