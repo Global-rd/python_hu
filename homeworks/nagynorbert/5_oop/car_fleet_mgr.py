@@ -16,7 +16,7 @@ def input_cars_from_file():
                 raise car_classes.CarDefineError("Number of parameters for define a car is not met with specification. Please check input file!")
             c_brand = car_attr[0]
             c_model = car_attr[1]
-            c_year = car_attr[2]
+            c_year = int(car_attr[2])
             car_obj = car_classes.Car(c_brand,c_model,c_year)
             car_object_list.append(car_obj)            
     
@@ -38,6 +38,17 @@ def define_car_manually():
 
     return car
 
+def input_brand_model_year():
+    print("Please identify a car:")
+    brand = input("Brand: ").strip()
+    model = input("Model: ").strip()
+    try:
+        year = int(input("Year: "))
+    except ValueError as e:
+        print(f"Year has to be integer! {e}")
+    else:
+        return brand,model,year
+
 def add_car_to_fleet_manually(fleet:car_classes.Fleet):
     """Define car from terminal add add it into a fleet"""
     car = define_car_manually()
@@ -47,12 +58,17 @@ def add_car_to_fleet_manually(fleet:car_classes.Fleet):
 def remove_car_manually(fleet:car_classes.Fleet):
     """Define car from terminal add remove it from a fleet."""
     fleet.print_whole_fleet()
-    car = define_car_manually()
+    brand,model,year = input_brand_model_year()
+    car = car_classes.Car(brand,model,year)
     print(f"Try to remove the following car: {car}")
-    if fleet.remove_car_from_fleet(car):
-        print(f"{car} is removed from fleet.")
-    else:
-        print(f"Car not found in {fleet}.")
+    for x in fleet1.cars_in_fleet:
+        if x == car: # prerequisite: key in database is (brand,model,year)
+            fleet.remove_car_from_fleet(x)
+            print(f"{car} is removed from fleet.")
+            return True
+    print(f"Car not found in {fleet}.")
+    return False
+        
 
 def fuel_or_drive(car:car_classes.Car):
     """Randomly choosen from fuel or drive."""
@@ -74,17 +90,6 @@ def fuel_or_drive(car:car_classes.Car):
 def summarize_driving_distance(fleet:car_classes.Fleet):
     """Summarize the every car's miles data in the whole fleet"""
     print(f"Total amount of miles in the whole fleet: {fleet.summarize_miles_in_whole_fleet()} kilometers.")
-
-def input_brand_model_year():
-    print("Please identify a car:")
-    brand = input("Brand: ")
-    model = input("Model: ")
-    try:
-        year = int(input("Year: "))
-    except ValueError as e:
-        print(f"Year has to be integer! {e}")
-    else:
-        return brand,model,year
 
 def drive_manually(fleet:car_classes.Fleet):
     """Drive a car with x kilometers. car and x is user input."""
@@ -204,7 +209,7 @@ def selected_menu(fleet:car_classes.Fleet):
 
 def define_initial_input_for_program():
     cars = input_cars_from_file()
-    fleet_1 = car_classes.Fleet("BestMax Car Fleet")
+    fleet_1 = car_classes.Fleet(name="BestMax Car Fleet")
     print(f"Welcome at {fleet_1.name} company!")
     for car in cars:
         fleet_1.add_car_to_fleet(car)
