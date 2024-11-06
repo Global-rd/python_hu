@@ -22,6 +22,9 @@ class Car:
 
 #Üzemanyag feltöltése a megadott mennyiséggel, de legfeljebb 100%-ig.    
     def refuel(self, amount):
+        if amount < 0:
+            print("Refuel amount must be positive!")
+            return
         new_fuel_level = min(self.fuel_level + amount, 100)
         refueled_amount = new_fuel_level - self.fuel_level
         self.fuel_level = new_fuel_level
