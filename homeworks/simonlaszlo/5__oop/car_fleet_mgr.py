@@ -1,7 +1,7 @@
 
 class Car:
     """
-    Car osztaly, ajárművek tulajdonságaival.
+    Car osztaly, a járművek tulajdonságaival.
     """
     def __init__(self, brand, model, year):
         self.brand = brand
@@ -16,7 +16,11 @@ class Car:
         az üzemanyag szintet. Ellenörzi, elég-e az üzemanyag.
         """
         fuel_needed = kilometers * 0.1
-        if fuel_needed > self.fuel_level: 
+        if kilometers < 0:
+            print("Nem adhatsz negatív értéket!")
+        elif kilometers == 0:
+            print("Nem adhatsz nemeg 0-át!")   
+        elif fuel_needed > self.fuel_level: 
             kilometers = round(self.fuel_level / 0.1)
             print(f"Nem eleg az uzemanyag! Csak {kilometers} km-t tudsz megtenni.")
         else:
