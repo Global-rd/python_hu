@@ -7,16 +7,22 @@ class Car:
         self.fuel_level = 100
 
     def drive(self, distance):
+        if distance < 0:
+            print("A megtett távolság nem lehet negatív.")
+            return
         max_distance = self.fuel_level * 10
         act_distance = min(distance, max_distance)
 
         if max_distance < distance:
-            print(f"A tüzelőanyag kifogyott, kérem töltse fel a(z) {self.brand} {self.model} autót!")
+            print(f"A tüzelőanyag kifogyott, kérem tankolja meg a(z) {self.brand} {self.model} autót!")
 
         self.mileage += act_distance
         self.fuel_level -= act_distance / 10
 
     def refuel(self, add):
+        if add < 0:
+            print("A hozzáadott tüzelőanyag mennyisége nem lehet negatív.")
+            return
         if self.fuel_level + add > 100:
             print(f"A tüzelőanyagot túltöltötték, a(z) {self.brand} {self.model} autónál! Takarítsa fel!")
         self.fuel_level = min(self.fuel_level + add, 100)
@@ -30,6 +36,9 @@ class Fleet:
         print(f"A {car.brand} {car.model} hozzáadása megtörtént")
 
     def remove_car(self, car):
+        if car not in self.cars:
+            print(f"A {car.brand} {car.model} nincs a flottában.")
+            return
         self.cars.remove(car)
         print(f"A {car.brand} {car.model} eltávolítása megtörtént")
         print(f"Frissített lista:")
@@ -56,8 +65,10 @@ if __name__ == "__main__":
     fleet.add_car(car4)
 
     car1.drive(200)
+    car1.drive(-200)
     car2.drive(350)
     car1.refuel(10)
+    car1.refuel(-10)
     car3.refuel(10)
     car4.drive(1200)
 
@@ -66,3 +77,5 @@ if __name__ == "__main__":
 
     fleet.remove_car(car1)
     print(f"A flotta által összesen megtett táv: {fleet.total_mileage()} km")
+
+    fleet.remove_car(car1)
