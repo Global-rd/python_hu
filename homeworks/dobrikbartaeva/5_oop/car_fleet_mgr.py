@@ -59,7 +59,8 @@ class Fleet:
         print(f"Removed: {car}")
 
     def total_mileage(self):
-        return sum(car.mileage for car in self.car_list)
+        total_miles=sum(car.mileage for car in self.car_list)
+        print(f"Total miles for {self.name}: {total_miles} km")
 
     def listing_cars(self):
         if self.car_list:
@@ -83,8 +84,11 @@ fleet_1.listing_cars()
 car_1.drive(50)
 car_1.refuel(2)
 
-car_2.drive
+car_2.drive(70)
+
+fleet_1.total_mileage()
 
 fleet_1.remove_cars(car_2)
 fleet_1.listing_cars()
+
 
