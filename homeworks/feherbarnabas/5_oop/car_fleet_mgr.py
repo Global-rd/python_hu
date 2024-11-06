@@ -19,7 +19,10 @@ class Car:
             print(f"{self.brand} {self.model} went only {max_distance:.1f} km with the fuel remained.")
 
     def refuel(self, amount):
-        if amount + self.fuel_level > 100:
+        if amount < 0:
+            print("This value has to be positive.")
+            return
+        elif self.fuel_level + amount > 100: 
             amount = 100 - self.fuel_level
         self.fuel_level += amount
         print(f"{self.brand} {self.model} got {amount}% of fuel, now it's {self.fuel_level}%.")
