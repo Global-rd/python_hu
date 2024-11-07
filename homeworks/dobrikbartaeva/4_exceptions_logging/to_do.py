@@ -33,40 +33,33 @@ with open(to_do_list_path, "w") as file:
 def add_task(task_input):
     with open(to_do_list_path, "a") as file:
         file.write(f"{task_input}\n")
-        print(f"You added: {task_input}")
+        logger.info(f"You added: {task_input}")
 
 def view_tasks():
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
     if not lines:
-        print("To do list is empty.")
+        logger.info("To do list is empty.")
     else:
-        print("To do list:")   
+        logger.info("To do list:")   
         for id, line in enumerate(lines,1):
-            print(f"{id}. - {line.strip()}")
+            logger.info(f"{id}. - {line.strip()}")
 
 def remove_task(task_input):
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
 
-    task_found=False
-    with open(to_do_list_path, "w") as file:
-        count_task_input_match = 0
-        for line in lines:
-            if line.strip() != task_input:
-                file.write(line)
-                
-            else:
-                count_task_input_match+=1
-        if count_task_input_match==0:
-            print(f"This task is not on your to do list: {task_input}")
-        else:
-            print(f"You removed: {task_input} ({count_task_input_match} rows)")
+    new_lines = [line for line in lines if line.strip() != task_input]
+    if len(new_lines) == len(lines):
+        logger.info(f"This task is not on your to do list: {task_input}")
+    else:
+        with open(to_do_list_path, "w") as file:
+            file.writelines(new_lines)
+        logger.info(f"You removed: {task_input}")
 
 def exit_file():
-    global running_code
-    print("Exiting...")
-    running_code = False
+    logger.info("Exiting...")
+    return False
 
 action_list = {
     1: ["Add Task", "Enter task to add: ", add_task],
@@ -76,7 +69,7 @@ action_list = {
 }
 
 def print_choice_options():
-    print("Available actions:")
+    logger.info("Available actions:")
     for key, value in action_list.items():
         print(f"{key}. {value[0]}")
 
@@ -87,9 +80,9 @@ def user_input():
             if action_number in action_list:
                 return action_number
             else:
-                print("Number should be between 1 and 4.")
+                logger.info("Number should be between 1 and 4.")
         except ValueError:
-            print("Invalid input. Please enter a number.")   
+            logger.info("Invalid input. Please enter a number.")   
 
 print_choice_options()
 running_code=True
@@ -98,8 +91,8 @@ while running_code:
     action_number=user_input()
     if action_list[action_number][1] != "":
         task_input= input(f"{action_list[action_number][1]}")
-        action_list[action_number][-1](task_input)
+        running_code=action_list[action_number][-1](task_input)
     else:
-        action_list[action_number][-1]()
+        running_code=action_list[action_number][-1]()
 
 
