@@ -7,21 +7,27 @@ class Car:
         self.fuel_level = fuel_level
 
     def drive(self, distance):                              # car fuel consumption calculation
-        fuel_consumption = distance * 0.1
-        if self.fuel_level > fuel_consumption:
-            self.mileage += distance
-            self.fuel_level -= fuel_consumption
-            print(f"The {self.brand} {self.model} distance: {self.mileage},fuel level: {self.fuel_level}")
+        if distance > 0:                                    # car distance cannot be a negative number!!
+            fuel_consumption = distance * 0.1
+            if self.fuel_level > fuel_consumption:
+                self.mileage += distance
+                self.fuel_level -= fuel_consumption
+                print(f"The {self.brand} {self.model} distance: {self.mileage}km,fuel level: {self.fuel_level}%")
+            else:
+                print(f"The {self.brand} {self.model} does not have enough fuel for this range!")
         else:
-            print(f"The {self.brand} {self.model} does not have enough fuel for this range!")
+            print(f"The mileage of {self.brand} {self.model} cannot be a negative number!")        
 
     def refuel(self, fuel_amount):                          # Reload method
-        if self.fuel_level + fuel_amount >= 100:
-            self.fuel_level = 100
-            print(f"The {self.brand} {self.model} is fully reloaded!")
+        if fuel_amount > 0:                                 # fuel_amount cannot be a negative number!!                                 
+            if self.fuel_level + fuel_amount >= 100:
+              self.fuel_level = 100
+              print(f"The {self.brand} {self.model} is fully reloaded!")
+            else:
+                self.fuel_level += fuel_amount
+                print(f"The {self.brand} {self.model} reloaded!")
         else:
-            self.fuel_level += fuel_amount
-            print(f"The {self.brand} {self.model} reloaded!")
+            print(f"The fuel amount of {self.brand} {self.model} cannot be a negative number!") 
 
 class Fleet:
     def __init__(self):
@@ -45,7 +51,7 @@ class Fleet:
     
     def fleet_condition(self):
         print("The condition of fleet cars:")
-        for cars in fleet.cars:
+        for cars in self.cars:
             print(f"{cars.brand} {cars.model} {cars.mileage}km, {cars.fuel_level}%")
     
 #------------------------------------------- Main program ----------------------------------
@@ -69,7 +75,7 @@ car_3.drive(1500)
 
 # -------------------------------------- Refuel cars --------------------------------------
 car_1.refuel(20)
-car_2.refuel(20)
+car_2.refuel(-20)
 car_3.refuel(30)
 
 # ------------------------------ the condition of the cars --------------------------------
