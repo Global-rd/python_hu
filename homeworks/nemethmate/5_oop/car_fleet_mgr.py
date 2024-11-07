@@ -1,26 +1,29 @@
-# car_fleet_mgr.py
-
 class Car:
-    def __init__(self, brand, model, year):
+    def __init__(self, brand, model, year, fuel_consumption):
         self.brand = brand
         self.model = model
         self.year = year
         self.mileage = 0
-        self.fuel_level = 100  # százalékban
+        self.fuel_level = 100
+        self.fuel_consumption = fuel_consumption  # liter/100km
 
     def drive(self, kilometers):
-        # Szükséges üzemanyag kiszámítása
-        required_fuel = kilometers * 0.1
+        if kilometers < 0:
+            raise ValueError("A megtett távolság nem lehet negatív.")
 
-        # Ellenőrizzük, hogy van-e elegendő üzemanyag
+        required_fuel = kilometers * self.fuel_consumption / 100
         if required_fuel > self.fuel_level:
-            max_km = self.fuel_level / 0.1
+            max_km = self.fuel_level / (self.fuel_consumption / 100)
             print(f"Nincs elég üzemanyag, csak {max_km:.1f} km-t tudsz megtenni.")
             self.mileage += max_km
             self.fuel_level = 0
         else:
             self.mileage += kilometers
             self.fuel_level -= required_fuel
+            if self.fuel_level < 0:
+                self.fuel_level = 0
+                print("Az autó leállt üzemanyaghiány miatt.")
+
         print(f"{self.brand} {self.model} üzemanyag szint: {self.fuel_level}%, kilométeróra állása: {self.mileage} km")
 
     def refuel(self, amount):
@@ -34,7 +37,6 @@ class Car:
         else:
             self.fuel_level = new_fuel_level
         print(f"{self.brand} {self.model} üzemanyag szint: {self.fuel_level}%")
-
 
 class Fleet:
     def __init__(self):
@@ -61,13 +63,12 @@ class Fleet:
         for car in self.cars:
             print(f"{car.brand} {car.model}, Évjárat: {car.year}, Kilométeróra: {car.mileage} km, Üzemanyag: {car.fuel_level}%")
 
-
 # Példa használat
 if __name__ == "__main__":
     # Létrehozunk néhány Car objektumot
-    car1 = Car("Toyota", "Corolla", 2019)
-    car2 = Car("Ford", "Focus", 2020)
-    car3 = Car("Honda", "Civic", 2018)
+    car1 = Car("Toyota", "Corolla", 2019, 6)  # 6 liter/100km
+    car2 = Car("Ford", "Focus", 2020, 7)  # 7 liter/100km
+    car3 = Car("Honda", "Civic", 2018, 5)  # 5 liter/100km
 
     # Létrehozunk egy Fleet objektumot és hozzáadjuk az autókat
     fleet = Fleet()
