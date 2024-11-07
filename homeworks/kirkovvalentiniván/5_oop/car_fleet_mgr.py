@@ -10,6 +10,9 @@ class Car:
         Car.car_count +=1
 
     def drive(self, kilometer: float):
+        if kilometer <= 0:
+            raise ValueError(f"Driving negative or zero distance is impossible with {self.brand} {self.model} car. Please enter a positive number.")
+        
         fuel_needed = kilometer * 0.1
         if fuel_needed <= self.fuel_level:
             self._mileage_standing += kilometer
@@ -32,13 +35,21 @@ class Car:
 
     def __str__(self):
         return f"{self.brand} {self.model} - {self._production_year}"
+    
+    def get_mileage(self):
+        return self._mileage_standing
 
 class Fleet:
     def __init__(self):
         self.cars = []
 
     def remove_car(self, car: Car):
-        self.cars.remove(car)
+        if car in self.cars:
+            self.cars.remove(car)
+            print(f"The {car.brand} {car.model} is removed from the fleet.")
+        else:
+           raise ValueError(f"The {car.brand} {car.model} is not part of the fleet.") 
+
 
     def add_car(self, car: Car):
         self.cars.append(car)   
@@ -87,4 +98,4 @@ fleet.total_mileage()
 #List the cars in the fleet
 fleet.car_list()
 
-print((f"There is {Car.car_count} car in the fleet") if Car.car_count <= 1 else (f"There are {Car.car_count} cars in the fleet"))
+print(f"There {'is' if len(fleet.cars) == 1 else 'are'} {len(fleet.cars)} car{'s' if len(fleet.cars) != 1 else ''} in the fleet.")
