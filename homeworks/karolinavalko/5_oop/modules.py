@@ -11,6 +11,9 @@ class Car:
         return f"{self.car_brand}, {self.car_model}, {self.production_year}"
 
     def drive(self, distance: float):
+        if distance < 0:
+            print("Please give a positive number for distance.")
+            return
         fuel_spent = 0.1 * distance
         if self.car_fuel_level >= fuel_spent:
             self.car_mileage += distance
@@ -31,7 +34,7 @@ class Car:
         if self.car_fuel_level + refill_percent > 100:
             print(f"You can only fill {100-self.car_fuel_level} % for {self}. ")
             return
-        if refill_percent < 0:
+        if refill_percent < 0 :
             print("Please give a positive number.")
             return
         self.car_fuel_level += refill_percent
@@ -43,7 +46,7 @@ class Fleet:
         self.name = name
         self.cars = []
 
-    def add_car_to_fleet(self, car: Car) -> bool:
+    def add_car_to_fleet(self, car: Car) -> str:
         self.cars.append(car)
         return f"You succesfully addedd {car.car_brand}, {car.car_model} of {car.production_year}."
 
@@ -51,20 +54,15 @@ class Fleet:
         for number, item in enumerate(self.cars, 1):
             print(f"{number}. {item}")
 
-    def remove_car_from_fleet(self, car_to_remove: int):
-        try:
-            self.list_of_cars()
-            if len(self.cars) == 0:
-                print(f"There is no cars in the fleet")
-                return
-            del self.cars[car_to_remove - 1]
-            print(f"Car {car_to_remove} has been removed. The current fleet is:")
-            self.list_of_cars()
-        except IndexError as e:
-            print(f"No car found with this car index: {car_to_remove}")
-            return
+    def remove_car_from_fleet(self, car):
+        if car in self.cars:
+            self.cars.remove(car)
+            print(f"You successfully removed {car} from the fleet.")    
+        else:
+            print(f"This car is not member of the fleet")
+    
 
-    def total_fleet_mileage(self):
+    def total_fleet_mileage(self) -> str:
         total_miles = 0
         for car in self.cars:
             total_miles += car.car_mileage
