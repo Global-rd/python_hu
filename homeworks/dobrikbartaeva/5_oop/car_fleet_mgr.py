@@ -20,11 +20,13 @@ class Car:
             max_distance=self.fuel_level/average_usage
             if fuel_used <= self.fuel_level:
                self.fuel_level -= fuel_used
-               self.mileage +=distance
-               max_distance-= self.mileage
-               print(f"{self} drove: {distance} km - New mileage: {self.mileage} km - Fuel level:{self.fuel_level}%")
-            else: 
+            else:
+                distance = max_distance
+                self.fuel_level = 0
                 print(f"You have fuel only for {max_distance} km.")
+
+            self.mileage +=distance
+            print(f"{self} drove: {distance} km - New mileage: {self.mileage} km - Fuel level:{self.fuel_level}%")
         except ValueError as e:
             print(f"Value error {e}")
         except TypeError as e:
@@ -55,8 +57,11 @@ class Fleet:
         print(f"Added: {car}")
 
     def remove_cars(self, car: Car):
-        self.car_list.remove(car)
-        print(f"Removed: {car}")
+        if car in self.car_list:
+            self.car_list.remove(car)
+            print(f"Removed: {car}")
+        else:
+            print(f"This car is not in the list: {car}")
 
     def total_mileage(self):
         total_miles=sum(car.mileage for car in self.car_list)
@@ -73,6 +78,7 @@ class Fleet:
 car_1=Car("Hyunday", "i10", 2015)
 car_2=Car("Kia", "Carens", 2016)
 car_3=Car("Toyota", "XYZ", 2024)
+car_4=Car("Audi","A8",2024)
 
 fleet_1=Fleet("Céges flotta")
 fleet_1.add_cars(car_1)
@@ -84,11 +90,12 @@ fleet_1.listing_cars()
 car_1.drive(50)
 car_1.refuel(2)
 
-car_2.drive(70)
+car_2.drive(70000)
 
 fleet_1.total_mileage()
 
 fleet_1.remove_cars(car_2)
+fleet_1.remove_cars(car_4)
 fleet_1.listing_cars()
 
 
