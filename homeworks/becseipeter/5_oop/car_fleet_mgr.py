@@ -1,5 +1,4 @@
 class Car:
-    
     def __init__(self, brand: str, model: str, year: int):
         self.brand = brand
         self.model = model
@@ -24,7 +23,6 @@ class Car:
 
 
 class Fleet:
-
     def __init__(self, name):
         self.name = name
         self.cars = []  
@@ -32,9 +30,9 @@ class Fleet:
     def add_cars(self, car):
         self.cars.append(car)
 
-    def remove_car(self, car: Car):
-        for car in self.cars:
-            self.cars.remove(car)
+    def remove_car(self, car):
+        if car in self.cars:
+         self.cars.remove(car)
 
     def total_mileage(self):
         return sum(car.mileage for car in self.cars)
@@ -43,17 +41,8 @@ class Fleet:
         return f"Total performance of the fleet: {self.total_mileage()} km"
 
 
-#################################################################################################################################
-
-if __name__ == "__main__":
-
-    fleet.add_cars(car1)
-    fleet.add_cars(car2)
-    fleet.add_cars(car3)
-    fleet.add_cars(car4)
-
-    fleet = Fleet()
-
+###############################################################################################################################
+  
     car1 = Car("Audi", "Quattro", 1980)
     car2 = Car("Lamborghini", "Urus", 2024)
     car3 = Car("Seat", "Ibiza", 2018) 
@@ -61,18 +50,20 @@ if __name__ == "__main__":
 
     fleet = Fleet()
 
+    fleet.add_cars(car1)
+    fleet.add_cars(car2)
+    fleet.add_cars(car3)
+    fleet.add_cars(car4)
 
-    car1.drive(km = 10)
-    car2.drive(km = 250)
-    car3.drive(km = 526)
-    car4.drive(km = 1111)
+    car1.drive(kilometers = 10)
+    car2.drive(kilometers = 250)
+    car3.drive(kilometers = 526)
+    car4.drive(kilometers  = 1111)
 
-    car1.refuel(fuel = 20)
-    car2.refuel(fuel = 56)
-    car3.refuel(fuel = 50)
-    car4.refuel(fuel = 65)
-
-    print(fleet())
+    car1.refuel(amount = 20)
+    car2.refuel(amount = 56)
+    car3.refuel(amount = 50)
+    car4.refuel(amount = 65)
 
     print(f"Traveled road: {fleet.total_mileage()} km\n")
 
