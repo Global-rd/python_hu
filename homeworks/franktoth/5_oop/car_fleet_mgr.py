@@ -9,15 +9,25 @@ class Car:
         self.fuel_level = 100
 
     def drive(self, distance):
+        if distance < 0:
+            print(f"Error: Distance cannot be negative.")
+            return
+
         fuel_consumption = distance * 0.1
         if fuel_consumption <= self.fuel_level:
             self.mileage += distance
             self.fuel_level -= fuel_consumption
             print(f"Car {self.brand} {self.model} drove {distance} km.")
         else:
-            print(f"Car {self.brand} {self.model} doesn't have enough fuel to drive {distance} km.")
+            possible_distance = self.fuel_level / 0.1
+            self.mileage += possible_distance
+            self.fuel_level = 0
+            print(f"Car {self.brand} {self.model} drove {possible_distance} km and ran out of fuel.")
 
     def refuel(self, amount):
+        if amount < 0:
+            print("Error: Fuel amount cannot be negative.")
+            return
         self.fuel_level = min(self.fuel_level + amount, 100)
         print(f"Car {self.brand} {self.model} refueled. Current fuel level: {self.fuel_level}%")
 
@@ -30,8 +40,13 @@ class Fleet:
     def add_car(self, car):
         self.cars.append(car)
 
-    def remove_car(self, car):
-        self.cars.remove(car)
+    def remove_car(self, brand, model):
+        for car in self.cars:
+            if car.brand == brand and car.model == model:
+                self.cars.remove(car)
+                print(f"Car {brand} {model} removed from the fleet.")
+                return  # Exit after successful removal
+        print(f"Error: Car {brand} {model} not found in the fleet.")
 
     def total_mileage(self):
         total_mileage = 0
@@ -43,6 +58,7 @@ class Fleet:
         for car in self.cars:
             print(f"Brand: {car.brand}, Model: {car.model}, Year: {car.year}, Mileage: {car.mileage} km, Fuel Level: {car.fuel_level}%")
         print(f"Total Fleet Mileage: {self.total_mileage()} km")
+
 
 # Create car sample objects
 car1 = Car("Audi", "A6", 2023)
@@ -61,7 +77,11 @@ fleet.add_car(car4)
 car1.drive(100)
 car2.drive(50)
 car3.drive(200)
-car4.drive(300)
+car4.drive(1300)
+
+#Remove the cars from the fleet
+fleet.remove_car("Opel","Astra")
+fleet.remove_car("Tesla", "Model3")
 
 # Refuel car1
 car1.refuel(30)
