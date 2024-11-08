@@ -1,27 +1,22 @@
 #Creating Car class with the given attributes and methods
 
 class Car:
+    registered_license_plates = set()
+
     def __init__(self, brand, model, year, license_plate_number):
-        self.brand = brand
-        self.model = model
-        self.year = year
-        self.mileage = 0
-        self.fuel_level = 100
-
-        if not self._validate_license_plate(license_plate_number):
-            raise ValueError("Invalid license plate number")
-
-        self.license_plate_number = license_plate_number
+        if license_plate_number in Car.registered_license_plates:
+            print(f"Error: License plate number {license_plate_number} already exists. Car not created.")
+        else:
+            self.brand = brand
+            self.model = model
+            self.year = year
+            self.mileage = 0
+            self.fuel_level = 100
+            self.license_plate_number = license_plate_number
+            Car.registered_license_plates.add(license_plate_number)
 
     def _validate_license_plate(self, license_plate_number):
-        if not isinstance(license_plate_number, str) or len(license_plate_number) != 5:
-            return False
-
-        try:
-            int(license_plate_number)
-            return True
-        except ValueError:
-            return False
+        return isinstance(license_plate_number, str) and license_plate_number.isdigit() and len(license_plate_number) == 5
 
     def drive(self, distance):
         if distance < 0:
@@ -46,21 +41,15 @@ class Car:
         self.fuel_level = min(self.fuel_level + amount, 100)
         print(f"Car {self.brand} {self.model} refueled. Current fuel level: {self.fuel_level}%")
 
+#Creating the Fleet with the required methods.
+
 class Fleet:
     def __init__(self):
         self.cars = []
 
     def add_car(self, car):
-        for existing_car in self.cars:
-            if existing_car.license_plate_number == car.license_plate_number:
-                print(f"Error: Car with LPN {car.license_plate_number} already exists in the fleet.")
-                return
-
-        try:
-            self.cars.append(car)
-            print(f"Car {car.brand} {car.model} with {car.license_plate_number} LPN added to the fleet.")
-        except ValueError as e:
-            print(f"Error: {e}")
+        self.cars.append(car)
+        print(f"Car {car.brand} {car.model} with {car.license_plate_number} LPN added to the fleet.")
 
     def remove_car(self, license_plate_number):
         for car in self.cars:
@@ -78,7 +67,7 @@ class Fleet:
 
     def display_fleet(self):
         for car in self.cars:
-            print(f"Brand: {car.brand}, Model: {car.model}, Year: {car.year}, LPN: {car.license_plate_number}, Mileage: {car.mileage} km, Fuel Level: {car.fuel_level}%")
+            print(f"Brand: {car.brand}, Model: {car.model}, Year: {car.year}, License Plate: {car.license_plate_number}, Mileage: {car.mileage} km, Fuel Level: {car.fuel_level}%")
         print(f"Total Fleet Mileage: {self.total_mileage()} km")
 
 # Create car sample objects (with license plate numbers)
@@ -94,7 +83,6 @@ fleet = Fleet()
 fleet.add_car(car1)
 fleet.add_car(car2)
 fleet.add_car(car3)
-fleet.add_car(car4)
 fleet.add_car(car5)
 
 # Drive the cars
@@ -105,7 +93,7 @@ car5.drive(1300)
 
 #Remove the cars from the fleet
 fleet.remove_car("12345")
-fleet.remove_car("43434") #No such LPN in the fleet
+fleet.remove_car("43434")
 
 # Refuel car1
 car1.refuel(30)
