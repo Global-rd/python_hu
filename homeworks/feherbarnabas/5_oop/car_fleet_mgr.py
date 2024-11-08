@@ -75,4 +75,3 @@ if __name__ == "__main__":
 
     fleet.total_mileage()
     fleet.show_fleet()
-
