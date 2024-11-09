@@ -6,11 +6,15 @@ class BankAccount:
         self.balance = balance
 
     def deposit(self, amount: float):
+        if not isinstance(amount, (int, float)):
+            raise TypeError("Deposit amount must be a number.")
         if amount <= 0:
             raise ValueError("Deposit amount must be positive.")
         self.balance += amount
 
     def withdraw(self, amount: float):
+        if not isinstance(amount, (int, float)):
+            raise TypeError("Withdraw amount must be a number.")
         if amount <= 0:
             raise ValueError("Withdraw amount must be positive.")
         if amount > self.balance:
@@ -18,8 +22,12 @@ class BankAccount:
         self.balance -= amount
 
     def transfer(self, amount: float, target_account: 'BankAccount'):
+        if not isinstance(amount, (int, float)):
+            raise TypeError("Transfer amount must be a number.")
         if not isinstance(target_account, BankAccount):
             raise TypeError("Target must be a BankAccount instance.")
+        if self is target_account:
+            raise ValueError("Cannot transfer money to the same account.")
         self.withdraw(amount)
         target_account.deposit(amount)
 
