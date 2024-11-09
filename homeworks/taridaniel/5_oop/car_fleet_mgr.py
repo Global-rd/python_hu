@@ -7,15 +7,27 @@ class Car:
         self.car_fuel_level = 100.0
 
     def drive(self, distance):
+        if distance < 0:
+            print("Distance cannot be negative.")
+            return
+
         fuel_needed = distance * 0.1
         if self.car_fuel_level >= fuel_needed:
             self.car_mileage += distance
             self.car_fuel_level -= fuel_needed
             print(f"{self.car_brand} {self.car_model} drove {distance} km. New mileage: {self.car_mileage} km. Fuel level: {self.car_fuel_level}%.")
         else:
-            print(f"Not enough fuel to drive {distance} km. Please refuel.")
+            # Drive as much as possible with the available fuel
+            max_distance = self.car_fuel_level / 0.1
+            self.car_mileage += max_distance
+            self.car_fuel_level = 0
+            print(f"{self.car_brand} {self.car_model} drove {max_distance} km before running out of fuel. New mileage: {self.car_mileage} km. Fuel level: {self.car_fuel_level}%.")
 
     def refuel(self, amount):
+        if amount < 0:
+            print("Refuel amount cannot be negative.")
+            return
+
         if self.car_fuel_level + amount <= 100:
             self.car_fuel_level += amount
             print(f"Refueled {amount}%. New fuel level: {self.car_fuel_level}%.")
@@ -24,7 +36,7 @@ class Car:
             print("Fuel tank is now full at 100%.")
 
 
-class Fleet(Car):
+class Fleet:
     def __init__(self):
         self.cars = []
 
@@ -33,8 +45,14 @@ class Fleet(Car):
         print(f"Added {car.car_brand} {car.car_model} to the fleet.")
 
     def remove_car(self, car):
-        self.cars.remove(car)
-        print(f"Removed {car.car_brand} {car.car_model} from the fleet.")
+        if not self.cars:
+            print("No cars in the fleet to remove.")
+        else:
+            try:
+                self.cars.remove(car)
+                print(f"Removed {car.car_brand} {car.car_model} from the fleet.")
+            except ValueError:
+                print(f"{car.car_brand} {car.car_model} not found in the fleet.")
 
     def total_mileage(self):
         total = sum(car.car_mileage for car in self.cars)
