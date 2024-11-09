@@ -1,13 +1,17 @@
 import os
 import logging
+
 to_do_list_path = "homeworks/dobrikbartaeva/4_exceptions_logging/to_do_list.txt"
+
 def setup_logger(logger_name, log_file="homeworks/dobrikbartaeva/4_exceptions_logging/app.log",level=logging.INFO):
-    logger = logging.getLogger(logger_name)                                         #Call getlogger function from logging module
-    file_handler = logging.FileHandler(log_file)                                    #Where we write the log messages
-    stream_handler = logging.StreamHandler()  
-                                            #Where we write the log messages
+
+    logger = logging.getLogger(logger_name)           #Call getlogger function from logging module
+    file_handler = logging.FileHandler(log_file)      #Where we write the log messages
+    stream_handler = logging.StreamHandler()          #Where we write the log messages
+
     #Format of the messages:
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+   
     #Assign formatter to the handler:
     file_handler.setFormatter(formatter)                                            
     stream_handler.setFormatter(formatter)   
