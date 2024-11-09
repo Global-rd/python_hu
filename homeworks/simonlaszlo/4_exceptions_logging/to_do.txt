@@ -1,0 +1,55 @@
+2024-10-22 16:52:16,440 - INFO - Program indítása.
+2024-10-22 16:52:29,882 - INFO - Feladat hozzáadva: 'lljgl'
+2024-10-22 16:52:35,279 - INFO - Feladat hozzáadva: 'lhjhjl'
+2024-10-22 16:52:38,810 - INFO - Nem megfelelõ értéket adtál meg.
+2024-10-22 16:52:40,360 - INFO - Kilépés a programból.
+2024-10-22 17:15:27,374 - root - INFO - Program indítása.
+2024-10-22 17:15:37,312 - root - INFO - Feladat hozzáadva: 'egy task'
+2024-10-22 17:15:44,836 - root - INFO - Feladat hozzáadva: 'két task'
+2024-10-22 17:15:46,166 - root - INFO - Nem megfelelõ értéket adtál meg.
+2024-10-22 17:15:53,050 - root - INFO - Kilépés a programból.
+2024-10-22 17:41:37,526 -  INFO - Program indítása.
+2024-10-22 17:41:46,280 -  INFO - Feladat hozzáadva: 'elso task'
+2024-10-22 17:41:53,749 -  INFO - Feladat hozzáadva: 'masodik'
+2024-10-22 17:41:56,757 -  INFO - Kilépés a programból.
+2024-10-22 17:44:32,727 -  INFO - Program indítása.
+2024-10-22 17:44:49,298 -  INFO - Kilépés a programból.
+2024-10-22 17:46:58,000 -  INFO - Program indítása.
+2024-10-22 17:47:02,764 -  INFO - Feladatok megtekintése sikeres.
+2024-10-22 18:05:04,426 -  INFO - Program indítása.
+2024-10-22 18:05:15,784 -  INFO - Feladatok megtekintése sikeres.
+2024-10-22 18:05:19,998 -  INFO - Feladat törölve: 'masodik'
+2024-10-22 18:05:24,691 -  INFO - Feladatok megtekintése sikeres.
+2024-10-22 18:05:28,816 -  INFO - Érvénytelen törlési sorszám: 2
+2024-10-22 18:05:44,833 -  INFO - Feladat hozzáadva: 'proba task'
+2024-10-22 18:05:48,216 -  INFO - Feladatok megtekintése sikeres.
+2024-10-25 17:07:46,406 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:08:33,734 -  INFO - Feladat hozzaadva: 'mittomen'
+2024-10-25 17:08:38,641 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:11:10,697 -  INFO - Feladat hozzaadva: 'sokadik valami'
+2024-10-25 17:15:11,408 -  INFO - Nem megfelelõ értéket adtál meg.
+2024-10-25 17:15:20,359 -  INFO - Kilépés a programból.
+2024-10-25 17:15:30,242 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:15:51,322 -  INFO - Feladat torolve: 'sokadik valami'
+2024-10-25 17:15:56,870 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:18:19,512 -  INFO - Kilépés a programból.
+2024-10-25 17:18:39,581 -  INFO - Feladat hozzaadva: 'proba +1'
+2024-10-25 17:26:20,512 -  INFO - Feladat hozzaadva: 'teszt 1'
+2024-10-25 17:26:24,846 -  INFO - Kilepes a programbol.
+2024-10-25 17:29:38,606 -  INFO - Nem megfeleloa erteket adtl meg.
+2024-10-25 17:29:47,572 -  INFO - Feladat hozzaadva: 'teszt3'
+2024-10-25 17:29:50,780 -  INFO - Kilepes a programbol.
+2024-10-25 17:31:26,168 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:31:35,905 -  INFO - Feladat hozzaadva: 'teszt4'
+2024-10-25 17:31:44,280 -  INFO - Feladat hozzaadva: 'teszt5'
+2024-10-25 17:31:47,706 -  INFO - Feladatok megtekintese sikeres.
+2024-10-25 17:31:51,774 -  INFO - Kilepes a programbol.
+2024-10-27 16:15:40,489 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:45,198 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:47,387 -  INFO - Feladat torolve: 'teszt3'
+2024-10-27 16:15:50,199 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:51,870 -  INFO - Feladat torolve: 'teszt4'
+2024-10-27 16:15:57,027 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:15:58,590 -  INFO - Feladat torolve: 'teszt5'
+2024-10-27 16:16:04,074 -  INFO - Feladatok megtekintese sikeres.
+2024-10-27 16:16:45,293 -  INFO - Kilepes a programbol.
