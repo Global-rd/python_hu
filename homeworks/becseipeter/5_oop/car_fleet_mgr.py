@@ -7,12 +7,16 @@ class Car:
         self.fuel_level = 100               
 
     def drive(self, kilometers):
+        
         max_distance = self.fuel_level / 0.1 
         if kilometers > max_distance:
             print(f"Don't enoght {kilometers}. You can drive just {max_distance}.")
             kilometers = max_distance  
         self.mileage += kilometers
         self.fuel_level -= kilometers * 0.1
+        if kilometers < 0:
+         raise ValueError("Kilometers must be greater than 0")
+    
         print(f"{self.brand} {self.model} used {kilometers}. Fuel level: {self.fuel_level}%.")
     
     def refuel(self, amount):   
