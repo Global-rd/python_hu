@@ -11,22 +11,28 @@ def setup_logger(logger_name, log_file="homeworks/dobrikbartaeva/4_exceptions_lo
     #Assign formatter to the handler:
     file_handler.setFormatter(formatter)                                            
     stream_handler.setFormatter(formatter)   
+
     #Assign the level of the message to the handler 
     file_handler.setLevel(logging.DEBUG)                                            
     stream_handler.setLevel(logging.DEBUG)  
+
     #Add handler to the logger:
     logger.addHandler(file_handler)                                                 
     logger.addHandler(stream_handler)                                               
     logger.setLevel(level)                                                          
     return logger
+
 logger = setup_logger("to_do_logger")
+
 with open(to_do_list_path, "w") as file:
     file.write("")
+
 def add_task(task_input):
     with open(to_do_list_path, "a") as file:
         file.write(f"{task_input}\n")
         logger.info(f"You added: {task_input}")
     return True
+
 def view_tasks():
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
@@ -37,6 +43,7 @@ def view_tasks():
         for id, line in enumerate(lines,1):
             logger.info(f"{id}. - {line.strip()}")
     return True
+
 def remove_task(task_input):
     with open(to_do_list_path, "r") as file:
         lines = file.readlines()
@@ -48,20 +55,24 @@ def remove_task(task_input):
             file.writelines(new_lines)
         logger.info(f"You removed: {task_input}")
     return True
+
 def exit_file():
     logger.info("Exiting...")
     return False
+
 action_list = {
     1: ["Add Task", "Enter task to add: ", add_task],
     2: ["View Tasks", "", view_tasks],
     3: ["Remove Task", "Enter task you'd like to remove: ", remove_task],
     4: ["Exit", "", exit_file]
 }
+
 def print_choice_options():
     logger.info("Available actions:")
     for key, value in action_list.items():
         print(f"{key}. {value[0]}")
     return True
+
 def user_input():
     while True:
         try:
@@ -72,8 +83,11 @@ def user_input():
                 logger.info("Number should be between 1 and 4.")
         except ValueError:
             logger.info("Invalid input. Please enter a number.")   
+
 print_choice_options()
+
 running_code=True
+
 while running_code:
     action_number=user_input()
     if action_list[action_number][1] != "":
