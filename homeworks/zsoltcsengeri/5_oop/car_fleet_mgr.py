@@ -47,7 +47,9 @@ class Car:
         - If insufficient fuel, it drives as far as possible and sets fuel to 0.
         """
         if miles < 0:
-            raise ValueError("Distance to drive cannot be negative") # Raise ValueError in case of a negative number
+            raise ValueError(
+                "Distance to drive cannot be negative"
+            )  # Raise ValueError in case of a negative number
 
         fuel_used = miles * 0.1  # Calculate fuel required for the requested miles
 
@@ -78,8 +80,10 @@ class Car:
         - Otherwise, adds the specified amount to the fuel level.
         """
         if amount < 0:
-            raise ValueError("Amount of fuel cannot be negative") # Raise ValueError in case of a negative number
-        
+            raise ValueError(
+                "Amount of fuel cannot be negative"
+            )  # Raise ValueError in case of a negative number
+
         if self.fuel_level + amount > 100:
             excess = self.fuel_level + amount - 100
             self.fuel_level = 100  # Set fuel level to full
@@ -92,11 +96,14 @@ class Car:
                 f"The fuel level of {self.brand} {self.model} is now at {self.fuel_level}%."
             )
 
+    def __str__(self):
+        return f"{self.brand} {self.model} {self.year} {self.mileage} {self.fuel_level}"
+
 
 # Example usage:
 
 car1 = Car(brand="Jaguar", model="E Pace", year=2018)
-
+print(car1)
 # Display initial car info
 car1.get_info()
 
@@ -115,3 +122,75 @@ try:
 except ValueError as e:
     # Print the error message to inform the user of invalid input
     print(e)
+
+"""
+*Create a Fleet class to manage Car objects:
+
+The class should have a list that contains the cars.
+Include methods to add and remove Car objects to/from the fleet.
+Include a method that aggregates the total mileage of all cars in the fleet.
+Create a few Car objects, add them to the fleet, perform some operations (driving, refueling), 
+and display the state of the cars and the summary data of the fleet.
+"""
+
+
+class Fleet:
+
+    def __init__(self, name: str):
+        self.name = name
+        self.cars = []
+
+    def add_car(self, car: Car) -> bool:
+        self.cars.append(car)  # Add a car to the fleet
+        return True
+
+    def list_cars(self) -> None:
+        print(f"Available cars in {self.name}: ")
+        for car in self.cars:
+            print(car)
+
+    def remove_car(self, brand: str) -> None:
+        for car in self.cars:
+            if car.brand == brand:
+                self.cars.remove(car)
+                return
+        print(f"Car with brand {brand} removed from the fleet.")
+
+    def cumulative_miles(self) -> int:
+        total_milage = 0
+        for car in self.cars:
+            total_milage += car.mileage
+        return total_milage
+        print("Total mileage of all cars in the fleet:", fleet1.cumulative_miles())
+
+    
+
+    def __str__(self):
+        return f"{self.cars}"
+
+# Example usage:
+car2 = Car("Aston Martin", "Vanquish", 2024)
+car3 = Car("Lotus", "Eletre", 2024)
+
+fleet1 = Fleet("British Car Fleet")
+
+# Adding cars and getting immediate feedback
+fleet1.add_car(car1)
+fleet1.add_car(car2)
+fleet1.add_car(car3)
+
+# Removing a car and getting immediate feedback
+fleet1.remove_car("Lotus")
+
+#List all cars in the fleet
+fleet1.list_cars()
+
+# Performing driving operations
+car1.drive(550)
+car2.drive(60)
+car3.drive(70)
+
+fleet1.cumulative_miles()
+
+# Print the total mileage of all cars in the fleet
+print("Total mileage of all cars in the fleet:", fleet1.cumulative_miles())
