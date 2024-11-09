@@ -59,3 +59,51 @@ def test_transfer_invalid_target(account_1):
 def test_transfer_insufficient_funds(account_1, account_2):
     with pytest.raises(ValueError):
         account_1.transfer(200.0, account_2)
+
+
+def test_deposit_non_number(account_1):
+    with pytest.raises(TypeError):
+        account_1.deposit("not_a_number")
+
+
+def test_withdraw_non_number(account_1):
+    with pytest.raises(TypeError):
+        account_1.withdraw("not_a_number")
+
+
+def test_transfer_to_self(account_1):
+    with pytest.raises(ValueError):
+        account_1.transfer(50.0, account_1)
+
+
+@pytest.mark.parametrize("amount, expected_exception", [
+    ("not_a_number", TypeError),
+    (None, TypeError),
+    ([], TypeError),
+    ({}, TypeError)
+])
+def test_deposit_invalid_types(amount, expected_exception, account_1):
+    with pytest.raises(expected_exception):
+        account_1.deposit(amount)
+
+
+@pytest.mark.parametrize("amount, expected_exception", [
+    ("not_a_number", TypeError),
+    (None, TypeError),
+    ([], TypeError),
+    ({}, TypeError)
+])
+def test_withdraw_invalid_types(amount, expected_exception, account_1):
+    with pytest.raises(expected_exception):
+        account_1.withdraw(amount)
+
+
+@pytest.mark.parametrize("amount, expected_exception", [
+    ("not_a_number", TypeError),
+    (None, TypeError),
+    ([], TypeError),
+    ({}, TypeError)
+])
+def test_transfer_invalid_amount_types(amount, expected_exception, account_1, account_2):
+    with pytest.raises(expected_exception):
+        account_1.transfer(amount, account_2)
