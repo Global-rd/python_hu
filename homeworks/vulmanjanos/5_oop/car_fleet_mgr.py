@@ -6,13 +6,11 @@ class Car:
         self.year = year
         self.mileage = 0
         self.fuel_level = 100
-# negativ km consumption is not an option
+# negativ km consumption is not an option & fuel consumptions and refill rules
     def drive(self, driven_kilometers):
         if driven_kilometers < 0:
             print("Driven kilometers cannot be negative.")
             return
-# fuel consumptions and rules
-    def drive(self, driven_kilometers):
         fuel_consumption_calculator = driven_kilometers * 0.1
         if fuel_consumption_calculator <= self.fuel_level:
             self.mileage += driven_kilometers
@@ -23,8 +21,6 @@ class Car:
         if refill <= 0:
             print("Refill amount must be positive.")
             return
-# fuel refilling and message
-    def refuel(self, refill):
         if self.fuel_level + refill <= 100:
             self.fuel_level += refill
         else:
@@ -34,7 +30,6 @@ class Car:
 class Fleet:
     def __init__(self):
         self.skodacars = []
-
     def add_car(self, car):
         self.skodacars.append(car)
 # check whether the car in the fleet
@@ -43,7 +38,6 @@ class Fleet:
             self.skodacars.remove(car)
         else:
             print("Car is not in the fleet.")
-
     def total_mileage(self):
         return sum(car.mileage for car in self.skodacars)
 
