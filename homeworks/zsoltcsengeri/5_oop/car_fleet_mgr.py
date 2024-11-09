@@ -149,24 +149,20 @@ class Fleet:
         for car in self.cars:
             print(car)
 
-    def remove_car(self, brand: str) -> None:
-        for car in self.cars:
-            if car.brand == brand:
-                self.cars.remove(car)
-                return
-        print(f"Car with brand {brand} removed from the fleet.")
+    def remove_car(self, car: Car):
+        if car in self.cars:
+            self.cars.remove(car)
+        print(f"{car} removed from the fleet.")
 
     def cumulative_miles(self) -> int:
         total_milage = 0
         for car in self.cars:
             total_milage += car.mileage
         return total_milage
-        print("Total mileage of all cars in the fleet:", fleet1.cumulative_miles())
-
-    
 
     def __str__(self):
         return f"{self.cars}"
+
 
 # Example usage:
 car2 = Car("Aston Martin", "Vanquish", 2024)
@@ -179,16 +175,17 @@ fleet1.add_car(car1)
 fleet1.add_car(car2)
 fleet1.add_car(car3)
 
-# Removing a car and getting immediate feedback
-fleet1.remove_car("Lotus")
-
-#List all cars in the fleet
-fleet1.list_cars()
-
 # Performing driving operations
 car1.drive(550)
 car2.drive(60)
 car3.drive(70)
+
+# Removing a car and getting immediate feedback
+fleet1.remove_car(car3)
+
+# List all cars in the fleet
+fleet1.list_cars()
+
 
 fleet1.cumulative_miles()
 
