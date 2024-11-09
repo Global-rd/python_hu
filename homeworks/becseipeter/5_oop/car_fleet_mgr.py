@@ -58,7 +58,7 @@ fleet.add_cars(car2)
 fleet.add_cars(car3)
 fleet.add_cars(car4)
 
-car1.drive(kilometers = 10)
+car1.drive(kilometers = 30)
 car2.drive(kilometers = 250)
 car3.drive(kilometers = 526)
 car4.drive(kilometers  = 1111)
