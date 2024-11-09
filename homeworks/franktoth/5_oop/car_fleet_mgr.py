@@ -1,12 +1,14 @@
-#Creating Car class with the given attributes and methods
+class DuplicateLicensePlateError(Exception):
+    """Raised when a car with the same license plate number already exists."""
+    pass
 
 class Car:
     registered_license_plates = set()
 
     def __init__(self, brand, model, year, license_plate_number):
-        if license_plate_number in Car.registered_license_plates:
-            print(f"Error: License plate number {license_plate_number} already exists. Car not created.")
-        else:
+        try:
+            if license_plate_number in Car.registered_license_plates:
+                raise DuplicateLicensePlateError(f"License plate '{license_plate_number}' already exists.")
             self.brand = brand
             self.model = model
             self.year = year
@@ -14,9 +16,8 @@ class Car:
             self.fuel_level = 100
             self.license_plate_number = license_plate_number
             Car.registered_license_plates.add(license_plate_number)
-
-    def _validate_license_plate(self, license_plate_number):
-        return isinstance(license_plate_number, str) and license_plate_number.isdigit() and len(license_plate_number) == 5
+        except DuplicateLicensePlateError as e:
+            print(e)
 
     def drive(self, distance):
         if distance < 0:
@@ -41,15 +42,16 @@ class Car:
         self.fuel_level = min(self.fuel_level + amount, 100)
         print(f"Car {self.brand} {self.model} refueled. Current fuel level: {self.fuel_level}%")
 
-#Creating the Fleet with the required methods.
-
 class Fleet:
     def __init__(self):
         self.cars = []
 
     def add_car(self, car):
-        self.cars.append(car)
-        print(f"Car {car.brand} {car.model} with {car.license_plate_number} LPN added to the fleet.")
+        try:
+            self.cars.append(car)
+            print(f"Car {car.brand} {car.model} with {car.license_plate_number} LPN added to the fleet.")
+        except DuplicateLicensePlateError as e:
+            print(e)
 
     def remove_car(self, license_plate_number):
         for car in self.cars:
