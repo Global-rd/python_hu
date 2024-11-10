@@ -14,6 +14,8 @@ class Car:          #osztály
             self.mileage += distance
             self.fuel_level -= fuel_needed
             print(f"Vezetni lehet {distance} km. Kilóméter óra induló állása: {self.mileage} km.")
+        elif distance <=0:
+            print(f"A megadatott táv negatív, ami nem lehetséges ({distance} km.)")
         else:
             max_distance = self.fuel_level / 0.1
             self.mileage += max_distance
