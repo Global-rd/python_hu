@@ -23,7 +23,7 @@ class Car:
                 self.fuel_level -= kilometer * 0.1
 
         except ValueError as e:
-            print("Error happened: {e}")
+            print(f"Error happened: {e}")
 
 
     def refuel(self, amount):
@@ -87,7 +87,7 @@ if __name__ == "__main__":
     # Methods
     car1.drive(150)  # Driving 150 km
     car2.drive(50)   # Driving 50 km-t
-    car2.drive(1000)
+    car2.drive(1000)  # Max distance test
     car3.refuel(-20)  # Wrong input test
     car3.refuel(30)  # Refueling 30%
     
