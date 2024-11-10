@@ -70,3 +70,13 @@ def test_transfer_insufficient_funds(account1, account2):
     # Ha a számlánkon nincs elég pénz, ValueError-t kell dobni
     with pytest.raises(ValueError, match="Insufficient funds."):
         account1.transfer(2000, account2)
+
+# Parametrizált teszt a deposit metódushoz
+@pytest.mark.parametrize("deposit_amount, expected_exception", [
+    (0, ValueError),  # Ha nulla értékkel próbáljuk, ValueError kell, hogy dobjon
+    (-50, ValueError),  # Ha negatív értékkel próbáljuk, ValueError kell, hogy dobjon
+])
+def test_deposit_with_invalid_amount(account1, deposit_amount, expected_exception):
+    # Ha nem megfelelő összeggel próbáljuk betenni, akkor elvárt hibát kell dobni
+    with pytest.raises(expected_exception, match="Deposit amount must be positive."):
+        account1.deposit(deposit_amount)
