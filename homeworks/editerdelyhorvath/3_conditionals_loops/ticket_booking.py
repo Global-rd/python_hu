@@ -9,7 +9,7 @@ import sys
 import os
 import copy # for deepcopy
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_helpers')))
 
 from terminal_clearer import clear_terminal
 from ticket_booking_functions import print_seating_area, update_seating_area_booked, update_seating_area_bought, book_seat

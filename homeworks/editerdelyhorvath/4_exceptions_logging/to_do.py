@@ -10,7 +10,7 @@ import sys
 import os
 import logging
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_helpers')))
 
 from setup_logger_edit import setup_logger
 from to_do_functions import setup_logger_for_functions

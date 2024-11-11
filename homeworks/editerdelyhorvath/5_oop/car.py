@@ -19,27 +19,37 @@ Az osztály tartalmazza a következő metódusokat:
     - Egy refuel() metódus, amely feltölti az üzemanyag-szintet egy adott mennyiséggel. Figyelj a limitekre.
 
 '''
+import sys
+import os
 
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_helpers')))
+
+from LoggerSettingsForHomeworks import LoggerSettingsForHomeworks
 from exception_handling_to_classes import InvalidAmountError
+
 
 ####################  Car Class  #################### 
 
 class Car:
     """ Create a car, drive a car and refuel a car"""
 
+    # class level logger
+    log_file_path = os.path.join(os.path.dirname(__file__), 'logs', 'fleet_log.log')
+    logger = LoggerSettingsForHomeworks(log_file_path).get_logger()
+
     car_count = 0
     
-    def __init__(self, name, brand:str, modell:str, year:int, mileage:float = 0, fuel_level:float = 100, logger=None):
+    def __init__(self, brand:str, modell:str, year:int, mileage:float = 0, fuel_level:float = 100):
 
-        self.name = name
-        self.brandbrand = brand
+        Car.car_count += 1
+        self.id = Car.car_count
+        self.brand = brand
         self.modell = modell
         self.year = year
         self.mileage = mileage
         self.fuel_level = fuel_level
-        self.logger = logger  
+    
 
-        Car.car_count += 1
 
 
     def drive(self, distance:float):
@@ -47,25 +57,25 @@ class Car:
         fuel_needed = distance * 0.1
 
         if self.fuel_level < fuel_needed:
-            error_message = f"For {self.name} there is not enough fuel to drive {distance} km."
-            raise InvalidAmountError(error_message, logger=self.logger)
+            error_message = f"For {self.id} there is not enough fuel to drive {distance} km."
+            raise InvalidAmountError(error_message)
         
         self.mileage += distance
         self.fuel_level -= fuel_needed
-        if self.logger:
-            self.logger.info(f"{self.name} drove {distance} km. New mileage: {self.mileage}, fuel level: {self.fuel_level}.")
-
+        self.logger.info(f"{self.id} drove {distance} km. New mileage: {self.mileage}, fuel level: {self.fuel_level}.")
 
     def refuel(self, amount:float):
 
         if self.fuel_level + amount > 100:
             fuel_to_max = 100 - self.fuel_level
-            error_message = f"For {self.name}, You have entered too much fuel, the maximum missing amount: {fuel_to_max}."
-            raise InvalidAmountError(error_message, logger=self.logger)
+            error_message = f"For {self.id}, You have entered too much fuel, the maximum missing amount: {fuel_to_max}."
+            raise InvalidAmountError(error_message)
 
         self.fuel_level += amount
-        if self.logger:
-            self.logger.info(f"{self.name} refueled with {amount} units. New fuel level: {self.fuel_level}.")
+        self.logger.info(f"{self.id} refueled with {amount} units. New fuel level: {self.fuel_level}.")
+
+    def __str__(self):
+        return f"Car {self.id}: {self.brand} {self.modell}, Year: {self.year}, Mileage: {self.mileage}, Fuel Level: {self.fuel_level}"
 
         
             

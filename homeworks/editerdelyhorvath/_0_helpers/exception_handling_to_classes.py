@@ -18,8 +18,5 @@ logger = logger_settings.get_logger()
 
 
 class InvalidAmountError(Exception):
-    """ Custom exception for invalid errors"""
-    
-    def __init__(self, message, logger=None):
-        super().__init__(message)
-
+    """ Custom exception for invalid errors """
+    pass
