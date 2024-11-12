@@ -49,3 +49,10 @@ coverage.xml
 
 # Environment variables
 .env
+homeworks/valitothattila/X_testing/bankaccount.py
+homeworks/valitothattila/X_testing/t_bankaccount_2.py
+homeworks/valitothattila/X_testing/t_bankaccount_3.py
+lessons/12/t_shopping_cart.py
+lessons/12/test_shopping_cart.py
+lessons/12/test_shopping_cart.py
+/lessons/12
