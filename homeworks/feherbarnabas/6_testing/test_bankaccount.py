@@ -21,7 +21,7 @@ def test_top_up(account_1):
 @pytest.mark.parametrize("amount, expected_axception",[
                             (0, ValueError), #zero deposit
                             (-1, ValueError), #negative deposit
-                            ("string", TypeError) #type error
+                            ("string", TypeError), #type error
                             (1000, ValueError) # deposit more than the balance
 ])
 def test_withdraw_valid(account_1):
@@ -32,16 +32,16 @@ def test_withdraw_valid(account_1):
     (0,ValueError),
     (-1, ValueError),
     (150, ValueError),
-    ("string", TypeError),
+    ("string", TypeError)
 ])
 
-def test_deposit_invalid_input(account_1,deposit,expected_exception):
+def test_withdraw_invalid_input(account_1,deposit,expected_exception):
     with pytest.raises(expected_exception):
-        account_1.deposit(deposit)
+        account_1.withdraw(deposit)
 
 def test_transfer(account_1, account_2):
     account_1.transfer(20, account_2)
-    assert account_1.balance == 180 and account_2.balance == 50.50
+    assert account_1.balance == 190.12 and account_2.balance == 50.50
 
 #Test 3
 def test_transfer_invalid_account(account_1):
@@ -51,8 +51,8 @@ def test_transfer_invalid_account(account_1):
 #Test 4
 def test_transfer_insufficient_funds(account_1, account_2):
     with pytest.raises(ValueError):
-        account_1.transfer(200, account_2)
+        account_1.transfer(220, account_2)
 
 def test_transfer_to_self(account_1):
     with pytest.raises(TypeError):
-        account_1.transfer(0, account_1)
+        account_1.transfer(20, account_1)
