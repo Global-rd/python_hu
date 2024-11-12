@@ -24,16 +24,20 @@ def test_transfer(test1_account,test2_account):
     assert test1_account.balance == 1000.0 and test2_account.balance == 2000.0
 
 #test3
+
 def test_use_bankaccount_instance(test1_account):
     test3_account = "valami"
-    test1_account.transfer(1.0, test3_account)    
-
+    with pytest.raises(TypeError):
+        test1_account.transfer(1.0, test3_account)    
+    
 #test4
 def test_withdraw_insufficient_amount(test2_account):
-    test2_account.withdraw(2000.0)
+    with pytest.raises(ValueError):
+        test2_account.withdraw(2000.0)
 
 def test_transfer_insufficient_amount(test1_account,test2_account):
-    test2_account.transfer(2000.0,test1_account)
+    with pytest.raises(ValueError):
+        test2_account.transfer(2000.0,test1_account)
 
 
 
