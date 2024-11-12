@@ -39,9 +39,10 @@ def test_withdraw(bankaccount_1):
         bankaccount_1.withdraw(0)
 
 def test_transfer(bankaccount_1, bankaccount_2):
-    bankaccount_1.transfer(50, bankaccount_2)
-    
-    assert bankaccount_1.get_balance() ==200
+    with pytest.raises(TypeError):
+        bankaccount_1.transfer(50, "not a bank account")
+
+    assert bankaccount_1.get_balance() ==150
     assert bankaccount_2.get_balance() ==600
 
 def test_transfer_to_self(bankaccount_1):
