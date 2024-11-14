@@ -15,9 +15,9 @@ def bank_account_2():
     (-10000, ValueError), #negative amount
     (0, ValueError), #zero amount
 ])
-def test_deposit_invalid_input(empty_bank_account, amount, expected_exception):
+def test_deposit_invalid_input(bank_account_1, amount, expected_exception):
     with pytest.raises(expected_exception):
-        empty_bank_account.deposit(amount)
+        bank_account_1.deposit(amount)
 
 def test_valid_transfer(bank_account_1, bank_account_2):
     bank_account_1.transfer(1000, bank_account_2)
