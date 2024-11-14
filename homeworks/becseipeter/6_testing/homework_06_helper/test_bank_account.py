@@ -2,10 +2,6 @@ import pytest
 from bankaccount import BankAccount
 
 @pytest.fixture
-def empty_bank_account():
-    return BankAccount()
-
-@pytest.fixture
 def bank_account_1():
     account_1 = BankAccount(owner= "Zsóka", balance= 50000)
     return account_1
@@ -32,3 +28,5 @@ def test_invalid_transfer(bank_account_1):
     with pytest.raises(TypeError):
         bank_account_1.transfer(4000, "bank_account")
     
+
+
