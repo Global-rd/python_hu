@@ -20,6 +20,8 @@ class BankAccount:
     def transfer(self, amount: float, target_account: 'BankAccount'):
         if not isinstance(target_account, BankAccount):
             raise TypeError("Target must be a BankAccount instance.")
+        if self == target_account:
+             raise TypeError("Cannot transfer to the same account.")        
         self.withdraw(amount)
         target_account.deposit(amount)
     
