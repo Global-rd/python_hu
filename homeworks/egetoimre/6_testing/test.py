@@ -28,5 +28,5 @@ def test_utalas_nincs_penz(ures_account, account_egyenleggel):
         account_egyenleggel.transfer(2000, ures_account)
 
 def test_negativ_egyenleg():
-    with pytest.raises(ValueError, match="Az egyenleg nem lehet negatív!"):
+    with pytest.raises(ValueError, match="Initial balance cannot be negative."):
         BankAccount("Imi", -10.0)
