@@ -31,9 +31,9 @@ def test_withdraw_zero_or_negative_amount(account_1):
         account_1.withdraw(-10)
 
 # test bank transfers
-def test_transfer_over_balance(account_1):
+def test_transfer_over_balance(account_1, account_2):
     with pytest.raises(ValueError, match="Insufficient funds."):
-        account_1.transfer(200.0)
+        account_1.transfer(200.0, account_2)
 
 def test_transfer_negative_or_zero_amount(account_1, account_2):
     with pytest.raises(ValueError, match="Transfer amount must be positive."):
@@ -48,7 +48,6 @@ def test_transfer_non_bank_account(account_1):
 def test_transfer_to_own_account(account_1):
     with pytest.raises(ValueError):
         account_1.transfer(10, account_1)
-
 
 # test non-numeric inputs for depost, withdraw, transfer
 def test_deposit_non_numeric(account_1):
