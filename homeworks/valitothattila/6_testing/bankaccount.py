@@ -11,7 +11,7 @@ class BankAccount:
         self.balance += amount
     
     def withdraw(self, amount: float):
-        #if amount == 0:        #Raise hiba indukcióhoz
+        #if amount == 0:            #Raise hiba indukcióhoz
         if amount <= 0:
             raise ValueError("Withdraw amount must be positive.")
         if amount > self.balance:

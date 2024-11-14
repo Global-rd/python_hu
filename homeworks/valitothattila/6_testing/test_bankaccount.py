@@ -91,7 +91,6 @@ def R_account():
     (0.0, 100.0, ValueError),        # Nulla összeg
 ])
 def test_withdraw(R_account, withdraw_amount, expected_balance, expected_exception):
-    
     if expected_exception:
         with pytest.raises(expected_exception):
             R_account.withdraw(withdraw_amount)
