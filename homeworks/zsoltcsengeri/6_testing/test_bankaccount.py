@@ -2,25 +2,29 @@ import pytest
 from bankaccount import BankAccount
 
 
-# Fixture for bankaccount1 account
+# Fixture for bankaccount_1 account
 @pytest.fixture
 def bankaccount_1():
     # A BankAccount for Zsolt with $100 balance
     return BankAccount("Zsolt", 100)
 
 
-# Fixture for bankaccount2 account
+# Fixture for bankaccount_2 account
 @pytest.fixture
 def bankaccount_2():
     # A BankAccount for Maryna with $50 balance
     return BankAccount("Maryna", 50)
 
 
-# Test for valid deposit
-def test_deposit(bankaccount_1, bankaccount_2):
+# Test for bankaccount_1 deposit
+def test_deposit_bankaccount_1(bankaccount_1):
     bankaccount_1.deposit(600)
-    bankaccount_2.deposit(200)
     assert bankaccount_1.balance == 700
+
+
+# Test for bankaccount_2 deposit
+def test_deposit_bankaccount_2(bankaccount_2):
+    bankaccount_2.deposit(200)
     assert bankaccount_2.balance == 250
 
 
@@ -35,6 +39,10 @@ def test_deposit(bankaccount_1, bankaccount_2):
 def test_deposit_invalid_input(
     bankaccount_1, bankaccount_2, amount, expected_exception
 ):
+    # Test invalid deposit for bankaccount_1
     with pytest.raises(expected_exception):
         bankaccount_1.deposit(amount)
+
+    # Test invalid deposit for bankaccount_2
+    with pytest.raises(expected_exception):
         bankaccount_2.deposit(amount)
