@@ -1,21 +1,22 @@
 import pytest
 from bankaccount import BankAccount
 
-# Fixture for an empty account
+# Fixture for bankaccount1 account
 @pytest.fixture
-def empty_account():
-    return BankAccount()
+def bankaccount_1():
+    # A BankAccount for Zsolt with $100 balance
+    return BankAccount("Zsolt", 100)
 
-# Fixture for an account with initial balance
+# Fixture for bankaccount2 account
 @pytest.fixture
-def account_with_data():
-    account = BankAccount("Zsolt", 100)
-    return account
+def bankaccount_2():
+    # A BankAccount for Maryna with $50 balance
+    return BankAccount("Maryna", 50)
 
 # Test for valid deposit
-def test_deposit(account_with_data):
-    account_with_data.deposit(600)
-    assert account_with_data.balance == 700
+def test_deposit(bankaccount_1):
+    bankaccount_1.deposit(600)
+    assert bankaccount_1.balance == 700
 
 # Parametrized test for invalid deposit inputs
 @pytest.mark.parametrize(
@@ -25,6 +26,6 @@ def test_deposit(account_with_data):
         (0, ValueError),     # zero deposit
     ],
 )
-def test_deposit_invalid_input(account_with_data, amount, expected_exception):
+def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
     with pytest.raises(expected_exception):
-        account_with_data.deposit(amount)
+        bankaccount_1.deposit(amount)
