@@ -39,8 +39,8 @@ def test_deposit_bankaccount_2(bankaccount_2):
 @pytest.mark.parametrize(
     "amount, expected_exception",
     [
-        (-100, ValueError),  # negative deposit
-        (0, ValueError),  # zero deposit
+        (-100, ValueError),  # Negative deposit
+        (0, ValueError),  # Zero deposit
     ],
 )
 def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
@@ -53,8 +53,8 @@ def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
 @pytest.mark.parametrize(
     "amount, expected_exception",
     [
-        (-100, ValueError),  # negative deposit
-        (0, ValueError),  # zero deposit
+        (-100, ValueError),  # Negative deposit
+        (0, ValueError),  # Zero deposit
     ],
 )
 def test_deposit_invalid_input(bankaccount_2, amount, expected_exception):
@@ -80,4 +80,10 @@ def test_deposit_invalid_input(bankaccount_2, amount, expected_exception):
 )
 def test_deposit_to_invalid_target(invalid_account, bankaccount_1):
     with pytest.raises(TypeError):
-        bankaccount_1.transfer([{1,2,3,4,5}])
+        bankaccount_1.transfer([{1, 2, 3, 4, 5}])
+
+
+# Transferring money to the same account
+def test_transfer_to_self(bankaccount_1):
+    with pytest.raises(ValueError):
+        bankaccount_1.transfer(50, bankaccount_1)

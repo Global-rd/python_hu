@@ -20,6 +20,8 @@ class BankAccount:
     def transfer(self, amount: float, target_account: 'BankAccount'):
         if not isinstance(target_account, BankAccount):
             raise TypeError("Target must be a BankAccount instance.")
+        if target_account is self:
+            raise ValueError("Cannot transfer money to the same account.")
         self.withdraw(amount)
         target_account.deposit(amount)
     
@@ -29,8 +31,15 @@ class BankAccount:
     def __str__(self):
         return f"Account owner: {self.owner}, Balance: {self.balance:.2f}"
 
-account1 = BankAccount("Zsolt", 100)
-account2 = BankAccount("Maryna", 200)
+#account1 = BankAccount("Zsolt", 100)
+#account2 = BankAccount("Maryna", 200)
 
-print(account1)
-print(account2)
+
+
+#account1.transfer(50, account2)
+
+#account1.transfer(100, account1)
+
+
+#print(account1)
+#print(account2)
