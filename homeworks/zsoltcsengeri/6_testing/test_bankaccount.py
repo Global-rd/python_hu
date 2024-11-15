@@ -28,7 +28,7 @@ def test_deposit_bankaccount_2(bankaccount_2):
     assert bankaccount_2.balance == 250
 
 
-# Parametrized test for invalid deposit inputs
+# Parametrized test for invalid deposit inputs for bankaccount_1
 @pytest.mark.parametrize(
     "amount, expected_exception",
     [
@@ -36,12 +36,22 @@ def test_deposit_bankaccount_2(bankaccount_2):
         (0, ValueError),  # zero deposit
     ],
 )
-def test_deposit_invalid_input(
-    bankaccount_1, bankaccount_2, amount, expected_exception
-):
+def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
     # Test invalid deposit for bankaccount_1
     with pytest.raises(expected_exception):
         bankaccount_1.deposit(amount)
+
+        
+
+# Parametrized test for invalid deposit inputs for bankaccount_2
+@pytest.mark.parametrize(
+    "amount, expected_exception",
+    [
+        (-100, ValueError),  # negative deposit
+        (0, ValueError),  # zero deposit
+    ],
+)
+def test_deposit_invalid_input(bankaccount_2, amount, expected_exception):
 
     # Test invalid deposit for bankaccount_2
     with pytest.raises(expected_exception):
