@@ -1,6 +1,13 @@
 import pytest
 from bankaccount import BankAccount
 
+"""
+Write at least 2 fixtures (2 different BankAccount objects) that you use in your tests.
+Write at least one test that uses @pytest.mark.parametrize 
+to run the test with multiple inputs (e.g., test the deposit() 
+method with exactly 0 and negative number inputs)
+"""
+
 
 # Fixture for bankaccount_1 account
 @pytest.fixture
@@ -41,7 +48,6 @@ def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
     with pytest.raises(expected_exception):
         bankaccount_1.deposit(amount)
 
-        
 
 # Parametrized test for invalid deposit inputs for bankaccount_2
 @pytest.mark.parametrize(
@@ -52,7 +58,26 @@ def test_deposit_invalid_input(bankaccount_1, amount, expected_exception):
     ],
 )
 def test_deposit_invalid_input(bankaccount_2, amount, expected_exception):
-
     # Test invalid deposit for bankaccount_2
     with pytest.raises(expected_exception):
         bankaccount_2.deposit(amount)
+
+    """
+    Edge Case Test:
+ 
+    """
+
+
+# Transferring money to non-BankAccount objects
+@pytest.mark.parametrize(
+    "invalid_account",
+    [
+        (None, TypeError),  # None
+        (123, TypeError),  # Number
+        ([], TypeError),  # List
+        ({}, TypeError),  # Set
+    ],
+)
+def test_deposit_to_invalid_target(invalid_account, bankaccount_1):
+    with pytest.raises(TypeError):
+        bankaccount_1.transfer([{1,2,3,4,5}])
