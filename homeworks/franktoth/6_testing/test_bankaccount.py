@@ -1,53 +1,44 @@
 import pytest
 from bankaccount import BankAccount
 
+@pytest.fixture
+def account1():
+    return BankAccount("Frank", 500)
 
-# Fixture to create BankAccounts with different initial balances
-@pytest.fixture(scope="class")
-def accounts():
-    account1 = BankAccount("Frank", 500)
-    account2 = BankAccount("Steve", 700)
-    invalid_account = BankAccount("Account Error", -250)
-    return account1, account2, invalid_account
-
+@pytest.fixture
+def account2():
+    return BankAccount("Steve", 700)
 
 class TestBankAccount:
-    # Test deposit with various inputs using parametrize
-    @pytest.mark.parametrize("deposit_amount, expected_balance, expected_exception", [
-        (50, 550, None), 
-        (0, 330, None), 
-        (-30, 100, ValueError)
-    ])
-    def test_deposit(self, accounts, deposit_amount, expected_balance, expected_exception):
-        account = accounts[0] 
 
-        if expected_exception:
-            with pytest.raises(expected_exception):
-                account.deposit(deposit_amount)
-        else:
-            account.deposit(deposit_amount)
-            assert account.get_balance() == expected_balance
-
-    # Test withdraw with different values
-    def test_withdraw(self, accounts):
-        account = accounts[0]
-
-        account.withdraw(100)
-        assert account.get_balance() == 400
-
-        with pytest.raises(ValueError):
-            account.withdraw(1000) 
-
-        with pytest.raises(ValueError):
-            account.withdraw(0) 
-
-    # Test transfer with right and wrong account destinations
-    def test_transfer(self, accounts):
-        account1, account2, _ = accounts
-
-        with pytest.raises(TypeError):
-            account1.transfer(50, "Account Error")
-
-        account1.transfer(50, account2)
+    # Deposit Tests
+    def test_deposit_success(self, account1):
+        account1.deposit(50)
         assert account1.get_balance() == 550
+
+    def test_deposit_with_invalid_values(self, account1):
+        with pytest.raises(ValueError):
+            account1.deposit(-10)
+        with pytest.raises(ValueError):
+            account1.deposit(0)
+
+    # Withdraw Tests
+    def test_withdraw_success(self, account1):
+        account1.withdraw(100)
+        assert account1.get_balance() == 400
+
+    def test_withdraw_with_invalid_values(self, account1):
+        with pytest.raises(ValueError):
+            account1.withdraw(-10)
+        with pytest.raises(ValueError):
+            account1.withdraw(600)
+
+    # Transfer Tests
+    def test_transfer_to_right_target_account(self, account1, account2):
+        account1.transfer(50, account2)
+        assert account1.get_balance() == 450
         assert account2.get_balance() == 750
+
+    def test_transfer_to_wrong_target_account(self, account1):
+        with pytest.raises(TypeError):
+            account1.transfer(50, "Invalid Target")
