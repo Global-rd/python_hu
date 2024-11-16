@@ -6,21 +6,27 @@ import requests
 import pandas as pd
 
 
-url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=EUR&order=market_cap_desc&per_page=250"
+url = "https://api.coingecko.com/api/v3/coins/markets"
+params = {"vs_currency": "EUR",
+          "order": "market_cap_desc",
+          "per_page": "250"}
 headers = {"accept": "application/json"}
-response = requests.get(url, headers=headers).json()
+response = requests.get(url, headers=headers, params=params).json()
 
 df=pd.DataFrame(response)
 
 #Az üres cellák száma oszloponként
-empty_cells_per_column = df.isnull().sum().reset_index()
-print(empty_cells_per_column)
-
+#empty_cells_per_column = df.isnull().sum().reset_index()
+print("Az üres cellák száma oszloponként")
+print("-----------------------------------------")
+print(df.isnull().sum().reset_index())
+print("-----------------------------------------\n")
 #A market_cap összege a teljes dataframere
-sum_market_cap = df["market_cap"].sum()
-print(sum_market_cap)
+#sum_market_cap = df["market_cap"].sum()
+print(f"A tözsdei kapitalizáció összesen: {df["market_cap"].sum():,} EUR\n")
 
 #Az első 50 kriptovaluta ár szerint növekvő sorrendben
+print("Az első 50 kriptovaluta, ár szerint növekvő sorrendben")
 top50_df = df.sort_values(by="current_price", ascending=True).head(50)
 print(top50_df)
 
