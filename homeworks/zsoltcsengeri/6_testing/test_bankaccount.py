@@ -71,16 +71,11 @@ def test_deposit_invalid_input(bankaccount_2, amount, expected_exception):
 # Transferring money to non-BankAccount objects
 @pytest.mark.parametrize(
     "invalid_account",
-    [
-        (None, TypeError),  # None
-        (123, TypeError),  # Number
-        ([], TypeError),  # List
-        ({}, TypeError),  # Set
-    ],
+    [None, 123, [], {}],
 )
-def test_deposit_to_invalid_target(invalid_account, bankaccount_1):
+def test_transfer_to_invalid_target(invalid_account, bankaccount_1):
     with pytest.raises(TypeError):
-        bankaccount_1.transfer([{1, 2, 3, 4, 5}])
+        bankaccount_1.transfer(50, invalid_account)
 
 
 # Transferring money to the same account
