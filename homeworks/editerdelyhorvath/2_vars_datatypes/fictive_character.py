@@ -9,7 +9,7 @@ f-string használata
 import sys
 import os
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_Functions')))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../_0_helpers')))
 
 from terminal_clearer import clear_terminal
 
