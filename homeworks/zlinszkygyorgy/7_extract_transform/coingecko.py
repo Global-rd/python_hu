@@ -2,9 +2,12 @@ import requests
 import settings as s
 import pandas as pd
 
-url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=250&page=1"
+url = "https://api.coingecko.com/api/v3/coins/markets"
 params = {"accept": "application/json",
-          "x-cg-demo-api-key": s.COINGECKO_API_KEY}
+          "x-cg-demo-api-key": s.COINGECKO_API_KEY,
+          "vs_currency": "usd",
+          "per_page": "250",
+          "page": "1"}
 
 response = requests.get(url=url, params=params).json()
 
