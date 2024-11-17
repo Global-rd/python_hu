@@ -1,5 +1,4 @@
 import requests
-import json
 import pandas as pd
 
 url = "https://api.coingecko.com/api/v3/coins/markets"
@@ -22,4 +21,7 @@ df = pd.DataFrame(data)
 print(df)
 
 #save a DataFrame to a CSV file
-df.to_csv('./coin_list_250.csv', index=False) #index=False prevents an index column from being added
+df.to_csv('crypto_list_250.csv', index=False) #index=False prevents an index column from being added
+
+
+
