@@ -16,22 +16,26 @@ class TestBankAccount:
         account1.deposit(50)
         assert account1.get_balance() == 550
 
-    def test_deposit_with_invalid_values(self, account1):
+    @pytest.mark.parametrize(
+        "invalid_value",
+        [-10, 0],
+    )
+    def test_deposit_with_invalid_values(self, account1, invalid_value):
         with pytest.raises(ValueError):
-            account1.deposit(-10)
-        with pytest.raises(ValueError):
-            account1.deposit(0)
+            account1.deposit(invalid_value)
 
     # Withdraw Tests
     def test_withdraw_success(self, account1):
         account1.withdraw(100)
         assert account1.get_balance() == 400
 
-    def test_withdraw_with_invalid_values(self, account1):
+    @pytest.mark.parametrize(
+        "invalid_value",
+        [-10, 600],
+    )
+    def test_withdraw_with_invalid_values(self, account1, invalid_value):
         with pytest.raises(ValueError):
-            account1.withdraw(-10)
-        with pytest.raises(ValueError):
-            account1.withdraw(600)
+            account1.withdraw(invalid_value)
 
     # Transfer Tests
     def test_transfer_to_right_target_account(self, account1, account2):
