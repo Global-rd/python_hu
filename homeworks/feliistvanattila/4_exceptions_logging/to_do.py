@@ -4,14 +4,16 @@ import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
-                        logging.FileHandler ("homeworks/feliistvanattila/4_exceptions_logging/task_manager.logger"),
+                        # logging.FileHandler ("homeworks/feliistvanattila/4_exceptions_logging/task_manager.logger"),
+                        logging.FileHandler("task_manager.logger"),
                         logging.StreamHandler()
                     ])
 
 # Fájl neve, ahol a feladatokat tároljuk
-TASK_FILE = "homeworks/feliistvanattila/4_exceptions_logging/tasks.txt"
+# TASK_FILE = "homeworks/feliistvanattila/4_exceptions_logging/tasks.txt"
+TASK_FILE = "tasks.txt"
 
-# Feladatok olvasása a fájlból
+
 def read_tasks() -> list:
     try:
         with open(TASK_FILE, "r") as file:
@@ -23,8 +25,8 @@ def read_tasks() -> list:
         logging.error("The task file was not found.")
         return []
 
-# Feladat hozzáadása a fájlhoz
-def add_task(task:str):
+
+def add_task(task: str):
     try:
         with open(TASK_FILE, "a") as file:
             file.write(task + "\n")
@@ -34,7 +36,9 @@ def add_task(task:str):
         logging.exception(e)
 
 # Feladat törlése a fájlból
-def remove_task(task:str):
+
+
+def remove_task(task: str):
     tasks = read_tasks()
     if task in tasks:
         tasks.remove(task)
@@ -49,20 +53,34 @@ def remove_task(task:str):
     else:
         logging.warning(f"Task '{task}' not found in the list.")
 
-# Menü megjelenítése
+
+def clear_all_task():
+    user_input = str(
+        input(f"Are you sure??? Press 'Y' to continue!: "))
+    if user_input == 'Y':
+        logging.info(f"Clearing task list started.")
+        for task in read_tasks():
+            remove_task(task)
+        logging.info(f"Clearing task list finished.")
+
+    else:
+        logging.info(f"User canceled clearing all tasks.")
+
+
 def display_menu():
     print("\nTask Manager")
     print("1. Add Task")
     print("2. View Tasks")
     print("3. Remove Task")
     print("4. Exit")
+    print("5. Clear Task List")
 
-# Fő loop
+
 def main():
     while True:
         display_menu()
-        choice = input("Choose an option (1, 2, 3, or 4): ")
-        
+        choice = input("Choose an option (1, 2, 3, 4 or 5): ")
+
         if choice == "1":
             task = input("Enter the task to add: ")
             add_task(task)
@@ -77,11 +95,14 @@ def main():
         elif choice == "3":
             task = input("Enter the task to remove: ")
             remove_task(task)
+        elif choice == "5":
+            clear_all_task()
         elif choice == "4":
             print("Exiting the program.")
             break
         else:
-            print("Invalid option. Please choose 1, 2, 3, or 4.")
+            print("Invalid option. Please choose 1, 2, 3, 4 or 5.")
+
 
 if __name__ == "__main__":
     main()
