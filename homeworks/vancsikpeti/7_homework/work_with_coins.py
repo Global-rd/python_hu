@@ -1,7 +1,8 @@
 import pandas as pd
 from coingecko_api import CoinGecko
 
-df = pd.DataFrame(CoinGecko.get_data(250))
+
+df = pd.DataFrame(CoinGecko.get_data("markets", "usd", 250))
 #Határozd meg, hogy a dataframe egyes oszlopaiban hány üres cella található és printeld ki.
 df.info() # -> max_supply 143, roi 32 // de ez még nem számolja meg az üres cellákat!!
 #itt végig kellene loopolni az összes oszlopon és megszámolni a NaN / None / "" értékeket??
