@@ -41,14 +41,15 @@ class SqliteDB:
         with self.conn:
             self.conn.execute(query)
 
-    def update_record(self, table, updates, identifier):
+    def update_record(self, table, updates, identifier): # UPDATE department SET department_name = ? WHERE department_id = ?
         update_clause = ', '.join([f"{k} = ?" for k in updates.keys()]) # e.g.: department_name = ? (amit updatelni akarunk)
         identifier_clause = ' AND '.join([f"{k} = ?" for k in identifier.keys()]) #e.g.: department_id = ? and xy = ? (feltétel az update-hez)
         query = f"UPDATE {table} SET {update_clause} WHERE {identifier_clause}" # UPDATE department SET department_name = ? WHERE department_id = ?
+        print(query)
         with self.conn:
-            self.conn.execute(query, tuple(updates.values()) + tuple(identifier.values()))
+            self.conn.execute(query, tuple(updates.values()) + tuple(identifier.values())) #két tuple-t adunk meg mert két "csomag" ?-ünk van. egy az updatelendő oszlopoknak, 1 a feltételeknek
 
-    def upsert_record(self, table, record, conflict_columns):
+    def upsert_records(self, table, records, conflict_columns):
         
         """ formátum amit a query-hez összerakunk:
             INSERT INTO department (department_id, department_name) VALUES (?, ?)
@@ -56,16 +57,17 @@ class SqliteDB:
         """
         #abban az esetben hasznos, ha olyan adatokat töltünk be amiben lehet hogy szerepel olyan ami már jelen van a táblában.
         #ha nincs jelen a rekord -> insert, ha jelen van -> update
-        columns = ', '.join(record.keys()) #(department_id, department_name)
-        placeholders = ', '.join(['?' for _ in record]) #(?, ?)
+        columns = ', '.join(records[0].keys()) #(department_id, department_name)
+        placeholders = ', '.join(['?' for _ in records[0]]) #(?, ?)
         conflict_clause = ', '.join(conflict_columns) # (department_id) a CONFLICT után, ez lehet több oszlopnév is
-        update_clause = ', '.join([f"{k} = excluded.{k}" for k in record.keys()]) #department_name = excluded.department_name
+        update_clause = ', '.join([f"{k} = excluded.{k}" for k in records[0].keys()]) #department_name = excluded.department_name
         query = f"""
             INSERT INTO {table} ({columns}) VALUES ({placeholders})
             ON CONFLICT({conflict_clause}) DO UPDATE SET {update_clause}
         """
+
         with self.conn:
-            self.conn.execute(query, tuple(record.values()))
+            self.conn.executemany(query, [tuple(record.values()) for record in records])
 
 
 with SqliteDB("lessons/15/department-db") as db:
@@ -83,13 +85,17 @@ with SqliteDB("lessons/15/department-db") as db:
     db.update_record('department', {'department_name': 'UpdatedDepartmentName'}, {'department_id': 8})
 
     #upsert record
-    db.upsert_record('department', {'department_id': 9, 'department_name': 'Updated9'}, ['department_id'])
-    db.upsert_record('department', {'department_id': 10, 'department_name': 'Inserted10'}, ['department_id'])
+    upsert_data = [
+        {'department_id': 9, 'department_name': 'BulkUpdated9'},
+        {'department_id': 10, 'department_name': 'BulkInserted10'},
+        {'department_id': 11, 'department_name': 'BulkInserted11'}
+    ]
+    db.upsert_records('department', upsert_data, ['department_id'])
 
     #select
     employee_df = db.select_records("SELECT * FROM department")
     print(employee_df)
 
-    #delete to reset the data:
+    #delete to reset the data and avoid constraint errors on re-run:
     db.delete_records('department', "department_id > 6")
     print("all queries finished successfully.")
