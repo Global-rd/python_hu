@@ -8,13 +8,12 @@ class CoingeckoAPI:
         self.params = params 
     
         self.raw_data = None
-        self.df = None
 
     def get_data(self):
         response = requests.get(self.base_url, params = self.params)
         if response.status_code == 200:
-            self.raw_data = response.json()
             print("Data is extracted successfully.")
+            return response.json()
         else:
             raise Exception(f" API error: {response.status_code}, {response.text}")
 
@@ -29,42 +28,31 @@ class ResponseTransformation:
         
     def count_missing_values(self):
         """Count missing values in the DataFrame."""
-        if self.df is None:
-            raise ValueError("DataFrame is not created. First run the create_dataframe() method!")
         return self.df.isnull().sum()
 
     def calculate_total_market_cap(self):
         """Calculate the total market capitalization."""
-        if self.df is None:
-            raise ValueError("DataFrame is not created. First run the create_dataframe() method!")
         return self.df["market_cap"].sum()
         
     def get_top_n(self, column_name, n):
         """Get the top n cryptocurrencies based on the choosen column."""
-        if self.df is None:
-            raise ValueError("DataFrame is not created. First run the create_dataframe() method!")
         return self.df.nlargest(n, column_name)
     
     def sort_by_column(self, column_name, ascending=True):
         """Sort data by column name."""
-        if self.df is None:
-            raise ValueError("DataFrame is not created. First run the create_dataframe() method!")
         return self.df.sort_values(column_name,ascending=ascending)
     
     def add_change_direction_column(self, source_column, new_column):
-        if self.df is None:
-            raise ValueError("Dataframe is not created. First run the create_dataframe() method!")
-        else:
 
-            def classify_change(change):
-                if change > 0:
-                    return "+"
-                elif change < 0:
-                    return "-"
-                else:
-                    return 0
-            self.df[new_column] = self.df[source_column].apply(classify_change)
-            print(f"{new_column} column is added successfully.")
+        def classify_change(change):
+            if change > 0:
+                return "+"
+            elif change < 0:
+                return "-"
+            else:
+                return 0
+        self.df[new_column] = self.df[source_column].apply(classify_change)
+        print(f"{new_column} column is added successfully.")
         
 
 # Run the process
@@ -82,10 +70,10 @@ if __name__ == "__main__":
     api = CoingeckoAPI(base_url, params)
 
     #Extract the data
-    api.get_data()
+    raw_data = api.get_data()
 
     #Create the dataframe using the function
-    transformer = ResponseTransformation(api.raw_data)
+    transformer = ResponseTransformation(raw_data)
 
     #Counting empty cells
     missing_values = transformer.count_missing_values()
