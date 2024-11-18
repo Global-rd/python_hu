@@ -24,8 +24,9 @@ if response.status_code == 200:
     df = df[['name', 'symbol', 'current_price', 'market_cap', 'price_change_percentage_24h']]
 
     # Oszlopok átnevezése
-    df.columns = ['Név', 'Szimbólum', 'Ár (USD)', 'Kibocsátott darabszám', '24h Árfolyamváltozás (%)']
-
+    df=df.rename(columns={'name':'Név', 'symbol':'Szimbólum','current_price':'Ár (USD)','market_cap':'Piaci kapitálizáció',
+    'price_change_percentage_24h':'24h Árfolyamváltozás (%)'})
+    
     # 1. Határozd meg, hogy a DataFrame egyes oszlopaiban hány üres cella található és printeld ki
     missing_values = df.isna().sum()
     print(" ")
@@ -34,9 +35,9 @@ if response.status_code == 200:
     print(missing_values)
 
     # 2. Határozd meg a teljes DataFrame-re a market_cap összegét és printeld ki
-    total_market_cap = df['Kibocsátott darabszám'].sum()
+    total_market_cap = df['Piaci kapitálizáció'].sum()
     print("\n--- 2. ---")
-    print("\nÖsszes kibocsátott darabszám:", total_market_cap)
+    print(f"\nÖsszes Piaci kapitálizáció: {total_market_cap} (USD)")
 
     # 3. Készíts egy új DataFrame-et top50_df néven, itt csak az első 50 kriptovalutát tárold current_price alapján
     top50_df = df.nlargest(50, 'Ár (USD)')
@@ -57,7 +58,7 @@ if response.status_code == 200:
 
     # Az új DataFrame kiírása
     print("\nTop 50 kriptovaluta:")
-    print(top50_df[['Név', 'Szimbólum', 'Ár (USD)', 'Kibocsátott darabszám', '24h Árfolyamváltozás (%)', 'Változás iránya']])
+    print(top50_df[['Név', 'Szimbólum', 'Ár (USD)', 'Piaci kapitálizáció', '24h Árfolyamváltozás (%)', 'Változás iránya']])
 
 else:
     print("Hiba történt az API hívás során:", response.status_code)
