@@ -1,0 +1,50 @@
+import requests
+import pandas as pd
+
+class CoinGeckoData:
+    def __init__(self, vs_currency="usd", per_page=250, order="market_cap_desc"):
+        self.url = "https://api.coingecko.com/api/v3/coins/markets"
+        self.params = {"vs_currency": vs_currency, "per_page": per_page, "order": order}
+        self.data = None
+        self.df = None
+    
+    #Get data via the public API of CoinGecko
+    def fetch_data(self):
+        response = requests.get(self.url, params=self.params)
+        self.data = response.json()
+        self.df = pd.DataFrame(self.data)
+    
+    #Analyze empty cells
+    def analyze_data(self):
+        print("Empty cells per column:")
+        print(self.df.isnull().sum())
+
+    #Calculate total market capitalization
+        total_market_cap = self.df["market_cap"].sum()
+        print(f"Total market capitalization: {total_market_cap:,.2f} USD")
+
+    #Create new DataFrame from the 50 crypto currency with the highest market capitalization
+    def get_top_50(self):
+        top_50_df = self.df.nlargest(50, "current_price")
+        top_50_df = top_50_df.sort_values(by="price_change_percentage_24h", ascending=False)
+
+    #Add price change direction column
+        top_50_df['change_direction'] = top_50_df['price_change_percentage_24h'].apply(
+            lambda x: '+' if x > 0 else '-' if x < 0 else '0'
+        )
+
+        return top_50_df
+    
+    #Print summary of the top50 DataFrame
+    def print_top_50_summary(self):
+        top_50_df = self.get_top_50()
+        top_50_summary = top_50_df[['id', 'current_price', 'change_direction']]
+        print(top_50_summary.to_string(index=False))
+
+
+#Using the methods
+coin_data = CoinGeckoData()
+coin_data.fetch_data()
+coin_data.analyze_data()
+top_50_df = coin_data.get_top_50()
+coin_data.print_top_50_summary()
