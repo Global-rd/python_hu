@@ -33,3 +33,4 @@ def new_change_direction(column):                     #New columns with 3 value
     elif column["price_change_percentage_24h"] < 0:
         return '-'
     else: return "0"
+
