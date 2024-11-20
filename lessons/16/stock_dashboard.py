@@ -56,28 +56,28 @@ if data:
     df = process_data(data)
     st.header(f"Stock overview: {stock_symbol.upper()}")
 
-    kpi1, kpi2, kpi3 = st.columns(3)
-    #KPI
-    with kpi1:
-        st.metric(label="Latest Closing Price", value=f"${df['Close'].iloc[-1]:.2f}")
-    with kpi2:
-        st.metric(label="Volume", value=f"{df['Volume'].iloc[-1]:,.2f}")
-    with kpi3:
-        st.metric(label="Highest Price (Last 30 Days)", value=f"${df['High'][-30:].max():.2f}")
+    if df is not None:
+        kpi1, kpi2, kpi3 = st.columns(3)
+        #KPI
+        with kpi1:
+            st.metric(label="Latest Closing Price", value=f"${df['Close'].iloc[-1]:.2f}")
+        with kpi2:
+            st.metric(label="Volume", value=f"{df['Volume'].iloc[-1]:,.2f}")
+        with kpi3:
+            st.metric(label="Highest Price (Last 30 Days)", value=f"${df['High'][-30:].max():.2f}")
 
-    #LINE CHART:
-    st.subheader("Closing Price Over Time")
-    fig_close = px.line(df, x=df.index, y="Close", title=f"{stock_symbol.upper()} Closing Price Over Time")
-    st.plotly_chart(fig_close)
+        #LINE CHART:
+        st.subheader("Closing Price Over Time")
+        fig_close = px.line(df, x=df.index, y="Close", title=f"{stock_symbol.upper()} Closing Price Over Time")
+        st.plotly_chart(fig_close)
 
-    #BAR CHART:
-    #LINE CHART:
-    st.subheader("Trading Volume Over Time")
-    fig_volume = px.bar(df, x=df.index, y="Volume", title=f"{stock_symbol.upper()} Trading Volume Over Time")
-    st.plotly_chart(fig_volume)
-    
-    #raw data
-    st.subheader("Raw data")
-    st.write(df)
+        #BAR CHART:
+        st.subheader("Trading Volume Over Time")
+        fig_volume = px.bar(df, x=df.index, y="Volume", title=f"{stock_symbol.upper()} Trading Volume Over Time")
+        st.plotly_chart(fig_volume)
+        
+        #raw data
+        st.subheader("Raw data")
+        st.write(df)
 else:
     st.error("No data available. Check the symbol.")
