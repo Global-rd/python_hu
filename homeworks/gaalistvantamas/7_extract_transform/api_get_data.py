@@ -10,19 +10,18 @@ url = "https://api.coingecko.com/api/v3/coins/markets"
 
 params = {"vs_currency": "usd",
           "order=": "market_cap_desc",
-          "per_page": 250,}
+          "per_page": 250}
 
 with open("homeworks/gaalistvantamas/7_extract_transform/coins.json", "w") as file:
     cripto_coins = requests.get(url=url, params=params).json()
     file.write(json.dumps(cripto_coins))
 
 df = pd.read_json("homeworks/gaalistvantamas/7_extract_transform/coins.json")
-#with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-#    print(df)
+
 # 1. 
-df_Nan = pd.DataFrame(df).count()
+df_Nan = pd.DataFrame(df.isnull().sum())
 print("\n1...........")
-print(250-df_Nan)
+print(df_Nan)
 
 # 2. 
 market_cap_sum = df["market_cap"].sum()
@@ -41,9 +40,9 @@ print(top_50_df[["id", "price_change_percentage_24h"]])
 
 # 5.
 def change_direction_index(row):
-    if row["price_change_percentage_24h"] == 0 and row["price_change_percentage_24h"] < 1:
+    if row["price_change_percentage_24h"] == 0:
         return "0"
-    elif  row["price_change_percentage_24h"] > 1:
+    elif  row["price_change_percentage_24h"] > 0:
         return "+"
     else:
         return "-"
