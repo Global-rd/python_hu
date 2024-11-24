@@ -4,8 +4,8 @@ import logging
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s',
                     handlers=[
-                        # logging.FileHandler ("homeworks/feliistvanattila/4_exceptions_logging/task_manager.logger"),
-                        logging.FileHandler("task_manager.logger"),
+                        # logging.FileHandler ("homeworks/feliistvanattila/4_exceptions_logging/task_manager.log"),
+                        logging.FileHandler("task_manager.log"),
                         logging.StreamHandler()
                     ])
 
@@ -56,7 +56,7 @@ def remove_task(task: str):
 
 def clear_all_task():
     user_input = str(
-        input(f"Are you sure??? Press 'Y' to continue!: "))
+        input(f"Are you sure? Press 'Y' to continue!: ")).strip().upper()
     if user_input == 'Y':
         logging.info(f"Clearing task list started.")
         for task in read_tasks():
@@ -67,6 +67,28 @@ def clear_all_task():
         logging.info(f"User canceled clearing all tasks.")
 
 
+def clear_all_tasks_quickly():
+    user_input = input("Are you sure? Press 'Y' to continue: ").strip().upper()
+    if user_input == 'Y':
+    # Itt kilistázzuk hogy mit fogunk törölni csak audit miatt :).
+        tasks = read_tasks()
+        if len(tasks) == 0:
+            logging.info(f"Task list is was empty...there not to much do do here... .  ")
+            return
+        for task in tasks:
+            logging.info(f"Task '{task}' was deleted upon cleaning the task list.")
+
+        try:
+            with open(TASK_FILE, "w") as file:
+                pass
+            logging.info("All tasks cleared successfully.")
+        except Exception as e:
+                logging.error("An error occurred while clearing tasks.")
+                logging.exception(e)
+    else:
+        logging.info("User canceled clearing all tasks.")
+
+
 def display_menu():
     print("\nTask Manager")
     print("1. Add Task")
@@ -74,12 +96,13 @@ def display_menu():
     print("3. Remove Task")
     print("4. Exit")
     print("5. Clear Task List")
+    print("6. Clear Task List quickly")
 
 
 def main():
     while True:
         display_menu()
-        choice = input("Choose an option (1, 2, 3, 4 or 5): ")
+        choice = input("Choose an option (1, 2, 3, 4, 5 or 6): ")
 
         if choice == "1":
             task = input("Enter the task to add: ")
@@ -95,11 +118,13 @@ def main():
         elif choice == "3":
             task = input("Enter the task to remove: ")
             remove_task(task)
-        elif choice == "5":
-            clear_all_task()
         elif choice == "4":
             print("Exiting the program.")
             break
+        elif choice == "5":
+            clear_all_task()
+        elif choice == "6":
+            clear_all_tasks_quickly()
         else:
             print("Invalid option. Please choose 1, 2, 3, 4 or 5.")
 

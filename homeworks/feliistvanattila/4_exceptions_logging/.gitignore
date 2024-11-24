@@ -1,4 +1,0 @@
-# Ignore all .log files
-*.logger
-*.env
-/lesson_4
