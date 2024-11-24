@@ -2,8 +2,6 @@
 import requests
 import streamlit as st
 import pandas as pd
-import plotly.express as px
-import datetime as dt
 
 API_KEY = st.secrets["openweathermap"]["API_KEY"]
 ENDPOINT = "http://api.openweathermap.org/"
