@@ -1,10 +1,11 @@
 import sqlite3
 from datetime import datetime
-import pandas as pd
 import requests
+import pandas as pd
 import streamlit as st
 import plotly.express as px
 
+# API Key from Streamlit secrets
 API_KEY = st.secrets["api"]["key"]
 
 # SQLite adatbázis inicializálása
@@ -52,66 +53,67 @@ def log_weather_data(city, temperature, humidity, wind_speed):
     conn.commit()
 
 
-# Oldalsáv menü
-menu_option = st.sidebar.selectbox(
-    "Choose View", ["Weather Data", "Search Logs"])
-
-if menu_option == "Weather Data":
-    city = st.sidebar.text_input("Enter city name", "Balatonszepezd")
-
-    if city:
-        # Fetch current weather
-        weather = get_current_weather(city)
-        if weather:
-            st.subheader(f"Current Weather in {city}")
-            temp = weather['main']['temp']
-            humidity = weather['main']['humidity']
-            wind_speed = weather['wind']['speed']
-
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Temperature", f"{temp} °C")
-            col2.metric("Humidity", f"{humidity} %")
-            col3.metric("Wind Speed", f"{wind_speed} m/s")
-
-            # Log the data into SQLite
-            log_weather_data(city, temp, humidity, wind_speed)
-
-            # Display map
-            st.map(pd.DataFrame(
-                [[weather['coord']['lat'], weather['coord']['lon']]], columns=['lat', 'lon']))
-        else:
-            st.warning("City not found or API error occurred!")
-
-        # Fetch forecast data
-        forecast = get_weather_forecast(city)
-        if forecast:
-            st.subheader(f"Temperature Forecast for {city} (next 5 days)")
-            forecast_data = []
-            for item in forecast['list']:
-                forecast_data.append({
-                    "datetime": item["dt_txt"],
-                    "temperature": item["main"]["temp"]
-                })
-            df = pd.DataFrame(forecast_data)
-            df["datetime"] = pd.to_datetime(df["datetime"])
-
-            # Plotly line chart
-            fig = px.line(df, x="datetime", y="temperature")
-            fig.update_layout(
-                xaxis_title="Date",
-                yaxis_title="Temperature (°C)",
-            )
-            st.plotly_chart(fig)
-        else:
-            st.warning("Forecast data not available.")
-
-elif menu_option == "Search Logs":
-    st.subheader("Search Logs")
+# Dialog function for logs
+@st.dialog("Search Logs", width="large")
+def show_logs():
+    st.write("Below are the recent search logs:")
     cursor.execute(
         "SELECT city, temperature, humidity, wind_speed, timestamp FROM logs ORDER BY id DESC LIMIT 10")
     logs = cursor.fetchall()
     if logs:
         st.table(pd.DataFrame(logs, columns=[
-                 "City", "Temperature (°C)", "Humidity (%)", "Wind Speed (m/s)", "Timestamp"]))
+            "City", "Temperature (°C)", "Humidity (%)", "Wind Speed (m/s)", "Timestamp"]))
     else:
         st.write("No logs available.")
+
+
+city = st.sidebar.text_input("Enter city name", "Balatonszepezd")
+
+if st.sidebar.button("Show Search Logs"):
+    show_logs()
+
+if city:
+    # Fetch current weather
+    weather = get_current_weather(city)
+    if weather:
+        st.subheader(f"Current Weather in {city}")
+        temp = weather['main']['temp']
+        humidity = weather['main']['humidity']
+        wind_speed = weather['wind']['speed']
+
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Temperature", f"{temp} °C")
+        col2.metric("Humidity", f"{humidity} %")
+        col3.metric("Wind Speed", f"{wind_speed} m/s")
+
+        # Log the data into SQLite
+        log_weather_data(city, temp, humidity, wind_speed)
+
+        # Display map
+        st.map(pd.DataFrame(
+            [[weather['coord']['lat'], weather['coord']['lon']]], columns=['lat', 'lon']))
+    else:
+        st.warning("City not found or API error occurred!")
+
+    # Fetch forecast data
+    forecast = get_weather_forecast(city)
+    if forecast:
+        st.subheader(f"Temperature Forecast for {city} (next 5 days)")
+        forecast_data = []
+        for item in forecast['list']:
+            forecast_data.append({
+                "datetime": item["dt_txt"],
+                "temperature": item["main"]["temp"]
+            })
+        df = pd.DataFrame(forecast_data)
+        df["datetime"] = pd.to_datetime(df["datetime"])
+
+        # Plotly line chart
+        fig = px.line(df, x="datetime", y="temperature")
+        fig.update_layout(
+            xaxis_title="Date",
+            yaxis_title="Temperature (°C)",
+        )
+        st.plotly_chart(fig)
+    else:
+        st.warning("Forecast data not available.")
