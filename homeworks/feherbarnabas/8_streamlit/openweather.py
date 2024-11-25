@@ -12,34 +12,40 @@ def fetch_weather_data(city):
     weather_url = f"{ENDPOINT}data/{VERSION}/weather?q={city}&appid={API_KEY}&units=metric"
     print(f"Fetch weather data of {city}")
     response = requests.get(weather_url)
-    if response.status_code == 200:
-        return response.json()
-    return None
-
+    
     if not city: 
-        st.warning("Which city?")
-        s_main = pd.Series()
-        s_wind = pd.Series()
-        coord = {}
-        return s_main, s_wind, coord
+        print("Which city?")
+        return None
     
     elif response.status_code == 200:
-        st.warning("We didn't find that city, try another one!")
-        s_main = pd.Series()
-        s_wind = pd.Series()
-        coord = {}
-        return s_main, s_wind, coord
+        return response.json()
     
     else:
-        response_body = response.json()
-        s_main = pd.Series(response_body["main"])
-        s_wind = pd.Series(response_body["wind"])
-        coord = response_body["coord"]
-        return s_main, s_wind, coord
-        
-def display_weather_data(city, main, wind, coord):
+        st.warning(f"Didn't manage to fetch data ({response.status_code}). Try another one!")
+        return None
     
+st.sidebar.title("Weather Data")
+city = st.sidebar.text_input("City name:", placeholder="Type a city...")
 
-st. title("Robot Dreams Weather Map & Visualizaton WebApp")
-st.subheader
-fetch_weather_data("Budapest")
+if city:
+    data = fetch_weather_data(city)
+
+    if data:
+        
+        temp = data["main"]["temp"]
+        humidity = data["main"]["humidity"]
+        wind_speed = data["wind"]["speed"]
+        coords = data["coord"]
+
+        st.title(f"IWeather in {city}:")
+        st.metric(label="Temperature (°C)", value=f"{temp}°C")
+        st.metric(label="Humidity (%)", value=f"{humidity}%")
+        st.metric(label="Wind speed (m/s)", value=f"{wind_speed} m/s")
+
+        st.subheader("Map")
+        map_data = pd.DataFrame([{"lat": coords["lat"], "lon": coords["lon"]}])
+        st.map(map_data)
+    else:
+        st.warning("There is no arriving data...")
+else:
+    st.info("Search up a city in the sidebar!")
