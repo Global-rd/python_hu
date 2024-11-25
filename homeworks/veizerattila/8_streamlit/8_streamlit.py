@@ -38,9 +38,8 @@ import os
 API_KEY = st.secrets["openweathermap"]["api_key"]
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
 
-#@st.cache_data(ttl=60) # 1 perces cache
-
 ############## 1/1: API kapcsolat felépítése ###############################################
+@st.cache_data(ttl=120) # 2 perces cache
 def fetch_current_weather(city):
     print(f"Fetch current weather for {city}")
 
@@ -60,30 +59,19 @@ def process_data(data):
     if data:
         main = data['main']
         wind = data['wind']
-        result = { "temp": [main['temp']],
-                "hum": [main['humidity']],
-                "wind": [wind['speed']]
+        coord = data['coord']
+        result = { "temp": main['temp'],
+                "hum": main['humidity'],
+                "wind": wind['speed'],
+                "lat": coord['lat'],
+                "lon": coord['lon']
             }
-        df = pd.DataFrame(result)
+        df = pd.DataFrame([result])
         return df
 
     else:
         st.error("No data available")
-        return None, None, None # mindhárom fenti értékre None visszaadás
-
-############## 1/3: térképes megjelenításhez szükséges függvény ##############################
-def fetch_coordinates(city):
-    url = f"{BASE_URL}q={city}&appid={API_KEY}&units=metric"
-    
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        data = response.json()
-        return data['coord']['lat'], data['coord']['lon']
-    else:
-        st.error(f"Error in fetching the data. Status code: {response.status_code}")
-        st.error(f"Error message: {response.text}")
-        return None, None
+        return None
 
 
 ##############################################################################################
@@ -98,12 +86,12 @@ city_input = st.text_input("Enter city name", "Budapest") # Város input bekér�
 
 data = fetch_current_weather(city_input)
 
-############## 2/1: időjárási adatok megjelenítése: ##########################################
 if data:
     df = process_data(data)
     st.subheader(f"Current Weather in {city_input.capitalize()}") # 'City' érték átdása subheader-nek
 
     if data is not None:
+        ############## 2/1: időjárási KPI adatok megjelenítése: ##############################
         kpi1, kpi2, kpi3 = st.columns(3)
         with kpi1:
             st.metric(label="Tempreture (˙C)", value = df["temp"])
@@ -111,20 +99,17 @@ if data:
             st.metric(label="Humidity (%)", value = df["hum"])
         with kpi3:
             st.metric(label="Wind Speed (m/s)", value = df["wind"])
+
+        ############## 2/2: térképes nézet megjelenítése: #####################################
+        map_data = pd.DataFrame({"lat": [df["lat"].iloc[0]], "lon": [df["lon"].iloc[0]]})
+        st.map(map_data)
 else:
     st.error(f"No data available. Check the above error messages and try again.")
 
-############## 2/2: térképes nézet megjelenítése: ###########################################
-if data:
-    lat, lon = fetch_coordinates(city_input)
-    if lat is not None and lat is not None:
-        map_data = pd.DataFrame({"lat": [lat], "lon": [lon]})
-        st.map(map_data)
-    else:
-        st.error(f"Could not fetch city coordinates. Check the input data and try again.")
 
-
-############## Kiegészítés: képernyő törlése: ###############################################
+##############################################################################################
+############## Kiegészítés: képernyő törlése: ################################################
+##############################################################################################
 current_datetime = datetime.now()
 os.system("cls")
 print(f"====== Előző futási eredmény törölve a képernyőről ekkor: {current_datetime}) ======")
