@@ -10,7 +10,7 @@ import pandas as pd
 from datetime import datetime, timezone
 from db_connector import SqliteDB
 
-@st.cache_data
+@st.cache_data(ttl=600) # TTL (Time To Live) 10 min
 def get_current_weather(city, api_key, base_url):
     """
     Fetches the current weather data for a given city.
@@ -28,7 +28,7 @@ def get_current_weather(city, api_key, base_url):
     data = response.json()
     return data
 
-@st.cache_data
+@st.cache_data(ttl=600) # TTL (Time To Live) 10 min
 def get_forecast(city, api_key, base_url):
     """
     Fetches the weather forecast data for a given city.
