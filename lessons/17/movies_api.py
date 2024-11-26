@@ -2,18 +2,26 @@ from fastapi import FastAPI, HTTPException, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from uuid import UUID
+from contextlib import asynccontextmanager
 from models import Movie, MovieRequest, MovieResponse
 from database import Base, engine, get_db
 from typing import List
 
-app = FastAPI()
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield  # Allows the app to actually run after finish startup tasks
 
+app = FastAPI(lifespan=lifespan)
+
+""" DEPRECATED STARTUP FUNCTION WE USED ON THE LESSON, PLEASE USE lifespan above!
 @app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-
+"""
 
 @app.get("/movies/", response_model=List[MovieResponse])
 async def get_movies(db: AsyncSession = Depends(get_db)):
@@ -44,8 +52,8 @@ async def update_movie(movie_id: UUID, movie_update: MovieRequest, db: AsyncSess
     if not movie: #guard clause
         raise HTTPException(status_code=404, detail=f"Movie id {movie_id} not found")
 
-    for key, value in movie_update.dict(exclude_unset=True).items():
-        setattr(movie, key, value) # title update: title.value = "New Title" -> movie.title = "New Title"
+    for key, value in movie_update.model_dump(exclude_unset=True).items(): #instead of model_dump we used dict() on the lesson
+        setattr(movie, key, value) # title update: title.value = "New Title" -> meovi.title = "New Title"
 
     db.add(movie)
     await db.commit()
