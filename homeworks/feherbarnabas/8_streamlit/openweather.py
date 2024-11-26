@@ -37,7 +37,7 @@ if city:
         wind_speed = data["wind"]["speed"]
         coords = data["coord"]
 
-        st.title(f"IWeather in {city}:")
+        st.title(f"Weather in {city.capitalize()}:")
         st.metric(label="Temperature (°C)", value=f"{temp}°C")
         st.metric(label="Humidity (%)", value=f"{humidity}%")
         st.metric(label="Wind speed (m/s)", value=f"{wind_speed} m/s")
