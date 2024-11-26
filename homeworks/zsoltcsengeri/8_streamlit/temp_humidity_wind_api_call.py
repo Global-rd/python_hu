@@ -1,5 +1,6 @@
 import requests
 import streamlit as st
+import json
 
 @st.cache_data(ttl=86400) 
 def fetch_weather(city: str):
@@ -17,7 +18,7 @@ def fetch_weather(city: str):
     response = requests.get(BASE_URL, params=params)
     return response.json()
 
-# Ensure this code only runs when the file is executed directly
-if __name__ == "__main__":
-    data = fetch_weather("London")
-    print(data)
+data = fetch_weather("London")
+print(json.dumps(data, indent=4))  # Pretty-print with indentation
+
+
