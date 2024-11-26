@@ -1,11 +1,21 @@
+"""
+This code uses Streamlit to create an interactive web app that:
+
+Allows the user to input a city name.
+Fetches weather data for that city using fetch_weather.
+Displays weather information (e.g., temperature, humidity).
+Shows a map centered on the city using pydeck.
+"""
+
+
 import streamlit as st
-from temp_humidity_wind_api_call import fetch_weather
-import pydeck as pdk
+from temp_humidity_wind_api_call import fetch_weather #Imports the fetch_weather function from the first file
+import pydeck as pdk #Pydeck is a library for creating interactive maps in Streamlit
 
 # Set up the title of the app
 st.title("Robot Dreams Python - Weather Map & Data Visualization APP")
 
-# Input for city name
+# Input for city name where "London" is the default value
 city = st.text_input("Enter the city name", "London")
 
 # Fetch and display weather data
