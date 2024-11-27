@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 from datetime import datetime
 import sqlite3
+import toml
 
 # Inicializáljuk az adatbázist
 def init_db():
@@ -29,9 +30,9 @@ def log_weather(city, temperature, humidity, wind_speed):
     conn.commit()
     conn.close()
 
-# API kulcs betöltése a secrets.toml fájlból
-import toml
-secrets = toml.load(".streamlit/secrets.toml")
+# API kulcs betöltése a teljes elérési útvonal megadásával
+secrets_path = r"C:\Users\veszperenyine\Documents\GitHub\python_hu\homeworks\nemethmate\8_streamlit\secrets.toml"
+secrets = toml.load(secrets_path)
 api_key = secrets['api']['key']
 
 # Kezdő oldal
