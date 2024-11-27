@@ -6,7 +6,7 @@ Fetches weather data for that city using fetch_weather.
 Displays weather information (e.g., temperature, humidity).
 Shows a map centered on the city using pydeck.
 """
-
+# Deployed App URL: https://zsoltcsengeri-weather-app-frontend-ipdfvq.streamlit.app/
 
 import streamlit as st
 from temp_humidity_wind_api_call import fetch_weather #Imports the fetch_weather function from the first file
