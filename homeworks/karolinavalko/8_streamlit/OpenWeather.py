@@ -61,8 +61,8 @@ if city:
         col1.metric(labels[0], f"{values[0]}°C")
         col2.metric(labels[1], f"{values[1]}%")
         col3.metric(labels[2], f"{values[2]} m/s")
+        df =pd.DataFrame(weather, index=[0])
+        st.map(df, latitude="Latitude", longitude="Longitude", zoom=10,)
 
-df =pd.DataFrame(weather, index= [0])
-st.map(df, latitude="Latitude", longitude="Longitude", zoom=10,)
            
 
