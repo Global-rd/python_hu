@@ -8,22 +8,19 @@ from datetime import datetime as dt, timedelta as td
 API_KEY = st.secrets["polygon"]["api_key"]
 BASE_URL = "https://api.openweathermap.org/data/2.5/"
 
-#Cache the function for fetching the current weather data from the API
+#Cache the function for fetching weather data from the API
 @st.cache_data(ttl=86400)
-def fetch_current_weather(city):
-    url = f"{BASE_URL}weather?q={city}&appid={API_KEY}&units=metric"
-    response = requests.get(url)
+def fetch_weather_data(city, data_type="current"):
 
-    if response.status_code == 200:
-        return response.json()
+    if data_type == "current":
+        endpoint = "weather"
+    elif data_type =="forecast":
+        endpoint = "forecast"
     else:
-        st.warning(f"Failed to fetch data: {response.status_code} - {response.text}")
+        st.error("Invalid data type. Choose 'current' or 'forecast'.")
         return None
-
-#Cache the function for fetching the forecast weather data from the API
-@st.cache_data(ttl=86400)
-def fetch_forecast(city):
-    url = f"{BASE_URL}forecast?q={city}&appid={API_KEY}&units=metric"
+    
+    url = f"{BASE_URL}weather?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -54,7 +51,7 @@ city = st.text_input("Enter city name", "Budapest")
 
 #Retrieve and proceed data 
 if city:
-    current_weather = fetch_current_weather(city)
+    current_weather = fetch_weather_data(city, data_type="current")
     if current_weather:
         #Actual weather information
         temp = current_weather["main"]["temp"]
@@ -78,7 +75,7 @@ if city:
     else:
         st.error("Couldn't fetch weather data. Please check the city name and try again.")
 
-    forecast_data = fetch_forecast(city)
+    forecast_data = fetch_weather_data(city, data_type="forecast")
     if forecast_data:
         forecast_list = forecast_data["list"]
         forecast_df = pd.DataFrame([{
