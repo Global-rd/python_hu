@@ -11,8 +11,7 @@ import pandas as pd
 from datetime import datetime, timezone
 
 from db_connector import SqliteDB 
-from weather_app_functions import get_current_weather, get_forecast, process_forecast_data, log_search
-
+from weather_app_functions import get_weather_data, process_forecast_data, log_search
 
 
 # Set API
@@ -31,8 +30,9 @@ st.markdown("""
 # Set City
 with st.sidebar:
     st.header("Search City")
-    city = st.text_input("Enter city name:", "London")
+    city = st.text_input("Enter city name:", "Pestújhely")
     show_forecast = st.checkbox("Show forecast (Extra)")
+
 
 st.subheader(f"Current Weather in {city}")
 
@@ -54,7 +54,7 @@ with SqliteDB('weather_logs.db') as db:
 
 
 # Get weather data
-weather_data = get_current_weather(city,API_KEY, BASE_URL)
+weather_data = get_weather_data('weather', city, API_KEY, BASE_URL)
 
 if weather_data:
     # KPI 
@@ -77,22 +77,15 @@ if weather_data:
 
     # Extra: Weather forecast
     if show_forecast:
-        forecast_data = get_forecast(city, API_KEY, BASE_URL)
+        forecast_data = get_weather_data('forecast', city, API_KEY, BASE_URL)
         if forecast_data:
             forecast_df = process_forecast_data(forecast_data)
             
             st.subheader(f"Temperature Trends in {city} (Next 5 Days)")
 
-            # Ellenőrzés: Megjelenítheted a DataFrame első néhány sorát a hibakereséshez
-            # st.write(forecast_df.head())
-
             # Simple forecast with line chart
             st.line_chart(forecast_df.set_index('Day_Time')['main'].apply(lambda x: x['temp']))
 
-            # Alternatív: Használhatsz más vizualizációkat is, például Plotly-t
-            # import plotly.express as px
-            # fig = px.line(forecast_df, x='Day_Time', y='main', title=f"Temperature Trends in {city} (Next 5 Days)")
-            # st.plotly_chart(fig)
 
     # Extra task: Logging to SQLite using log_search from weather_app_functions.py
 
