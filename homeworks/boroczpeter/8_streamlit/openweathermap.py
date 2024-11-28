@@ -7,26 +7,15 @@ API_KEY = st.secrets["weather"]["api_key"]
 WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
 FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast"
 
-# fetching actual weather
+# fetching city data
 @st.cache_data(ttl=7200)
-def fetch_city_weather(city_name):
-    url = f"{WEATHER_URL}?q={city_name}&appid={API_KEY}&units=metric"
+def fetch_city_data(city_name, endpoint):
+    url = f"{endpoint}?q={city_name}&appid={API_KEY}&units=metric"
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
     else:
-        st.error(f"Sorry, this city is not in the database, so no weather data found for. Try another city.")
-        return None
-
-# fetching weather forecast
-@st.cache_data(ttl=7200)
-def fetch_city_forecast(city_name):
-    url = f"{FORECAST_URL}?q={city_name}&appid={API_KEY}&units=metric"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        st.error(f"Sorry, this city is not in the database, so no weather forecast available.")
+        st.error(f"Sorry, this city is not in the database, data is unavailable.")
         return None
 
 # processing actual weather data
