@@ -9,9 +9,9 @@ API_KEY = st.secrets["weather"]["api_key"]
 BASE_URL = "http://api.openweathermap.org/data/2.5/"
 
 #ez a weatheres, de kell egy forecastos is... 
-def fetch_data(city, endpoint):
-    print(f"Fetch {endpoint} data for {city}")
-    url = f"{BASE_URL}{endpoint}?q={city}&appid={API_KEY}&units=metric"
+def fetch_data(city, params):
+    print(f"Fetch {params} data for {city}")
+    url = f"{BASE_URL}{params}?q={city}&appid={API_KEY}&units=metric"
     response = requests.get(url, headers={"Authorization": f"Bearer {API_KEY}"})
     if response.status_code == 200:
         return response.json()
@@ -19,20 +19,12 @@ def fetch_data(city, endpoint):
         st.error(f"Failed to fetch {endpoint} data: {response.status_code} - {response.text}")
         return None
 
-@st.cache_data(ttl=86400)
-def fetch_weather_data(city):
-    return fetch_data(city, "weather")
-
-@st.cache_data(ttl=86400)
-def fetch_forecast_data(city):
-    return fetch_data(city, "forecast")
-
 st.title("Robot Dreams Python - Weather Map & Data Visualization App")
 
 city = st.text_input("Enter city name", "London")
 
-data_weather = fetch_weather_data(city)
-data_forecast = fetch_forecast_data(city)
+data_weather = fetch_data(city,"weather")
+data_forecast = fetch_data(city,"forecast")
 
 def current_weather():
     if data_weather:
