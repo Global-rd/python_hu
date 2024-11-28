@@ -24,6 +24,7 @@ cursor.execute("""
 conn.commit()
 
 
+@st.cache_data(ttl=600)
 def get_current_weather(city):
     """Fetch current weather from the API."""
     url = f"http://api.openweathermap.org/data/2.5/weather?q={
@@ -34,6 +35,7 @@ def get_current_weather(city):
     return None
 
 
+@st.cache_data(ttl=600)
 def get_weather_forecast(city):
     """Fetch weather forecast from the API."""
     url = f"http://api.openweathermap.org/data/2.5/forecast?q={
