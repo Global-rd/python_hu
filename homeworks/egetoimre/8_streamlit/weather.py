@@ -5,17 +5,8 @@ import pandas as pd
 api_key = st.secrets["openweathermap"]["api_key"]
 
 @st.cache_data(ttl=3600)
-def get_current_weather(city):
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-
-@st.cache_data(ttl=3600)
-def get_weather_forecast(city):
-    url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={api_key}&units=metric'
+def get_data(city, endpoint):
+    url = f'http://api.openweathermap.org/data/2.5/{endpoint}?q={city}&appid={api_key}&units=metric'
     response = requests.get(url)
     if response.status_code == 200:
         return response.json()
@@ -28,7 +19,7 @@ st.title("Pillanatnyi időjárás")
 city = st.sidebar.text_input("Keresett város:", "Szeged")
 
 if city:
-    weather_data = get_current_weather(city)
+    weather_data = get_data(city, "weather")
 
     if weather_data:
         temp = weather_data['main']['temp']
@@ -43,7 +34,7 @@ if city:
 
         st.map(pd.DataFrame({"lat": [lat], "lon": [lon]}))
 
-        forecast = get_weather_forecast(city)
+        forecast = get_data(city, "forecast")
         if forecast:
             st.subheader("5 napos előrejelzés")
             forecast_data = [
