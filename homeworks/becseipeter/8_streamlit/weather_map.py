@@ -5,6 +5,23 @@ import pandas as pd
 # API 
 API_KEY = st.secrets["polygon"]["api_key"]
 
+@st.cache_data(ttl=86400)
+def get_weather_data(city_name):
+    if not city_name:
+        raise ValueError("City name cannot be empty.")
+
+    url = f"http://api.openweathermap.org/data/2.5/weather"
+    params = {"q": city_name, "appid": API_KEY, "units": "metric"}
+    response = requests.get(url, params=params)
+
+    try:
+        response.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        raise RuntimeError(f"Failed to fetch weather data: {e}")
+
+    return response.json()
+
+
 st.set_page_config(page_title="City Weather", layout="wide")
 st.title("Robot Dream Python - Weather Map & Data Visualization App")
 
@@ -18,10 +35,7 @@ if not city_name:
 url = f"http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={API_KEY}&units=metric"
 
 try:
-    response = requests.get(url)
-    response.raise_for_status()
-    data = response.json()
-
+    data = get_weather_data(city_name)
     # Datas
     temperature = data["main"]["temp"]
     humidity = data["main"]["humidity"]
