@@ -8,7 +8,7 @@ import datetime
 API_KEY = st.secrets["weather"]["api_key"]
 BASE_URL = "http://api.openweathermap.org/data/2.5/"
 
-#ez a weatheres, de kell egy forecastos is... 
+@st.cache_data(ttl=86400) 
 def fetch_data(city, params):
     print(f"Fetch {params} data for {city}")
     url = f"{BASE_URL}{params}?q={city}&appid={API_KEY}&units=metric"
@@ -16,7 +16,7 @@ def fetch_data(city, params):
     if response.status_code == 200:
         return response.json()
     else:
-        st.error(f"Failed to fetch {endpoint} data: {response.status_code} - {response.text}")
+        st.error(f"Failed to fetch {params} data: {response.status_code} - {response.text}")
         return None
 
 st.title("Robot Dreams Python - Weather Map & Data Visualization App")
