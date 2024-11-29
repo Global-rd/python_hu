@@ -8,19 +8,17 @@ import pandas as pd
 API_KEY = st.secrets["openweather"]["api_key"]
 
 
-@st.cache_data
-def get_current_weather(city: str) -> dict:
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric'
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.json()
+@st.cache_data (ttl=86400)
+def get_weather_data(city: str, endpoint: str) -> dict:
 
-@st.cache_data
-def get_weather_forecast(city: str) -> dict:
-    url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric'
-    response = requests.get(url)
-    response.raise_for_status()
-    return response.json()
+    url = f'http://api.openweathermap.org/data/2.5/{endpoint}?q={city}&appid={API_KEY}&units=metric'
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        st.error(f"Error fetching data from OpenWeather API: {e}")
+        return {}
 
 
 st.set_page_config(page_title="Weather Dashboard", layout="wide")
@@ -30,8 +28,8 @@ city = st.text_input("Enter city name:", "Budapest").capitalize()
 try:
     # Jelenlegi időjárás adatok
     st.subheader(f"Current Weather in {city}")
-    current_weather = get_current_weather(city)
-    forecast = get_weather_forecast(city)
+    current_weather = get_weather_data(city, "weather")
+    forecast = get_weather_data(city, "forecast")
 
     # KPI
     col1, col2, col3 = st.columns(3)
