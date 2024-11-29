@@ -2,12 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 
-
-#[openweather]
-#api_key = "aa0632045d988cd5591e0c7087742ad7"
-
 api_key = st.secrets["openweather"]["api_key"]
-# api_key = "aa0632045d988cd5591e0c7087742ad7"
 city = "London"
 
 @st.cache_data(ttl=14400) # 4 órás cache
@@ -17,28 +12,36 @@ def get_data(city, method): # method: weather, forecast
     response = requests.get(url=url)
     
     if response.status_code == 200:
-        return response.json()
+        #weather = response.json()
+        #forecast = response.json()
+        #return weather, forecast
+        data = response.json()
+        return data
     else:
         st.error(f"Failed to fetch data: {response.status_code} - {response.text}")
         return None
     
-@st.cache_data(ttl=14400)   
-def get_coordinates(city):
-    coordinates = get_data(city=city, method="weather")["coord"]
+weather = get_data(city, "weather")
+forecast = get_data(city, "forecast")     
+
+#@st.cache_data(ttl=14400)
+def get_coordinates(weather):
+    coordinates = weather["coord"]
     coordinates_df = pd.DataFrame([coordinates])
     return coordinates_df
 
-@st.cache_data(ttl=14400)
-def get_teperature(city):
-    temperature = get_data(city=city, method="weather")["main"]["temp"]
+#@st.cache_data(ttl=14400)
+def get_teperature(weather):
+    temperature = weather["main"]["temp"]
     return temperature
 
-@st.cache_data(ttl=14400)
-def get_humidity(city):
-    humidity = get_data(city=city, method="weather")["main"]["humidity"]
+#@st.cache_data(ttl=14400)
+def get_humidity(weather):
+    humidity = weather["main"]["humidity"]
     return humidity
 
-@st.cache_data(ttl=14400)
-def get_wind_speed(city):
-    wind_speed = get_data(city=city, method="weather")["wind"]["speed"]
+#@st.cache_data(ttl=14400)
+def get_wind_speed(weather):
+    wind_speed = weather["wind"]["speed"]
     return wind_speed
+
