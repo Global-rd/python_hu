@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import requests
-from geopy.geocoders import Nominatim
 
 API_KEY = st.secrets["openweather"]["api_key"]
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
@@ -16,10 +15,8 @@ def fetch_city_info(city):
         st.error(f"Failed to fetch data: {response.status_code} - {response.text}")
         return None
 
-def get_lat_lon(city_name):
-    geolocator = Nominatim(user_agent="geoapiExercises")
-    location = geolocator.geocode(city_name)
-    return location.latitude, location.longitude
+def get_lat_lon(data):
+    return data['coord']['lat'], data['coord']['lon']
 
 st.title("Current Weather Dashboard")
 st.sidebar.header("City selection")
@@ -54,7 +51,7 @@ if data:
             st.metric(label="Wind speed (m/s)", value=f"{df['Wind speed'][0]:.2f} m/s")
 
         # Get latitude and longitude
-        latitude, longitude = get_lat_lon(city_name)
+        latitude, longitude = get_lat_lon(data)
 
         # Create a dataframe with the coordinates
         map_df = pd.DataFrame({
@@ -66,5 +63,3 @@ if data:
         st.map(map_df)
 else:
     st.error("No data available. Check the city name.")
-
-
