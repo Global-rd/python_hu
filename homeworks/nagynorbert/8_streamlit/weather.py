@@ -6,36 +6,39 @@ import pandas as pd
 API_KEY = st.secrets["openweathermap"]["API_KEY"]
 ENDPOINT = "http://api.openweathermap.org/"
 VERSION = "2.5"
+WEATHER_URL = f"{ENDPOINT}/data/{VERSION}/weather"
+
+params = {
+    "appid": API_KEY,
+    "units": "metric"
+}
 
 @st.cache_data(ttl=86400)
 def fetch_actual_weather_data(city):
-    weather_url = f"{ENDPOINT}data/{VERSION}/weather?q={city}&appid={API_KEY}&units=metric"
+    params.update({"q":city})
     print(f"Fetch actual weathor of {city}")
-    response = requests.get(weather_url)
+    response = requests.get(url=WEATHER_URL,params=params)
+    print(response.json())
+    s_main, s_wind, coord = pd.Series(), pd.Series(), {}
     if not city:
         st.warning("City name is empty!")
-        s_main = pd.Series()
-        s_wind = pd.Series()
-        coord = {}
-        return s_main,s_wind,coord
     elif response.status_code != 200:
-        st.warning("Data fetch is unsuccess. City name may be incorrect!")
-        s_main = pd.Series()
-        s_wind = pd.Series()
-        coord = {}
-        return s_main,s_wind,coord
+        st.warning("Data fetch was unsuccessful. City name may be incorrect!")
     else:
-        resp_body = response.json() 
-        s_main = pd.Series(resp_body["main"])
-        s_wind = pd.Series(resp_body["wind"])
-        coord = resp_body["coord"]
-        return s_main,s_wind,coord
+        resp_body = response.json()
+        s_main = pd.Series(resp_body.get("main", {}))
+        s_wind = pd.Series(resp_body.get("wind", {}))
+        coord = resp_body.get("coord", {})
+    
+    return s_main, s_wind, coord
 
 def show_current_weather_data(city,main,wind,coord):
     st.subheader(f"Current Weather in {city.capitalize()}")
     df = pd.DataFrame(
         [
-            {"Temperature (°C)": f"{main["temp"]:.2f} °C", "Humidity": f"{main["humidity"]:.2f} %", "Wind speed (m/s)": f"{wind["speed"]:.2f} m/s"}
+            {"Temperature (°C)": f"{main["temp"]:.2f} °C",
+            "Humidity": f"{main["humidity"]:.2f} %",
+            "Wind speed (m/s)": f"{wind["speed"]:.2f} m/s"}
         ]
     )
     st.dataframe(df,hide_index=True)
