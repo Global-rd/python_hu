@@ -1,25 +1,27 @@
 import streamlit as st
 import pandas as pd
 import requests
+import plotly.express as px 
 
 
 
 API_KEY = st.secrets["openweathermap"]["api_key"]
-WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?"
-FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast?"
+WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?"
+FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?"
 
-
-    
 
 @st.cache_data(ttl=900)
-def fetch_forecast_city(city):
-    url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&appid={API_KEY}&units=metric'
-    response = requests.get(url, headers={"Authorization": f"Bearer {API_KEY}"})
-    if response.status_code == 200:
-        return response.json()
+def fetch_weather_city(city, url):
+    finalurl = f'{url}q={city}&appid={API_KEY}&units=metric'
+    response = requests.get(finalurl, headers={"Authorization": f"Bearer {API_KEY}"})
+    if response.status_code == 200 and url == FORECAST_URL:
+        return forecast_weather_data(response.json())
+    if response.status_code == 200 and url == WEATHER_URL:    
+        return current_weather_data(response.json())
     else:
         st.warning(f"This city is not in our database. Please try another city for weather forecast.")
         return None
+
 
 def current_weather_data(data):
     try:
@@ -33,26 +35,19 @@ def current_weather_data(data):
     except KeyError as e:
         print(f"Something unexpected happened: {e}")
 
-@st.cache_data(ttl=300)
-def fetch_weather_city(city):
-    url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric'
-    response = requests.get(url, headers={"Authorization": f"Bearer {API_KEY}"})
-    if response.status_code == 200:
-        return current_weather_data(response.json())
-    else:
-        st.error(f"This city is not in our database. Please try another city for current weather.")
-        return None    
-
-
+def forecast_weather_data(data):
+    forecast_list = []
+    for item in data["list"]:
+        forecast_list.append({"Date Time": item["dt_txt"], "Temperature (°C)": item["main"]["temp"] })
+    return pd.DataFrame(forecast_list)    
 
 
 st.title("Robot Dreams Python - Weather Map & Data Visualization App")
 city = st.text_input("Enter city name")
 
-
 st.button("Get weather")
 if city:
-    weather = fetch_weather_city(city)
+    weather = fetch_weather_city(city,WEATHER_URL)
     if weather:
         st.subheader(f"Current Weather in {city}")
         labels= list(weather.keys())
@@ -64,5 +59,17 @@ if city:
         df =pd.DataFrame(weather, index=[0])
         st.map(df, latitude="Latitude", longitude="Longitude", zoom=10,)
 
-           
+st.title(f"Temperature Trends (Next 5 )") 
 
+if city:
+    forecast_weather = fetch_weather_city(city,FORECAST_URL)
+    if not forecast_weather.empty:
+        st.subheader(f"Weather in the next 5 days in {city}")
+        fig = px.line(forecast_weather, x="Date Time", y="Temperature (°C)")
+        fig.update_layout(
+                xaxis_title="Date",
+                yaxis_title="Temperature (°C)",
+            )
+        st.plotly_chart(fig)
+
+    
