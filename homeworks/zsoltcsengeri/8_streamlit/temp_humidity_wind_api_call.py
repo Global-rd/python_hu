@@ -18,7 +18,7 @@ def fetch_weather(city: str):
     response = requests.get(BASE_URL, params=params)
     return response.json()
 
-data = fetch_weather("London")
-print(json.dumps(data, indent=4))  # Pretty-print with indentation
+
+
 
 
