@@ -6,18 +6,16 @@ import plotly.express as px
 
 
 API_KEY = st.secrets["openweathermap"]["api_key"]
-WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather?"
-FORECAST_URL = "http://api.openweathermap.org/data/2.5/forecast?"
+BASE_URL = "http://api.openweathermap.org/data/2.5/"
+
 
 
 @st.cache_data(ttl=900)
-def fetch_weather_city(city, url):
-    finalurl = f'{url}q={city}&appid={API_KEY}&units=metric'
+def fetch_weather_city(city,endpoint):
+    finalurl = f'{BASE_URL}{endpoint}?q={city}&appid={API_KEY}&units=metric'
     response = requests.get(finalurl, headers={"Authorization": f"Bearer {API_KEY}"})
-    if response.status_code == 200 and url == FORECAST_URL:
-        return forecast_weather_data(response.json())
-    if response.status_code == 200 and url == WEATHER_URL:    
-        return current_weather_data(response.json())
+    if response.status_code == 200:
+        return response.json()   
     else:
         st.warning(f"This city is not in our database. Please try another city for weather forecast.")
         return None
@@ -47,7 +45,7 @@ city = st.text_input("Enter city name")
 
 st.button("Get weather")
 if city:
-    weather = fetch_weather_city(city,WEATHER_URL)
+    weather = current_weather_data(fetch_weather_city(city, "weather"))
     if weather:
         st.subheader(f"Current Weather in {city}")
         labels= list(weather.keys())
@@ -62,7 +60,7 @@ if city:
 st.title(f"Temperature Trends (Next 5 )") 
 
 if city:
-    forecast_weather = fetch_weather_city(city,FORECAST_URL)
+    forecast_weather = forecast_weather_data(fetch_weather_city(city, "forecast"))
     if not forecast_weather.empty:
         st.subheader(f"Weather in the next 5 days in {city}")
         fig = px.line(forecast_weather, x="Date Time", y="Temperature (°C)")
