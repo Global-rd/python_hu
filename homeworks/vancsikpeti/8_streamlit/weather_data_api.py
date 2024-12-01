@@ -25,23 +25,23 @@ weather = get_data(city, "weather")
 forecast = get_data(city, "forecast")     
 
 #@st.cache_data(ttl=14400)
-def get_coordinates(weather):
-    coordinates = weather["coord"]
+def get_coordinates(data):
+    coordinates = data["coord"]
     coordinates_df = pd.DataFrame([coordinates])
     return coordinates_df
 
 #@st.cache_data(ttl=14400)
-def get_teperature(weather):
-    temperature = weather["main"]["temp"]
+def get_teperature(data):
+    temperature = data["main"]["temp"]
     return temperature
 
 #@st.cache_data(ttl=14400)
-def get_humidity(weather):
-    humidity = weather["main"]["humidity"]
+def get_humidity(data):
+    humidity = data["main"]["humidity"]
     return humidity
 
 #@st.cache_data(ttl=14400)
-def get_wind_speed(weather):
-    wind_speed = weather["wind"]["speed"]
+def get_wind_speed(data):
+    wind_speed = data["wind"]["speed"]
     return wind_speed
 

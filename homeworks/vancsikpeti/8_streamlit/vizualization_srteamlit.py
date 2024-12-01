@@ -18,18 +18,18 @@ if weather_data:
     with kpi1:
         st.metric(
             label = "Temperature (°C)", 
-            value = f"{weather.get_teperature(weather=weather_data):.2f}°C")
+            value = f"{weather.get_teperature(weather_data):.2f}°C")
     with kpi2:
         st.metric(
             label = "Humidity (%)", 
-            value = f"{weather.get_humidity(weather=weather_data)}%")
+            value = f"{weather.get_humidity(weather_data)}%")
     with kpi3:
         st.metric(
             label = "Wind Speed (m/s)", 
-            value = f"{weather.get_wind_speed(weather=weather_data):.2f} m/s")
+            value = f"{weather.get_wind_speed(weather_data):.2f} m/s")
 
 st.subheader("Weather Map")
-st.map(weather.get_coordinates(weather=weather_data))
+st.map(weather.get_coordinates(weather_data))
 
 st.subheader("Temperature Trends (Next 5 Days)")
 
