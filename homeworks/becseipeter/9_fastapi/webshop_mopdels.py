@@ -22,7 +22,7 @@ class ProductBase(BaseModel):
     item_name: str
     quantity: int
     price: float
-    category: Optional[int] = 0
+    category: Optional[str] = 0
 
 class ProductResponse(ProductBase):
     id: UUID

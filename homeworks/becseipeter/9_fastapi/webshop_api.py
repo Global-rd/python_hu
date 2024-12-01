@@ -6,13 +6,14 @@ from webshop_mopdels import Product, ProductBase, ProductResponse
 from webshop_database import Base, engine, get_db
 from typing import List
 
+app = FastAPI()   
 
+@app.on_event("startup")
 async def startup():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-
-app = FastAPI()     
-
+   
+   
 ##########################################  Endpoints  ########################################################    
 
 #Listing all products
