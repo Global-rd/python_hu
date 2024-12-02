@@ -25,9 +25,6 @@ def read_urls_from_csv(path:str):
     df = pd.read_csv(path)
     return df.to_dict(orient='records')
 
-"""
-            product_dict["price"] = re.sub(r" ", "", re.search(r"[\d ]+", hp.get_row_from_multi_line_string(product.text,
-                                                                    hp.find_single_ft_line(product.text))).group()) 
-"""
+
 
 
