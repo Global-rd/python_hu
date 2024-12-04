@@ -56,9 +56,8 @@ async def get_product(product_id: UUID4, db: AsyncSession = Depends(get_db)):
 async def create_product(product: ProductCreate, db: AsyncSession = Depends(get_db)):
     new_product = Product(**product.dict())
     db.add(new_product)
-    async with db.begin():
-        await db.commit()
-        await db.refresh(new_product)
+    await db.commit()
+    await db.refresh(new_product)
     return new_product
 
 @app.put("/products/{product_id}", response_model=ProductResponse)
