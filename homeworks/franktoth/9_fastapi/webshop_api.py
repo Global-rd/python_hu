@@ -3,8 +3,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from uuid import UUID
 from contextlib import asynccontextmanager
-from models import Item, ItemRequest, ItemResponse
-from database import Base, engine, get_db
+from webshop_model import Item, ItemRequest, ItemResponse
+from webshop_db import Base, engine, get_db
 from typing import List
 
 

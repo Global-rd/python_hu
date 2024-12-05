@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship
 from uuid import uuid1, UUID
 from pydantic import BaseModel, Optional
 from typing import Optional
-from database import Base
+from webshop_db import Base
 
 
 class Item(Base):
