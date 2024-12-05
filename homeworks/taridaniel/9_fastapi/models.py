@@ -7,7 +7,7 @@ from database import Base
 
 #DATABASE MODEL
 
-class Household_appliances(Base):
+class HouseholdAppliances(Base):
 
     __tablename__ = "household appliances"
     id: Mapped[str] = Column(String, primary_key=True, default=lambda: str(uuid1()))
@@ -17,12 +17,12 @@ class Household_appliances(Base):
     length_in_mins: Mapped[int] = Column(Integer, nullable=False)
     rating: Mapped[int] = Column(Integer, nullable=False)
 
-class Household_appliances(BaseModel):
+class HouseholdApplianceRequest(BaseModel):
     title: str
     genre: str
     year: int
     length_in_mins: int
     rating: Optional[int] = 0
 
-class Household_appliances(ApplianceRequest):
+class HouseholdAppliancesResponse(HouseholdApplianceRequest):
     id: UUID
