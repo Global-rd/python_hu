@@ -1,10 +1,10 @@
-name = input("Név: ")
-age = input("Életkor: ")
+name = input("Név: ").strip().capitalize()
+age = int(input("Életkor: "))
 experience = input("Python tapasztalat: ")
 
-name = name.strip().capitalize()
+#name = name.strip().capitalize()
 
-age = int(age)
+#age = int(age)
 
 age_in_days = age * 365
 

@@ -25,12 +25,12 @@ print(user_info)
 
 
 '''2. Rendezd a favourite_meals lista elemeit abc szerinti növekvő sorrendbe.'''
-temp = user_info["favourite_meals"][0]
+'''temp = user_info["favourite_meals"][0]
 user_info["favourite_meals"][0] = user_info["favourite_meals"][1]
 user_info["favourite_meals"][1] = temp
-
+'''
+user_info["favourite_meals"] = sorted(user_info["favourite_meals"])
 print(user_info)
-
 
 '''3. Printeld ki a favourite_meals lista utolsó előtti elemét'''
 print(user_info["favourite_meals"][-2])
@@ -76,6 +76,5 @@ print(user_info["phone_contacts"])
 '''10. Adj hozzá egy olyan új embert “phone_contacts”-hoz, akinek 2 telefonszáma is van!'''
 user_info["phone_contacts"]["John"] = ["+36202223333", "+36707778888"]
 print(user_info["phone_contacts"])
-
 
 
