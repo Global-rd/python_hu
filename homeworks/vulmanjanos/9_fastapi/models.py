@@ -2,8 +2,10 @@ from sqlalchemy import Column, String, Integer, Float
 from pydantic import BaseModel
 from typing import Optional  # Importáljuk az Optional típust
 from ws_database import Base
-
+import uuid
+from sqlalchemy.dialects.postgresql import UUID
 # Adatbázis modell
+
 class Item(Base):
     __tablename__ = "items"
     id = Column(String, primary_key=True, index=True)  # Primary key beállítása

@@ -8,6 +8,16 @@ from models import Base, ItemCreate, ItemRead, ItemUpdate, Item
 
 app = FastAPI()
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+    yield  # Allows the app to actually run after finish startup tasks
+
+app = FastAPI(lifespan=lifespan)
+
 # CRUD endpointjaim
 
 # Terméklistázás
