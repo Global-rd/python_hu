@@ -1,5 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker, declarative_base
+from typing import AsyncGenerator
 
 
 # Adatbázis URL beállítása (SQLite használata)
@@ -19,6 +20,6 @@ LocalSession = sessionmaker(
 Base = declarative_base()
 
 # Aszinkron session függvény
-async def get_session() -> AsyncSession:
+async def get_session() ->  AsyncGenerator[AsyncSession, None]:
     async with LocalSession() as session:
         yield session
