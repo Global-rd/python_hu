@@ -17,12 +17,12 @@ class HouseholdAppliances(Base):
     length_in_mins: Mapped[int] = Column(Integer, nullable=False)
     rating: Mapped[int] = Column(Integer, nullable=False)
 
-class HouseholdApplianceRequest(BaseModel):
+class HouseholdAppliancesRequest(BaseModel):
     title: str
     genre: str
     year: int
     length_in_mins: int
     rating: Optional[int] = 0
 
-class HouseholdAppliancesResponse(HouseholdApplianceRequest):
+class HouseholdAppliancesResponse(HouseholdAppliancesRequest):
     id: UUID
