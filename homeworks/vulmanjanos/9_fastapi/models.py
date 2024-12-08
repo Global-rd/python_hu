@@ -1,14 +1,17 @@
+import uuid
 from sqlalchemy import Column, String, Integer, Float
+from sqlalchemy.ext.declarative import declarative_base
 from pydantic import BaseModel
 from typing import Optional  # Importáljuk az Optional típust
 from ws_database import Base
-import uuid
-from sqlalchemy.dialects.postgresql import UUID
+
+Base = declarative_base()
+
 # Adatbázis modell
 
 class Item(Base):
     __tablename__ = "items"
-    id = Column(String, primary_key=True, index=True)  # Primary key beállítása
+    id = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))   # Primary key beállítása
     item_name = Column(String, index=True)
     quantity = Column(Integer)
     price = Column(Float)

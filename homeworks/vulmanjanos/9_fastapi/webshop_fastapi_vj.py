@@ -6,8 +6,6 @@ from typing import List
 from ws_database import engine, get_session
 from models import Base, ItemCreate, ItemRead, ItemUpdate, Item
 
-app = FastAPI()
-
 from contextlib import asynccontextmanager
 
 @asynccontextmanager
