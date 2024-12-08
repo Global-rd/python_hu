@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from uuid import uuid1, UUID
-from pydantic import BaseModel, Optional
+from pydantic import BaseModel
 from typing import Optional
 from webshop_db import Base
 
