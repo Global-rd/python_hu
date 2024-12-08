@@ -8,29 +8,28 @@ driver = webdriver.Chrome()
 # Open the URL
 driver.get("https://quotes.toscrape.com/")
 
-# Extract quotes and authors
-quotes = driver.find_elements(By.XPATH, "//div[@class='quote']/span[@class='text']")
-authors = driver.find_elements(By.XPATH, "//div[@class='quote']/span/small[@class='author']")
+# Extract quotes, authors, and tags for each quote block
+quote_blocks = driver.find_elements(By.XPATH, "//div[@class='quote']")
 
-# Prepare lists for storing data
-quote_texts = []
-author_names = []
-
-# Extract quotes
-for quote in quotes:
-    quote_texts.append(quote.text)
-
-# Extract authors
-for author in authors:
-    author_names.append(author.text)
-
-# Combine data into a list of dictionaries
+# Prepare an empty list for scraped data
 scraped_data = []
-for i in range(len(quote_texts)):
+
+# Loop through each quote block
+for block in quote_blocks:
+    # Extract quote text
+    quote_text = block.find_element(By.XPATH, ".//span[@class='text']").text
+    
+    # Extract author name
+    author_name = block.find_element(By.XPATH, ".//small[@class='author']").text
+    
+    # Extract tags associated with this quote
+    quote_tags = [tag.text for tag in block.find_elements(By.XPATH, ".//div[@class='tags']/a")]
+    
+    # Combine the data
     scraped_data.append({
-        "tag": "example_tag",  # Replace with actual tag
-        "author": author_names[i],
-        "quote": quote_texts[i]
+        "quote": quote_text,
+        "author": author_name,
+        "tag": ", ".join(quote_tags)  # Join multiple tags with a comma
     })
 
 # Save the data to a CSV file
