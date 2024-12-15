@@ -1,13 +1,12 @@
-import csv
 import pandas as pd
 
-def save_to_csv(data, filename="/homeworks/kirkovvalentiniván/10_web_scraping/quotes.csv"):
+def save_to_csv(data, filename):
     """Save a list of dictionaries to a CSV file."""
     if data:
         df = pd.DataFrame(data)
         df.to_csv(filename, mode="a", index=False, header=not pd.io.common.file_exists(filename))
 
-def read_from_csv(filename="/homeworks/kirkovvalentiniván/10_web_scraping/quotes.csv"):
+def read_from_csv(filename):
     """Read data from a CSV file into a DataFrame."""
     try:
         df = pd.read_csv(filename, encoding="utf-8")

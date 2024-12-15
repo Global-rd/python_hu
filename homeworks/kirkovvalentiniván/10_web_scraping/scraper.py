@@ -24,7 +24,7 @@ class WebScraper:
     
     def get_quotes_for_tag(self, tag):
         """Scrape all quotes for a specific tag, including pagination."""
-        tag_url = f"https://quotes.toscrape.com/tag/{tag}/"
+        tag_url = f"{self.base_url}tag/{tag}/"
         quotes_data = []
 
         while True:
