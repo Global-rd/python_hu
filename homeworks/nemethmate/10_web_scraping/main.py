@@ -1,18 +1,14 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 import csv
 import os
 
-# ChromeDriver path
-CHROMEDRIVER_PATH = '/path/to/chromedriver'  # Add the correct path to your chromedriver
-
 # Initialize WebDriver
-service = Service(CHROMEDRIVER_PATH)
-driver = webdriver.Chrome(service=service)
+options = webdriver.ChromeOptions()
+driver = webdriver.Chrome(options=options)
 
 # Base URL
 BASE_URL = "https://quotes.toscrape.com"
